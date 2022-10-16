@@ -1,4 +1,4 @@
-package com.example.bookproject.exception;
+package com.example.rosaproject.exception;
 
 
 public class StorageException extends RuntimeException {

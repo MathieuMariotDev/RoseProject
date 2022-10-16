@@ -1,6 +1,5 @@
-package com.example.bookproject.exception;
+package com.example.rosaproject.exception;
 
-import com.example.bookproject.exception.StorageException;
 
 public class StorageFileNotFoundException extends StorageException {
 
