@@ -5,7 +5,9 @@ import com.example.rosaproject.service.EntrepriseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -24,6 +26,17 @@ public class EntrepriseController {
         List<Entreprise> entrepriseList = entrepriseService.getAllEntreprises();
         model.addAttribute("entreprises", entrepriseList);
         return "entreprisesListView";
+    }
+
+    @GetMapping("/add")
+    public String createEntrepriseForm() {
+        return "createEntrepriseForm";
+    }
+
+    @PostMapping("/add")
+    public RedirectView createBook(Entreprise createEntreprise) {
+        entrepriseService.createEntreprise(createEntreprise);
+        return new RedirectView("/entreprises/all");
     }
 
 }
