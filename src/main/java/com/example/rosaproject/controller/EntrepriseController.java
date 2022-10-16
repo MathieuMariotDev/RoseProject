@@ -29,7 +29,8 @@ public class EntrepriseController {
     }
 
     @GetMapping("/add")
-    public String createEntrepriseForm() {
+    public String createEntrepriseForm(Model model) {
+        model.addAttribute("entreprise", new Entreprise());
         return "createEntrepriseForm";
     }
 

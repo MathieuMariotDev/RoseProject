@@ -18,72 +18,76 @@
 
       <h1>Nouvelle entreprise</h1>
 
-      <form action="#" th:action="@{pageContext.request.contextPath/entreprises/add}" method="post">
+      <form action="#" th:action="@{/entreprises/add}" th:object="${entreprise}" method="post">
 
         <div class="mb-3">
           <label for="name" class="form-label">Entreprise</label>
-          <input class="form-control" id="name" type="text" name="name" placeholder="My Company">
+          <input class="form-control" id="name" type="text" th:field="*{name}" placeholder="My Company">
         </div>
 
         <div class="mb-3">
           <label for="logo" class="form-label">Logo</label>
-          <input class="form-control" id="logo" type="text" name="logo" placeholder="https://www.myCompanyLogo.com">
+          <input class="form-control" id="logo" type="text" th:field="*{logo}" placeholder="https://www.myCompanyLogo.com">
         </div>
 
         <div class="mb-3">
           <label for="siret" class="form-label">Numéro SIRET</label>
-          <input class="form-control" id="siret" type="text" name="siret" placeholder="Numéro SIRET">
+          <input class="form-control" id="siret" type="text" th:field="*{siret}" placeholder="Numéro SIRET">
         </div>
 
         <div class="mb-3">
           <label for="email" class="form-label">Adresse email</label>
-          <input class="form-control" id="email" type="text" name="email" placeholder="myEmail@email.com">
+          <input class="form-control" id="email" type="text" th:field="*{email}" placeholder="myEmail@email.com">
         </div>
 
         <div class="mb-3">
           <label for="cellphone" class="form-label">Numéro de téléphone portable</label>
-          <input class="form-control" id="cellphone" type="text" name="cellphone" placeholder="Téléphone portable">
+          <input class="form-control" id="cellphone" type="text" th:field="*{cellPhone}" placeholder="Téléphone portable">
         </div>
 
         <div class="mb-3">
           <label for="phone" class="form-label">Numéro de téléphone fixe</label>
-          <input class="form-control" id="phone" type="text" name="phone" placeholder="Téléphone fixe">
+          <input class="form-control" id="phone" type="text" th:field="*{phone}" placeholder="Téléphone fixe">
         </div>
 
         <div class="mb-3">
           <label for="urlWebSite" class="form-label">Adresse du site Web</label>
-          <input class="form-control" id="urlWebSite" type="text" name="urlWebSite" placeholder="https://www.myWebsite.com">
+          <input class="form-control" id="urlWebSite" type="text" th:field="*{urlWebSite}" placeholder="https://www.myWebsite.com">
         </div>
 
         <div class="mb-3">
           <label for="address" class="form-label">Adresse de l'entreprise</label>
-          <input class="form-control" id="address" type="text" name="address" placeholder="Adresse de l'entreprise">
+          <input class="form-control" id="address" type="text" th:field="*{address}" placeholder="Adresse de l'entreprise">
         </div>
 
         <div class="mb-3">
           <label for="additionalAddress" class="form-label">Complément d'adresse</label>
-          <input class="form-control" id="additionalAddress" type="text" name="additionalAddress" placeholder="Complément d'adresse">
+          <input class="form-control" id="additionalAddress" type="text" th:field="*{additionalAddress}" placeholder="Complément d'adresse">
         </div>
 
         <div class="mb-3">
           <label for="city" class="form-label">Ville</label>
-          <input class="form-control" id="city" type="text" name="city" placeholder="Ville">
+          <input class="form-control" id="city" type="text" th:field="*{city}" placeholder="Ville">
         </div>
 
         <div class="mb-3">
           <label for="postalCode" class="form-label">Code postal</label>
-          <input class="form-control" id="postalCode" type="text" name="postalCode" placeholder="Code postal">
+          <input class="form-control" id="postalCode" type="text" th:field="*{postalCode}" placeholder="Code postal">
         </div>
 
         <div class="mb-3">
           <label for="typeOfActivity" class="form-label">Type d'activité de l'entreprise</label>
-          <input class="form-control" id="typeOfActivity" type="text" name="typeOfActivity" placeholder="Type d'activité">
+          <input class="form-control" id="typeOfActivity" type="text" th:field="*{typeOfActivity}" placeholder="Type d'activité">
         </div>
 
         <div class="mb-3">
           <label for="createDate" class="form-label">Date de création de l'entreprise</label>
-          <input class="form-control" id="createDate" type="text" name="createDate" placeholder="Date de création">
+          <input class="form-control" id="createDate" type="date" th:field="*{createDate}" placeholder="Date de création">
         </div>
+
+        <!--rajouter le user_id-->
+
+        <button type="submit" class="btn btn-primary">Enregistrer entreprise</button>
 
       </form>
 
