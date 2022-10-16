@@ -6,7 +6,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "entreprises", schema = "rosacrm", catalog = "")
-public class Entreprises {
+public class Entreprise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")

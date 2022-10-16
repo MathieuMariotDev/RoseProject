@@ -2,7 +2,6 @@ package com.example.rosaproject.controller.entity;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Objects;
 
 @Entity
 @Table(name = "users", schema = "rosacrm", catalog = "")
@@ -28,7 +27,7 @@ public class Users {
     @OneToMany(mappedBy = "user")
     private Collection<Echange> echanges;
     @OneToMany(mappedBy = "user")
-    private Collection<Entreprises> entreprises;
+    private Collection<Entreprise> entreprises;
     @OneToMany(mappedBy = "user")
     private Collection<Evenement> evenements;
 
@@ -88,11 +87,11 @@ public class Users {
         this.echanges = echangesById;
     }
 
-    public Collection<Entreprises> getEntreprises() {
+    public Collection<Entreprise> getEntreprises() {
         return entreprises;
     }
 
-    public void setEntreprises(Collection<Entreprises> entreprises) {
+    public void setEntreprises(Collection<Entreprise> entreprises) {
         this.entreprises = entreprises;
     }
 
