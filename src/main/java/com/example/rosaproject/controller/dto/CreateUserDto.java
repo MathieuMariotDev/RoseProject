@@ -1,6 +1,7 @@
 package com.example.rosaproject.controller.dto;
 
 import com.example.rosaproject.controller.entity.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Basic;
@@ -39,7 +40,8 @@ public class CreateUserDto {
     public Users toUser(){
         Users user = new Users();
         user.setEmail(this.email);
-        user.setPassword(this.password);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(this.password));
         user.setRole((short) 1);
         user.setPicture(this.picture);
         return user;

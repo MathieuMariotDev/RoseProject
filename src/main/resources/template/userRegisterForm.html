@@ -16,17 +16,17 @@
   </div>
   <main class="d-flex flex-column align-items-center">
     <h1>Form</h1>
-    <form class=" col-3 d-flex flex-column align-items-center border border-secondary rounded" action="#" th:action="@{/users/register}" th:object="${user}" method="post"
+    <form class=" col-3 d-flex flex-column align-items-center border border-secondary rounded" action="#" th:action="@{/user/register}" th:object="${user}" method="post"
           enctype="multipart/form-data">
       <div>
-        <input type="text" th:field="*{email}"  id="email" name="email" placeholder="Entrez un email" />
+        <input type="text" th:field="*{email}"  id="email" placeholder="Entrez un email" />
       </div>
       <div>
-        <input type="password" th:field="*{password}" id="password" name="password" placeholder="Entrez un mot de passe"/>
+        <input type="password" th:field="*{password}" id="password"  placeholder="Entrez un mot de passe"/>
       </div>
       <div>
         <label for="pictureFile">image</label>
-        <input type="file" th:field="*{pictureFile}" id="pictureFile" name="password" />
+        <input type="file" th:field="*{pictureFile}" id="pictureFile"  />
       </div>
       <input type="submit" class="btn btn-primary" value="Create User">
     </form>
