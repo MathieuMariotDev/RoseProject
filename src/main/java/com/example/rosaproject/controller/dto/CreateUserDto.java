@@ -48,8 +48,6 @@ public class CreateUserDto {
     }
 
 
-
-
     public String getPassword() {
         return password;
     }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,13 +36,14 @@
         <meta name="_csrf" th:content="${_csrf.token}"/>
         <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
-        <a th:href="@{/user/signup}">Pas encore de compte ? Cliquez ICI </a>
+        <a th:href="@{/user/register}">Pas encore de compte ? Cliquez ICI </a>
 
         <input
                 type="hidden"
                 th:name="${_csrf.parameterName}"
                 th:value="${_csrf.token}" />
       </form>
+    </div>
 
   </main>
 
