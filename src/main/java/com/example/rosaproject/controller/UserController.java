@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
     private UserService userService;
@@ -26,6 +26,11 @@ public class UserController {
     @GetMapping("/init")
     public String initExample(){
         return "example";
+    }
+
+    @GetMapping("/login")
+    public String loginForm(){
+        return "login";
     }
 
 
