@@ -30,7 +30,7 @@ public class CreateUserDto {
 
     private Collection<Echange> echanges;
 
-    private Collection<Entreprises> entreprises;
+    private Collection<CreateEntrepriseDto> entreprises;
 
     private Collection<Evenement> evenements;
 
@@ -93,11 +93,11 @@ public class CreateUserDto {
         this.echanges = echangesById;
     }
 
-    public Collection<Entreprises> getEntreprises() {
+    public Collection<CreateEntrepriseDto> getEntreprises() {
         return entreprises;
     }
 
-    public void setEntreprises(Collection<Entreprises> entreprises) {
+    public void setEntreprises(Collection<CreateEntrepriseDto> entreprises) {
         this.entreprises = entreprises;
     }
 

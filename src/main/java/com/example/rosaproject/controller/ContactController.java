@@ -2,6 +2,7 @@ package com.example.rosaproject.controller;
 
 import com.example.rosaproject.controller.entity.Contact;
 import com.example.rosaproject.service.ContactService;
+import com.example.rosaproject.service.EntrepriseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,13 +16,17 @@ public class ContactController {
 
     private ContactService contactService;
 
-    public ContactController(ContactService contactService) {
+    private EntrepriseService entrepriseService;
+
+    public ContactController(ContactService contactService, EntrepriseService entrepriseService) {
         this.contactService = contactService;
+        this.entrepriseService = entrepriseService;
     }
 
     @GetMapping("/add/prospect")
     public String displayFormAddProspect(Model model){
         model.addAttribute("contact",new Contact());
+        model.addAttribute("entreprises",entrepriseService.getAllEntreprises());
         return "addContactForm";
     }
 

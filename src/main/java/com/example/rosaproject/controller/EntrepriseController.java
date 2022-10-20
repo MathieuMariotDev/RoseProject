@@ -1,5 +1,6 @@
 package com.example.rosaproject.controller;
 
+import com.example.rosaproject.controller.dto.CreateEntrepriseDto;
 import com.example.rosaproject.controller.entity.Entreprise;
 import com.example.rosaproject.service.EntrepriseService;
 import org.springframework.stereotype.Controller;
@@ -30,12 +31,12 @@ public class EntrepriseController {
 
     @GetMapping("/add")
     public String createEntrepriseForm(Model model) {
-        model.addAttribute("entreprise", new Entreprise());
+        model.addAttribute("entreprise", new CreateEntrepriseDto());
         return "createEntrepriseForm";
     }
 
     @PostMapping("/add")
-    public RedirectView createBook(Entreprise createEntreprise) {
+    public RedirectView createBook(CreateEntrepriseDto createEntreprise) {
         entrepriseService.createEntreprise(createEntreprise);
         return new RedirectView("/entreprises/all");
     }

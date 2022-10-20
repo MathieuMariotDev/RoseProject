@@ -46,6 +46,14 @@
         <label for="email">Adresse email</label>
       </div>
 
+      <select th:field="*{entreprise}" id="contact1" class="col-6 my-3">
+        <option value="disabled selected"></option>
+        <th:block th:each="entreprise :${entreprises}">
+          <option th:value="${entreprise.id}" th:text="${entreprise.name}"></option>
+        </th:block>
+      </select>
+
+
       <button class="w-100 btn btn-lg btn-primary my-3" type="submit">Ajouter un prospect</button>
 
     </form>
