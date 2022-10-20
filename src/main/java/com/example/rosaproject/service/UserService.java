@@ -2,9 +2,13 @@ package com.example.rosaproject.service;
 
 import com.example.rosaproject.controller.dto.CreateUserDto;
 import com.example.rosaproject.controller.entity.Users;
+import com.example.rosaproject.exception.UserNotFoundException;
 import com.example.rosaproject.repository.UserRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Optional;
 
 
 @Service
@@ -28,6 +32,12 @@ public class UserService {
 
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public Users findById(long id) {
+       Users user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));;
+        return user;
     }
 }
 

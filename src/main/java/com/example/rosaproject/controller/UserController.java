@@ -2,7 +2,10 @@ package com.example.rosaproject.controller;
 
 import com.example.rosaproject.controller.dto.CreateUserDto;
 
+import com.example.rosaproject.controller.entity.Users;
 import com.example.rosaproject.service.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
@@ -42,12 +47,25 @@ public class UserController {
     }
 
     @PostMapping("/delete/{idParam}")
-    public String deleteUser(@PathVariable("idParam") Long id){
+    public String deleteUser(HttpServletRequest req){
+        Long id = Long.valueOf(req.getParameter("id"));
         userService.deleteUser(id);
-        return "redirect:register";
+        return "redirect:/register";
     }
 
 
+    @GetMapping("/edit")
+    public String displayEditForm(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Users foundUser = userService.findById(1);
+        model.addAttribute("user" , foundUser);
+        return "userEditForm";
+    }
 
+    @PostMapping("/edit/{id}")
+    public void editUser(@PathVariable("id") Long id) {
+
+
+    }
 
 }
