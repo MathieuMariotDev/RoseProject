@@ -5,7 +5,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "users", schema = "rosacrm", catalog = "")
-public class Users {
+public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -30,6 +30,16 @@ public class Users {
     private Collection<Entreprise> entreprises;
     @OneToMany(mappedBy = "user")
     private Collection<Evenement> evenements;
+
+    public User() {
+    }
+
+    public User(String password, String picture, String email, Short role) {
+        this.password = password;
+        this.picture = picture;
+        this.email = email;
+        this.role = role;
+    }
 
     public Long getId() {
         return id;

@@ -1,12 +1,12 @@
 package com.example.rosaproject.repository;
 
-import com.example.rosaproject.controller.entity.Users;
+import com.example.rosaproject.controller.entity.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends CrudRepository<Users,Long> {
+public interface UserRepository extends CrudRepository<User,Long> {
 
-    Users findUsersByEmail(String email);
+    User findUsersByEmail(String email);
 
 }

@@ -4,9 +4,6 @@ import com.example.rosaproject.controller.entity.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
 import java.util.Collection;
 
 public class CreateUserDto {
@@ -37,8 +34,8 @@ public class CreateUserDto {
 
     private Collection<Evenement> evenements;
 
-    public Users toUser(){
-        Users user = new Users();
+    public User toUser(){
+        User user = new User();
         user.setEmail(this.email);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(this.password));
