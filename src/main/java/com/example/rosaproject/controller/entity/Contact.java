@@ -38,7 +38,7 @@ public class Contact {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private Users user;
+    private User user;
     @ManyToOne
     @JoinColumn(name = "entreprise_id", referencedColumnName = "id", nullable = false)
     private Entreprise entreprise;
@@ -120,12 +120,12 @@ public class Contact {
     }
 
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users usersById1) {
-        this.user = usersById1;
+    public void setUser(User userById1) {
+        this.user = userById1;
     }
 
     public Entreprise getEntreprise() {

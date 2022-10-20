@@ -3,7 +3,6 @@ package com.example.rosaproject.controller.entity;
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 @Table(name = "echange", schema = "rosacrm", catalog = "")
@@ -27,7 +26,7 @@ public class Echange {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private Users user;
+    private User user;
     @ManyToOne
     @JoinColumn(name = "contact_id", referencedColumnName = "id", nullable = false)
     private Contact contact;
@@ -72,12 +71,12 @@ public class Echange {
         this.timeBeforeReminder = timeBeforeReminder;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users usersById1) {
-        this.user = usersById1;
+    public void setUser(User userById1) {
+        this.user = userById1;
     }
 
     public Contact getContact() {

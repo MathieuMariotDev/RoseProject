@@ -1,69 +1,42 @@
-package com.example.rosaproject.controller.entity;
+package com.example.rosaproject.controller.dto;
 
-import javax.persistence.*;
+import com.example.rosaproject.controller.entity.Contact;
+import com.example.rosaproject.controller.entity.User;
+
 import java.sql.Date;
 import java.util.Collection;
 
-@Entity
-@Table(name = "entreprises", schema = "rosacrm", catalog = "")
-public class Entreprise {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "id")
-    private Long id;
-    @Basic
-    @Column(name = "logo")
+public class CreateEntrepriseDto {
+
     private String logo;
-    @Basic
-    @Column(name = "name")
+
     private String name;
-    @Basic
-    @Column(name = "siret")
+
     private String siret;
-    @Basic
-    @Column(name = "email")
+
     private String email;
-    @Basic
-    @Column(name = "cellPhone")
+
     private String cellPhone;
-    @Basic
-    @Column(name = "Phone")
+
     private String phone;
-    @Basic
-    @Column(name = "urlWebSite")
+
     private String urlWebSite;
-    @Basic
-    @Column(name = "address")
+
     private String address;
-    @Basic
-    @Column(name = "additionalAddress")
+
     private String additionalAddress;
-    @Basic
-    @Column(name = "city")
+
     private String city;
-    @Basic
-    @Column(name = "postalCode")
+
     private String postalCode;
-    @Basic
-    @Column(name = "typeOfActivity")
+
     private String typeOfActivity;
-    @Basic
-    @Column(name = "createDate")
+
     private Date createDate;
 
-    @OneToMany(mappedBy = "entreprise")
     private Collection<Contact> contactsById;
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+
     private User user;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getLogo() {
         return logo;
@@ -181,7 +154,7 @@ public class Entreprise {
         return user;
     }
 
-    public void setUser(User userById1) {
-        this.user = userById1;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

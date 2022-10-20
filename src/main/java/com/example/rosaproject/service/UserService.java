@@ -1,7 +1,6 @@
 package com.example.rosaproject.service;
 
 import com.example.rosaproject.controller.dto.CreateUserDto;
-import com.example.rosaproject.controller.entity.Users;
 import com.example.rosaproject.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

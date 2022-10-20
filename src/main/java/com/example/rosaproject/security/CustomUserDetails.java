@@ -1,6 +1,6 @@
 package com.example.rosaproject.security;
 
-import com.example.rosaproject.controller.entity.Users;
+import com.example.rosaproject.controller.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,9 +8,9 @@ import java.util.Collection;
 
 public class CustomUserDetails implements UserDetails {
 
-    private Users user;
+    private User user;
 
-    public CustomUserDetails(Users user) {
+    public CustomUserDetails(User user) {
         this.user = user;
     }
 
@@ -47,5 +47,13 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
