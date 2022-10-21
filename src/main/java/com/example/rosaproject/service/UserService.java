@@ -1,13 +1,15 @@
 package com.example.rosaproject.service;
 
 import com.example.rosaproject.controller.dto.CreateUserDto;
-import com.example.rosaproject.controller.entity.Users;
 import com.example.rosaproject.exception.UserNotFoundException;
+import com.example.rosaproject.controller.entity.User;
 import com.example.rosaproject.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 
 @Service
@@ -33,16 +35,43 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public Users findById(long id) {
-       Users user = userRepository.findById(id)
+
+    public User findById(long id) {
+       User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));;
         return user;
     }
 
-    public Users findByEmail() {
+    public User findByEmail() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Users user = userRepository.findUsersByEmail(auth.getName());
+        User user = userRepository.findUsersByEmail(auth.getName());
         return user;
+    }
+
+    public User findUserByEmail(String email){
+        return userRepository.findUsersByEmail(email);
+    }
+
+    public void editUser(CreateUserDto createUserDto) {
+        MultipartFile picture = createUserDto.getPictureFile();
+        storageService.save(picture);
+        createUserDto.setPicture("http://localhost:8080/images/" + picture.getOriginalFilename());
+
+        User editUser = userRepository.findById(createUserDto.getId())
+                        .orElseThrow(() -> new UserNotFoundException(createUserDto.getId()));;
+        createUserDto.toUserModify(editUser);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        userRepository.save(editUser);
+    }
+
+    public List<User> adminDisplayAllUsers() {
+        List<User> usersList = (List<User>) userRepository.findAll();
+        return  usersList;
+    }
+
+    public void AdminDeleteUser(Long id) {
+        User userToDelete = this.findById(id);
+        userRepository.delete(userToDelete);
     }
 }
 

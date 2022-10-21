@@ -28,7 +28,7 @@
                 <label for="floatingPassword">Mot de passe</label>
             </div>
             <div class="form-floating my-5">
-                <input type="file" class="form-control" th:field="*{picture}" id="floatingPicture" name="password" required/>
+                <input type="file" class="form-control" th:field="*{pictureFile}" id="floatingPicture" th:value="${user.picture}" name="password" required/>
                 <label for="floatingPicture">image</label>
             </div>
             <input type="hidden" th:field="*{id}" id="id" th:value="${user.id}" name="id"/>

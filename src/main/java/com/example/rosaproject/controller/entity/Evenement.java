@@ -1,11 +1,7 @@
 package com.example.rosaproject.controller.entity;
 
-import net.bytebuddy.asm.Advice;
-
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 @Table(name = "evenement", schema = "rosacrm", catalog = "")
@@ -32,7 +28,7 @@ public class Evenement {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private Users user;
+    private User user;
     @ManyToOne
     @JoinColumn(name = "contact_id", referencedColumnName = "id", nullable = false)
     private Contact contact;
@@ -86,12 +82,12 @@ public class Evenement {
     }
 
 
-    public Users getUsersById1() {
+    public User getUsersById1() {
         return user;
     }
 
-    public void setUsersById1(Users usersById1) {
-        this.user = usersById1;
+    public void setUsersById1(User userById1) {
+        this.user = userById1;
     }
 
     public Contact getContactById2() {

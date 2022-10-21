@@ -1,7 +1,10 @@
 package com.example.rosaproject.controller.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Collection;
 
 @Entity
@@ -11,9 +14,6 @@ public class Contact {
     @Id
     @Column(name = "id")
     private Long id;
-    @Basic
-    @Column(name = "picture")
-    private String picture;
     @Basic
     @Column(name = "email")
     private String email;
@@ -31,14 +31,15 @@ public class Contact {
     private String phone;
     @Basic
     @Column(name = "createDate")
-    private Date createDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate createDate;
     @Basic
     @Column(name = "isClient")
-    private boolean isClient;
+    private boolean isClient=false;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    private Users user;
+    private User user;
     @ManyToOne
     @JoinColumn(name = "entreprise_id", referencedColumnName = "id", nullable = false)
     private Entreprise entreprise;
@@ -47,20 +48,27 @@ public class Contact {
     @OneToMany(mappedBy = "contact")
     private Collection<Evenement> evenementsById;
 
+    public Contact(String email, String name, String firstName, String cellPhone, String phone, LocalDate createDate, boolean isClient, User user, Entreprise entreprise) {
+        this.email = email;
+        this.name = name;
+        this.firstName = firstName;
+        this.cellPhone = cellPhone;
+        this.phone = phone;
+        this.createDate = createDate;
+        this.isClient = isClient;
+        this.user = user;
+        this.entreprise = entreprise;
+    }
+
+    public Contact() {
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
     }
 
     public String getEmail() {
@@ -103,11 +111,11 @@ public class Contact {
         this.phone = phone;
     }
 
-    public Date getCreateDate() {
+    public LocalDate getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(LocalDate createDate) {
         this.createDate = createDate;
     }
 
@@ -120,12 +128,12 @@ public class Contact {
     }
 
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users usersById1) {
-        this.user = usersById1;
+    public void setUser(User userById1) {
+        this.user = userById1;
     }
 
     public Entreprise getEntreprise() {

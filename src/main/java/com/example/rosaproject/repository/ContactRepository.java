@@ -13,6 +13,7 @@ public interface ContactRepository extends CrudRepository<Contact, Long> {
     // Retourne la liste de contact qui ne sont pas des clients
     List<Contact> findContactByIsClientFalse();
     // Retourne la liste de contact qui sont des clients trié dans l'ordre ASC
+
     List<Contact> findContactByIsClientTrueOrderByNameAsc();
     // Retourne la liste de contact qui sont des clients trié dans l'ordre DESC
     List<Contact> findContactByIsClientTrueOrderByNameDesc();

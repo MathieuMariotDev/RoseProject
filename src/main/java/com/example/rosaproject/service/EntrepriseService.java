@@ -1,13 +1,15 @@
 package com.example.rosaproject.service;
 
+import com.example.rosaproject.controller.dto.CreateEntrepriseDto;
 import com.example.rosaproject.controller.entity.Entreprise;
+import com.example.rosaproject.controller.entity.User;
 import com.example.rosaproject.repository.EntrepriseRepository;
+import com.example.rosaproject.security.CustomUserDetails;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EntrepriseService {
@@ -19,7 +21,10 @@ public class EntrepriseService {
     }
 
     public List<Entreprise> getAllEntreprises() {
-        return (List<Entreprise>) this.entrepriseRepository.findAll();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
+        User connectedUser = customUser.getUser();
+        return (List<Entreprise>) this.entrepriseRepository.findAllByUserOrderByNameAsc(connectedUser);
     }
 
     /*public Entreprise getSpecificEntreprise(long id, Model model) {
@@ -34,11 +39,15 @@ public class EntrepriseService {
         return;
     }*/
 
-    public void createEntreprise(Entreprise createEntreprise) {
+    public void createEntreprise(CreateEntrepriseDto createEntreprise) {
 
-        /* pour le edit seulement ?
-        Entreprise entreprise = new Entreprise();
+       // User user = new User();
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
+        User connectedUser = customUser.getUser();
+        //user.setId(connectedUser.getId()); // ??
+/* // DON T DELETE USE FOR EDIT C/C
         entreprise.setLogo(createEntreprise.getLogo());
         entreprise.setName(createEntreprise.getName());
         entreprise.setSiret(createEntreprise.getSiret());
@@ -51,9 +60,10 @@ public class EntrepriseService {
         entreprise.setCity(createEntreprise.getCity());
         entreprise.setPostalCode(createEntreprise.getPostalCode());
         entreprise.setTypeOfActivity(createEntreprise.getTypeOfActivity());
-        entreprise.setCreateDate(createEntreprise.getCreateDate());*/
-
-
-        entrepriseRepository.save(createEntreprise);
+        entreprise.setCreateDate(createEntreprise.getCreateDate());
+*/
+        createEntreprise.setUser(connectedUser);
+        createEntreprise.setUser(customUser.getUser());
+        entrepriseRepository.save(createEntreprise.dtoCreateEntrepriseToEntreprise());
     }
 }
