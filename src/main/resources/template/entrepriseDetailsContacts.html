@@ -29,7 +29,7 @@
                 <div th:each="contact: ${entreprise.contactsById}">
                   <div th:switch="${contact.isClient}">
                     <div th:case="false">
-                      <div th:text="${contact.firstName} + ' ' + ${contact.name}"></div>
+                      <a th:text="${contact.firstName} + ' ' + ${contact.name}" th:href="@{/contact/details/{id}(id=${contact.id})}"></a>
                     </div>
                   </div>
                 </div>
@@ -46,7 +46,7 @@
                 <div th:each="contact: ${entreprise.contactsById}">
                   <div th:switch="${contact.isClient}">
                     <div th:case="true">
-                      <div th:text="${contact.firstName} + ' ' + ${contact.name}"></div>
+                      <a th:text="${contact.firstName} + ' ' + ${contact.name}" th:href="@{/contact/details/{id}(id=${contact.id})}"></a>
                     </div>
                   </div>
                 </div>
