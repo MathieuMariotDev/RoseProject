@@ -12,6 +12,8 @@ import java.util.Collection;
 
 public class CreateEntrepriseDto {
 
+    private Long id;
+
     private String logo;
 
     private MultipartFile pictureFile;
@@ -44,7 +46,7 @@ public class CreateEntrepriseDto {
 
     private User user;
 
-    public Entreprise dtoCreateEntrepriseToEntreprise(){
+    public Entreprise toEntreprise(){
         Entreprise entreprise = new Entreprise();
         entreprise.setLogo(this.logo);
         entreprise.setName(this.name);
@@ -63,6 +65,32 @@ public class CreateEntrepriseDto {
         return entreprise;
     }
 
+    public static CreateEntrepriseDto toEntrepriseDto(Entreprise entreprise) {
+        CreateEntrepriseDto createEntrepriseDto = new CreateEntrepriseDto();
+        createEntrepriseDto.setLogo(entreprise.getLogo());
+        createEntrepriseDto.setName(entreprise.getName());
+        createEntrepriseDto.setSiret(entreprise.getSiret());
+        createEntrepriseDto.setEmail(entreprise.getEmail());
+        createEntrepriseDto.setCellPhone(entreprise.getCellPhone());
+        createEntrepriseDto.setPhone(entreprise.getPhone());
+        createEntrepriseDto.setUrlWebSite(entreprise.getUrlWebSite());
+        createEntrepriseDto.setAddress(entreprise.getAddress());
+        createEntrepriseDto.setAdditionalAddress(entreprise.getAdditionalAddress());
+        createEntrepriseDto.setCity(entreprise.getCity());
+        createEntrepriseDto.setPostalCode(entreprise.getPostalCode());
+        createEntrepriseDto.setTypeOfActivity(entreprise.getTypeOfActivity());
+        createEntrepriseDto.setCreateDate(entreprise.getCreateDate());
+        createEntrepriseDto.setUser(entreprise.getUser());
+        return createEntrepriseDto;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getLogo() {
         return logo;

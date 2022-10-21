@@ -1,5 +1,6 @@
 package com.example.rosaproject.controller;
 
+import com.example.rosaproject.controller.dto.CreateContactDto;
 import com.example.rosaproject.controller.dto.CreateEntrepriseDto;
 import com.example.rosaproject.controller.entity.Entreprise;
 import com.example.rosaproject.service.EntrepriseService;
@@ -56,9 +57,8 @@ public class EntrepriseController {
 
     @GetMapping("/edit/{id}")
     public String editEntrepriseForm(@PathVariable("id") long id, Model model) {
-        Entreprise entreprise = entrepriseService.getSpecificEntreprise(id);
-        //MultipartFile picture = (MultipartFile) storageService.load("http://localhost:8080/images/java.png");
-        model.addAttribute("entreprise", entreprise);
+        CreateEntrepriseDto entrepriseDto = CreateEntrepriseDto.toEntrepriseDto(entrepriseService.getSpecificEntreprise(id));
+        model.addAttribute("entreprise", entrepriseDto);
         return "editEntrepriseForm";
     }
 

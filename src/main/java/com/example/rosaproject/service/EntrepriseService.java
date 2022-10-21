@@ -76,7 +76,7 @@ public class EntrepriseService {
         createEntreprise.setUser(connectedUser);
         createEntreprise.setUser(customUser.getUser());
 
-        entrepriseRepository.save(createEntreprise.dtoCreateEntrepriseToEntreprise());
+        entrepriseRepository.save(createEntreprise.toEntreprise());
     }
 
     public void editEntreprise(long id, CreateEntrepriseDto editEntreprise) {
@@ -89,6 +89,15 @@ public class EntrepriseService {
 
         if(entrepriseOptional.isPresent()) {
             Entreprise entreprise = entrepriseOptional.get();
+
+            if (editEntreprise.getPictureFile().isEmpty() || editEntreprise.getPictureFile() == null){
+                entreprise.setLogo(editEntreprise.getLogo());
+
+            } else {
+                MultipartFile picture = editEntreprise.getPictureFile();
+                storageService.save(picture);
+                entreprise.setLogo("http://localhost:8080/images/" + picture.getOriginalFilename());
+            }
 
             entreprise.setLogo(editEntreprise.getLogo());
             entreprise.setName(editEntreprise.getName());

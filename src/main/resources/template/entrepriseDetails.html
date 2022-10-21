@@ -80,6 +80,13 @@
               <!--todo : aligner horizontalement les boutons-->
               <li class="list-group-item">
 
+                <!--edit-->
+                <div>
+                  <form th:action="@{/entreprises/edit/{id}(id=${entreprise.id})}" method="get">
+                    <button class="btn btn-secondary" type="submit">Modifier</button>
+                  </form>
+                </div>
+
               </li>
 
             </ul>
