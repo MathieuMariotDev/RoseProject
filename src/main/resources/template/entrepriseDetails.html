@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}">
+  <title>Détails</title>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div th:insert="../fragments/header :: header"></div>
+
+  <main>
+
+    <h1 class="text-center">Détails</h1>
+
+    <div class="row justify-content-center">
+
+      <div class="col-5">
+        <div class = "card m-3">
+          <h3 class="card-name text-center" th:text="${entreprise.name}"></h3>
+          <div class="card-body">
+
+            <ul class="list-group list-group-flush">
+
+              <li class="list-group-item">
+                <img th:src="${entreprise.logo}">
+              </li>
+
+              <li class="list-group-item">
+                <div th:text="'SIRET : ' + ${entreprise.siret}"></div>
+              </li>
+
+              <li class="list-group-item">
+                <div th:text="'Email : ' + ${entreprise.email}"></div>
+              </li>
+
+              <li class="list-group-item">
+                <div th:text="'Téléphone portable : ' + ${entreprise.cellPhone}"></div>
+              </li>
+
+              <li class="list-group-item">
+                <div th:text="'Téléphone fixe : ' + ${entreprise.phone}"></div>
+              </li>
+
+              <li class="list-group-item">
+                <div th:text="'Site Web : ' + ${entreprise.urlWebSite}"></div>
+              </li>
+
+              <li class="list-group-item">
+                <div th:text="'Adresse : ' + ${entreprise.address}"></div>
+              </li>
+
+              <li class="list-group-item">
+                <div th:text="'Adresse complémentaire : ' + ${entreprise.additionalAddress}"></div>
+              </li>
+
+              <li class="list-group-item">
+                <div th:text="'Ville : ' + ${entreprise.city}"></div>
+              </li>
+
+              <li class="list-group-item">
+                <div th:text="'Code Postal : ' + ${entreprise.postalCode}"></div>
+              </li>
+
+              <li class="list-group-item">
+                <div th:text="'Type d\'activité : ' + ${entreprise.typeOfActivity}"></div>
+              </li>
+
+              <li class="list-group-item">
+                <div th:text="'Date de création : ' + ${entreprise.createDate}"></div>
+              </li>
+
+
+              <li class="list-group-item">
+
+                <div class="row">
+
+                  <div class="col-6">
+
+                    <div th:text="'Prospects :'"></div>
+                    <div th:each="contact: ${entreprise.contactsById}">
+                      <div th:switch="${contact.isClient}">
+                        <div th:case="false">
+                          <div th:text="${contact.firstName} + ' ' + ${contact.name}"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="col-6">
+
+                    <div th:text="'Clients :'"></div>
+                    <div th:each="contact: ${entreprise.contactsById}">
+                      <div th:switch="${contact.isClient}">
+                        <div th:case="true">
+                          <div th:text="${contact.firstName} + ' ' + ${contact.name}"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </li>
+
+
+              <!--todo : aligner horizontalement les boutons-->
+              <li class="list-group-item">
+
+                <!--edit-->
+                <div>
+                  <form th:action="@{/entreprises/edit/{id}(id=${entreprise.id})}" method="get">
+                    <button class="btn btn-secondary" type="submit">Modifier</button>
+                  </form>
+                </div>
+
+              </li>
+
+            </ul>
+
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+  </main>
+
+  <!--<div th:insert="../fragments/footer :: footer"></div>-->
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous">
+
+</script>
+</body>
+</html>

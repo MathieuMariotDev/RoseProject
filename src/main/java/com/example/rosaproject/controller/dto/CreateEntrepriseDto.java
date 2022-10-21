@@ -4,6 +4,7 @@ import com.example.rosaproject.controller.entity.Contact;
 import com.example.rosaproject.controller.entity.Entreprise;
 import com.example.rosaproject.controller.entity.User;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -11,7 +12,11 @@ import java.util.Collection;
 
 public class CreateEntrepriseDto {
 
+    private Long id;
+
     private String logo;
+
+    private MultipartFile pictureFile;
 
     private String name;
 
@@ -41,8 +46,9 @@ public class CreateEntrepriseDto {
 
     private User user;
 
-    public Entreprise dtoCreateEntrepriseToEntreprise(){
+    public Entreprise toEntreprise(){
         Entreprise entreprise = new Entreprise();
+        entreprise.setId(this.id);
         entreprise.setLogo(this.logo);
         entreprise.setName(this.name);
         entreprise.setSiret(this.siret);
@@ -60,6 +66,33 @@ public class CreateEntrepriseDto {
         return entreprise;
     }
 
+    public static CreateEntrepriseDto toEntrepriseDto(Entreprise entreprise) {
+        CreateEntrepriseDto createEntrepriseDto = new CreateEntrepriseDto();
+        createEntrepriseDto.setId(entreprise.getId());
+        createEntrepriseDto.setLogo(entreprise.getLogo());
+        createEntrepriseDto.setName(entreprise.getName());
+        createEntrepriseDto.setSiret(entreprise.getSiret());
+        createEntrepriseDto.setEmail(entreprise.getEmail());
+        createEntrepriseDto.setCellPhone(entreprise.getCellPhone());
+        createEntrepriseDto.setPhone(entreprise.getPhone());
+        createEntrepriseDto.setUrlWebSite(entreprise.getUrlWebSite());
+        createEntrepriseDto.setAddress(entreprise.getAddress());
+        createEntrepriseDto.setAdditionalAddress(entreprise.getAdditionalAddress());
+        createEntrepriseDto.setCity(entreprise.getCity());
+        createEntrepriseDto.setPostalCode(entreprise.getPostalCode());
+        createEntrepriseDto.setTypeOfActivity(entreprise.getTypeOfActivity());
+        createEntrepriseDto.setCreateDate(entreprise.getCreateDate());
+        createEntrepriseDto.setUser(entreprise.getUser());
+        return createEntrepriseDto;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getLogo() {
         return logo;
@@ -67,6 +100,14 @@ public class CreateEntrepriseDto {
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public MultipartFile getPictureFile() {
+        return pictureFile;
+    }
+
+    public void setPictureFile(MultipartFile pictureFile) {
+        this.pictureFile = pictureFile;
     }
 
     public String getName() {
