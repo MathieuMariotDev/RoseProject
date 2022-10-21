@@ -62,4 +62,10 @@ public class EntrepriseController {
         return "editEntrepriseForm";
     }
 
+    @PostMapping("/edit/{id}")
+    public RedirectView editEntreprise(@PathVariable("id") long id, CreateEntrepriseDto editEntreprise) {
+        entrepriseService.editEntreprise(id, editEntreprise);
+        return new RedirectView("/entreprises/details/{id}");
+    }
+
 }

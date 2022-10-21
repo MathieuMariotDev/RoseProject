@@ -20,7 +20,7 @@
 
       <div class="col-5">
 
-        <form th:action="@{/entreprises/edit/{id}(id=${entreprise.id})}" th:object="${entreprise}" method="post" enctype="multipart/form-data">
+        <form action="#" th:action="@{/entreprises/edit/{id}(id=${entreprise.id})}" th:object="${entreprise}" method="post" enctype="multipart/form-data">
 
           <h1 class="h3 mb-3 fw-normal my-5">Modifier les informations</h1>
 
@@ -32,12 +32,12 @@
           <div>
             <label for="picture">Image actuelle pour cette personne</label>
             <img th:src="${entreprise.logo}" id="picture">
-            <input type="hidden" th:field="*{logo}" th:value="*{logo}">
+            <input type="hidden" th:field="*{logo}" th:value="${entreprise.logo}">
           </div>
 
           <div>
-            <label for="picture">Insérer une image de remplacement :</label>
-            <input type="file" th:field="*{pictureFile}" id="file" >
+            <label for="pictureFile">Insérer une image de remplacement :</label>
+            <input type="file" th:field="*{pictureFile}" id="pictureFile">
           </div>
 
           <div class="form-floating my-5">

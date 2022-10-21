@@ -99,10 +99,9 @@ public class EntrepriseService {
                 entreprise.setLogo("http://localhost:8080/images/" + picture.getOriginalFilename());
             }
 
-            entreprise.setLogo(editEntreprise.getLogo());
             entreprise.setName(editEntreprise.getName());
             entreprise.setSiret(editEntreprise.getSiret());
-            entreprise.setEmail((editEntreprise.getEmail()));
+            entreprise.setEmail(editEntreprise.getEmail());
             entreprise.setCellPhone(editEntreprise.getCellPhone());
             entreprise.setPhone(editEntreprise.getPhone());
             entreprise.setUrlWebSite(editEntreprise.getUrlWebSite());
@@ -112,10 +111,6 @@ public class EntrepriseService {
             entreprise.setPostalCode(editEntreprise.getPostalCode());
             entreprise.setTypeOfActivity(editEntreprise.getTypeOfActivity());
             entreprise.setCreateDate(editEntreprise.getCreateDate());
-
-            MultipartFile picture = editEntreprise.getPictureFile();
-            storageService.save(picture);
-            editEntreprise.setLogo("http://localhost:8080/images/" + picture.getOriginalFilename());
 
             entreprise.setUser(connectedUser);
             entreprise.setUser(customUser.getUser());

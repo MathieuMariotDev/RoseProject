@@ -48,6 +48,7 @@ public class CreateEntrepriseDto {
 
     public Entreprise toEntreprise(){
         Entreprise entreprise = new Entreprise();
+        entreprise.setId(this.id);
         entreprise.setLogo(this.logo);
         entreprise.setName(this.name);
         entreprise.setSiret(this.siret);
@@ -67,6 +68,7 @@ public class CreateEntrepriseDto {
 
     public static CreateEntrepriseDto toEntrepriseDto(Entreprise entreprise) {
         CreateEntrepriseDto createEntrepriseDto = new CreateEntrepriseDto();
+        createEntrepriseDto.setId(entreprise.getId());
         createEntrepriseDto.setLogo(entreprise.getLogo());
         createEntrepriseDto.setName(entreprise.getName());
         createEntrepriseDto.setSiret(entreprise.getSiret());
