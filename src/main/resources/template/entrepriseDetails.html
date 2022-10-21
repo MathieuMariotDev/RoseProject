@@ -75,7 +75,41 @@
                 <div th:text="'Date de création : ' + ${entreprise.createDate}"></div>
               </li>
 
-              <!--liste de contacts dans l'entreprise ?-->
+
+              <li class="list-group-item">
+
+                <div class="row">
+
+                  <div class="col-6">
+
+                    <div th:text="'Prospects :'"></div>
+                    <div th:each="contact: ${entreprise.contactsById}">
+                      <div th:switch="${contact.isClient}">
+                        <div th:case="false">
+                          <div th:text="${contact.firstName} + ' ' + ${contact.name}"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="col-6">
+
+                    <div th:text="'Clients :'"></div>
+                    <div th:each="contact: ${entreprise.contactsById}">
+                      <div th:switch="${contact.isClient}">
+                        <div th:case="true">
+                          <div th:text="${contact.firstName} + ' ' + ${contact.name}"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </li>
+
 
               <!--todo : aligner horizontalement les boutons-->
               <li class="list-group-item">
