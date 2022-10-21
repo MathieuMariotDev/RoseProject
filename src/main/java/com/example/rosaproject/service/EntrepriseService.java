@@ -78,4 +78,43 @@ public class EntrepriseService {
 
         entrepriseRepository.save(createEntreprise.dtoCreateEntrepriseToEntreprise());
     }
+
+    public void editEntreprise(long id, CreateEntrepriseDto editEntreprise) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
+        User connectedUser = customUser.getUser();
+
+        Optional<Entreprise> entrepriseOptional = Optional.ofNullable(this.entrepriseRepository.findByIdAndUser(id, connectedUser));
+
+        if(entrepriseOptional.isPresent()) {
+            Entreprise entreprise = entrepriseOptional.get();
+
+            entreprise.setLogo(editEntreprise.getLogo());
+            entreprise.setName(editEntreprise.getName());
+            entreprise.setSiret(editEntreprise.getSiret());
+            entreprise.setEmail((editEntreprise.getEmail()));
+            entreprise.setCellPhone(editEntreprise.getCellPhone());
+            entreprise.setPhone(editEntreprise.getPhone());
+            entreprise.setUrlWebSite(editEntreprise.getUrlWebSite());
+            entreprise.setAddress(editEntreprise.getAddress());
+            entreprise.setAdditionalAddress(editEntreprise.getAdditionalAddress());
+            entreprise.setCity(editEntreprise.getCity());
+            entreprise.setPostalCode(editEntreprise.getPostalCode());
+            entreprise.setTypeOfActivity(editEntreprise.getTypeOfActivity());
+            entreprise.setCreateDate(editEntreprise.getCreateDate());
+
+            MultipartFile picture = editEntreprise.getPictureFile();
+            storageService.save(picture);
+            editEntreprise.setLogo("http://localhost:8080/images/" + picture.getOriginalFilename());
+
+            entreprise.setUser(connectedUser);
+            entreprise.setUser(customUser.getUser());
+
+            entrepriseRepository.save(entreprise);
+
+        } else {
+            throw new EntrepriseNotFoundException(id);
+        }
+    }
 }
