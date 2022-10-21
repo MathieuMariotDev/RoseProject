@@ -47,9 +47,9 @@ public class RosaProjectApplication implements CommandLineRunner {
         Entreprise entreprise = new Entreprise("www.monlogo.com","La redoute","00123659895","Lentreprise@entreprise.com","0750828587","Lentreprise@entreprise.com","www.monsite.com","16 rue de la chambre","batiment 3","Nantes","78000","Vente de vêtement", LocalDate.now(),user);
         entrepriseRepository.save(entreprise);
 
-        Contact contact = new Contact("paul@entreprise.com","Paul","Ohrel","0750998872","0250998874",LocalDate.now(),false,user,entreprise);
+        Contact contact = new Contact("paul@entreprise.com","Paul","Ohrel","0750998872","0250998874",LocalDate.now(),false,user,entreprise,"http://localhost:8080/images/default.jpg");
 
-        Contact client = new Contact("Garitou@entreprise.com","Garitou","Labrou","0750995588","0250994403",LocalDate.now(),false,user,entreprise);
+        Contact client = new Contact("Garitou@entreprise.com","Garitou","Labrou","0750995588","0250994403",LocalDate.now(),false,user,entreprise,"http://localhost:8080/images/default.jpg");
         contactRepository.save(contact);
 
         contactRepository.save(client);

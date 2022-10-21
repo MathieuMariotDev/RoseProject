@@ -1,5 +1,6 @@
 package com.example.rosaproject.controller;
 
+import com.example.rosaproject.controller.dto.CreateContactDto;
 import com.example.rosaproject.controller.entity.Contact;
 import com.example.rosaproject.service.ContactService;
 import com.example.rosaproject.service.EntrepriseService;
@@ -18,6 +19,11 @@ public class ContactController {
 
     private EntrepriseService entrepriseService;
 
+
+
+
+
+
     public ContactController(ContactService contactService, EntrepriseService entrepriseService) {
         this.contactService = contactService;
         this.entrepriseService = entrepriseService;
@@ -25,14 +31,14 @@ public class ContactController {
 
     @GetMapping("/add/prospect")
     public String displayFormAddProspect(Model model){
-        model.addAttribute("contact",new Contact());
+        model.addAttribute("contact",new CreateContactDto());
         model.addAttribute("entreprises",entrepriseService.getAllEntreprises());
         return "addContactForm";
     }
 
     @PostMapping("/add/prospect")
-    public String prospectSubmit(Contact contact){
-        contactService.addProspect(contact);
+    public String prospectSubmit(CreateContactDto createContactDto){
+        contactService.addProspect(createContactDto);
         return "redirect:/init";
     }
 
@@ -41,6 +47,21 @@ public class ContactController {
         model.addAttribute("contact",contactService.findContactById(id));
         return "detailsContact";
     }
+
+    @GetMapping("/update/{id}")
+    public String udpdateContactForm(@PathVariable("id") Long id, Model model){
+        model.addAttribute("contact",CreateContactDto.fromContact(contactService.findContactById(id)));
+        model.addAttribute("entreprises",entrepriseService.getAllEntreprises());
+        return "updateContactForm";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateContactSubmit(@PathVariable("id") Long id,CreateContactDto contact){
+        contactService.updateContact(id,contact);
+        return "redirect:/home";
+    }
+
+
 
     @GetMapping("/delete/{id}")
     public String deleteContactValidation(@PathVariable("id") Long id,Model model){
