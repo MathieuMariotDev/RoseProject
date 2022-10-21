@@ -3,13 +3,16 @@ package com.example.rosaproject.service;
 import com.example.rosaproject.controller.dto.CreateEntrepriseDto;
 import com.example.rosaproject.controller.entity.Entreprise;
 import com.example.rosaproject.controller.entity.User;
+import com.example.rosaproject.exception.EntrepriseNotFoundException;
 import com.example.rosaproject.repository.EntrepriseRepository;
 import com.example.rosaproject.security.CustomUserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EntrepriseService {
@@ -27,17 +30,20 @@ public class EntrepriseService {
         return (List<Entreprise>) this.entrepriseRepository.findAllByUserOrderByNameAsc(connectedUser);
     }
 
-    /*public Entreprise getSpecificEntreprise(long id, Model model) {
-        Optional<Entreprise> entrepriseOptional = this.entrepriseRepository.findById(id);
+    public Entreprise getSpecificEntreprise(long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
+        User connectedUser = customUser.getUser();
+
+        Optional<Entreprise> entrepriseOptional = Optional.ofNullable(this.entrepriseRepository.findByIdAndUser(id, connectedUser));
 
         if (entrepriseOptional.isPresent()) {
             Entreprise entreprise = entrepriseOptional.get();
             return entreprise;
         } else {
-            // TODO: throw exception
+            throw new EntrepriseNotFoundException(id);
         }
-        return;
-    }*/
+    }
 
     public void createEntreprise(CreateEntrepriseDto createEntreprise) {
 
@@ -46,7 +52,6 @@ public class EntrepriseService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
         User connectedUser = customUser.getUser();
-        //user.setId(connectedUser.getId()); // ??
 /* // DON T DELETE USE FOR EDIT C/C
         entreprise.setLogo(createEntreprise.getLogo());
         entreprise.setName(createEntreprise.getName());
