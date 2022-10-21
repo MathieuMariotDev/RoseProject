@@ -16,7 +16,13 @@
   </div>
   <main>
 
-    <form action="#" th:action="@{/contact/add/prospect}" th:object="${contact}" method="post">
+    <form action="#" th:action="@{/contact/add/prospect}" th:object="${contact}" method="post" enctype="multipart/form-data">
+
+      <div>
+        <input type="file" th:field="*{file}"  id="picture" >
+        <label for="picture">Insérer une image pour cette personne</label>
+      </div>
+
 
       <div class="form-floating my-5">
         <input id="name" type="text" th:field="*{name}" placeholder="Prénom" class="form-control" >
@@ -45,6 +51,12 @@
         <input id="email" type="text" th:field="*{email}" placeholder="Adresse email" class="form-control" >
         <label for="email">Adresse email</label>
       </div>
+
+      <select th:field="*{client}" id="isClient" class="form-select col-6 my-3">
+        <option selected th:value="${false}" th:text="Prospect"></option>
+        <option th:value="${true}" th:text="Client"></option>
+      </select>
+
 
       <select th:field="*{entreprise}" id="contact1" class="col-6 my-3">
         <option value="disabled selected"></option>

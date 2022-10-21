@@ -1,83 +1,95 @@
-package com.example.rosaproject.controller.entity;
+package com.example.rosaproject.controller.dto;
 
+import com.example.rosaproject.controller.entity.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Collection;
 
-@Entity
-@Table(name = "contact", schema = "rosacrm", catalog = "")
-public class Contact {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "id")
+public class CreateContactDto {
+
+
     private Long id;
-    @Basic
-    @Column(name = "email")
+
     private String email;
-    @Basic
-    @Column(name = "name")
+
     private String name;
-    @Basic
-    @Column(name = "firstName")
+
     private String firstName;
-    @Basic
-    @Column(name = "cellPhone")
+
     private String cellPhone;
-    @Basic
-    @Column(name = "phone")
+
     private String phone;
-    @Basic
-    @Column(name = "createDate")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
     private LocalDate createDate;
-    @Basic
-    @Column(name = "isClient")
+
     private boolean isClient=false;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
-    @ManyToOne
-    @JoinColumn(name = "entreprise_id", referencedColumnName = "id", nullable = false)
+
     private Entreprise entreprise;
-    @OneToMany(mappedBy = "contact")
+
     private Collection<Echange> echangesById;
-    @OneToMany(mappedBy = "contact")
+
     private Collection<Evenement> evenementsById;
 
     private String picture;
+
+    private MultipartFile file;
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
     public boolean isClient() {
         return isClient;
     }
 
-
-    public String getPicture() {
-        return picture;
+    public void setClient(boolean client) {
+        isClient = client;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public CreateContactDto() {
     }
 
-    public Contact(String email, String name, String firstName, String cellPhone, String phone, LocalDate createDate, boolean isClient, User user, Entreprise entreprise,String picture) {
-        this.email = email;
-        this.name = name;
-        this.firstName = firstName;
-        this.cellPhone = cellPhone;
-        this.phone = phone;
-        this.createDate = createDate;
-        this.isClient = isClient;
-        this.user = user;
-        this.entreprise = entreprise;
-        this.picture = picture;
+    public Contact toContact(){
+        Contact contact = new Contact();
+        contact.setFirstName(this.firstName);
+        contact.setName(this.name);
+        contact.setEmail(this.email);
+        contact.setPhone(this.phone);
+        contact.setPicture(this.picture);
+        contact.setIsClient(this.isClient);
+        contact.setUser(this.user);
+        contact.setCreateDate(this.createDate);
+        contact.setEntreprise(this.entreprise);
+        return contact;
     }
 
-    public Contact() {
+    public static CreateContactDto fromContact(Contact contact){
+        CreateContactDto createContactDto = new CreateContactDto();
+        createContactDto.setFirstName(contact.getFirstName());
+        createContactDto.setName(contact.getName());
+        createContactDto.setEmail(contact.getEmail());
+        createContactDto.setPhone(contact.getPhone());
+        createContactDto.setCellPhone(contact.getCellPhone());
+        createContactDto.setPicture(contact.getPicture());
+        createContactDto.setClient(contact.getIsClient());
+        createContactDto.setUser(contact.getUser());
+        createContactDto.setCreateDate(contact.getCreateDate());
+        createContactDto.setEntreprise(contact.getEntreprise());
+        createContactDto.setId(contact.getId());
+        return createContactDto;
     }
+
+
+
 
     public Long getId() {
         return id;
@@ -135,29 +147,20 @@ public class Contact {
         this.createDate = createDate;
     }
 
-    public boolean getIsClient() {
-        return isClient;
-    }
-
-    public void setIsClient(boolean isClient) {
-        this.isClient = isClient;
-    }
-
-
     public User getUser() {
         return user;
     }
 
-    public void setUser(User userById1) {
-        this.user = userById1;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Entreprise getEntreprise() {
         return entreprise;
     }
 
-    public void setEntreprise(Entreprise entrepriseById2) {
-        this.entreprise = entrepriseById2;
+    public void setEntreprise(Entreprise entreprise) {
+        this.entreprise = entreprise;
     }
 
     public Collection<Echange> getEchangesById() {
@@ -174,5 +177,13 @@ public class Contact {
 
     public void setEvenementsById(Collection<Evenement> evenementsById) {
         this.evenementsById = evenementsById;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }
