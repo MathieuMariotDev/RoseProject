@@ -13,9 +13,9 @@
   <div class="container-fluid row">
     <div th:insert="../fragments/header :: header">
     </div>
-    <main class="d-flex flex-column align-items-center">
-      <h1>Tous les utilisateurs</h1>
-      <div class="d-flex flex-wrap">
+    <main class="col-12 d-flex flex-column align-items-center">
+      <h1 class="mt-5 mb-5">Tous les utilisateurs</h1>
+      <div class="d-flex flex-wrap justify-content-between">
         <th:block th:each="user : ${users}">
           <div class="card mt-5 mb-5" style="width: 18rem;">
             <div class="card-body">

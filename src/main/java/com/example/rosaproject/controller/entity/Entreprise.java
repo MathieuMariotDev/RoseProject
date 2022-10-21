@@ -1,5 +1,7 @@
 package com.example.rosaproject.controller.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -58,6 +60,7 @@ public class Entreprise {
     @OneToMany(mappedBy = "entreprise")
     private Collection<Contact> contactsById;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

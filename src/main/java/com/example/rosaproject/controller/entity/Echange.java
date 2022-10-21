@@ -1,5 +1,8 @@
 package com.example.rosaproject.controller.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDateTime;
@@ -25,9 +28,11 @@ public class Echange {
     private Date timeBeforeReminder;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "contact_id", referencedColumnName = "id", nullable = false)
     private Contact contact;
 

@@ -25,9 +25,13 @@ public class UserService {
     }
 
     public void createUser(CreateUserDto createUserDto) {
-        MultipartFile picture = createUserDto.getPictureFile();
-         storageService.save(picture);
-         createUserDto.setPicture("http://localhost:8080/images/" + picture.getOriginalFilename());
+        if (createUserDto.getPictureFile().isEmpty() || createUserDto.getPictureFile() == null){
+            createUserDto.setPicture("http://localhost:8080/images/" + "default.jpg");
+        }else {
+            MultipartFile picture = createUserDto.getPictureFile();
+            storageService.save(picture);
+            createUserDto.setPicture("http://localhost:8080/images/" + picture.getOriginalFilename());
+        }
          userRepository.save(createUserDto.toUser());
     }
 
@@ -65,6 +69,7 @@ public class UserService {
             createUserDto.setPicture("http://localhost:8080/images/" + picture.getOriginalFilename());
             createUserDto.toUserModify(editUser);
         }
+
         userRepository.save(editUser);
     }
 
