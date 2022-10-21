@@ -54,24 +54,14 @@ public class EntrepriseService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
         User connectedUser = customUser.getUser();
-/* // DON T DELETE USE FOR EDIT C/C
-        entreprise.setLogo(createEntreprise.getLogo());
-        entreprise.setName(createEntreprise.getName());
-        entreprise.setSiret(createEntreprise.getSiret());
-        entreprise.setEmail((createEntreprise.getEmail()));
-        entreprise.setCellPhone(createEntreprise.getCellPhone());
-        entreprise.setPhone(createEntreprise.getPhone());
-        entreprise.setUrlWebSite(createEntreprise.getUrlWebSite());
-        entreprise.setAddress(createEntreprise.getAddress());
-        entreprise.setAdditionalAddress(createEntreprise.getAdditionalAddress());
-        entreprise.setCity(createEntreprise.getCity());
-        entreprise.setPostalCode(createEntreprise.getPostalCode());
-        entreprise.setTypeOfActivity(createEntreprise.getTypeOfActivity());
-        entreprise.setCreateDate(createEntreprise.getCreateDate());
-*/
-        MultipartFile picture = createEntreprise.getPictureFile();
-        storageService.save(picture);
-        createEntreprise.setLogo("http://localhost:8080/images/" + picture.getOriginalFilename());
+
+        if (createEntreprise.getPictureFile().isEmpty() || createEntreprise.getPictureFile() == null){
+            createEntreprise.setLogo("http://localhost:8080/images/" + "default.jpg");
+        }else{
+            MultipartFile picture = createEntreprise.getPictureFile();
+            storageService.save(picture);
+            createEntreprise.setLogo("http://localhost:8080/images/" + picture.getOriginalFilename());
+        }
 
         createEntreprise.setUser(connectedUser);
         createEntreprise.setUser(customUser.getUser());
