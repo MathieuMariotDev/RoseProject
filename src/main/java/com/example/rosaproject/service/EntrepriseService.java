@@ -111,4 +111,8 @@ public class EntrepriseService {
             throw new EntrepriseNotFoundException(id);
         }
     }
+
+    public void deleteEntreprise(long id) {
+        entrepriseRepository.deleteById(id);
+    }
 }
