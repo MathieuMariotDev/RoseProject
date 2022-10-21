@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}">
-    <title>home</title>
+    <title>modify account</title>
 </head>
 <body>
 
@@ -15,22 +15,24 @@
     <div th:insert="../fragments/header :: header">
     </div>
     <main class="d-flex flex-column align-items-center">
-        <h1>Form</h1>
-        <form class=" col-3 d-flex flex-column align-items-center border border-secondary rounded" action="#"
-              th:object="${user}"  th:action="@{/users/edit/{id}(id=${user.id})}" method="post"
+        <h1>Modifier Profile</h1>
+        <form action="#"
+              th:object="${user}"  th:action="@{/user/edit/{id}(id=${user.id})}" method="post"
               enctype="multipart/form-data">
-            <div>
-                <input type="text" th:field="*{email}"  id="email" name="email" th:value="${user.email}" placeholder="Entrez un email" />
+            <div class="form-floating my-5">
+                <input type="text" class="form-control" th:field="*{email}"  id="floatingEmail" name="email" th:value="${user.email}" required  />
+                <label for="floatingEmail">Entrez un email</label>
             </div>
-            <div>
-                <input type="password" th:field="*{password}" id="password" name="password" placeholder="Entrez un mot de passe"/>
-                <input type="hidden" th:field="*{id}" id="id" th:value="${user.id}" name="id"/>
+            <div class="form-floating my-5">
+                <input type="password" class="form-control" th:field="*{password}" id="floatingPassword" th:value="${user.password}" name="password" required/>
+                <label for="floatingPassword">Mot de passe</label>
             </div>
-            <div>
-                <label for="pictureFile">image</label>
-                <input type="file" th:field="*{picture}" id="pictureFile" name="password" />
+            <div class="form-floating my-5">
+                <input type="file" class="form-control" th:field="*{picture}" id="floatingPicture" name="password" required/>
+                <label for="floatingPicture">image</label>
             </div>
-            <input type="submit" class="btn btn-primary" value="Create User">
+            <input type="hidden" th:field="*{id}" id="id" th:value="${user.id}" name="id"/>
+            <input type="submit" class="w-100 btn btn-lg btn-primary" value="Modifier compte">
         </form>
     </main>
     <footer>

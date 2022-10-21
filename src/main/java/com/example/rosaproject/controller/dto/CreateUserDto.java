@@ -1,6 +1,7 @@
 package com.example.rosaproject.controller.dto;
 
 import com.example.rosaproject.controller.entity.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Basic;
@@ -10,6 +11,7 @@ import java.util.Collection;
 
 public class CreateUserDto {
 
+    private long id;
     private String password;
 
     private MultipartFile pictureFile;
@@ -39,13 +41,12 @@ public class CreateUserDto {
     public Users toUser(){
         Users user = new Users();
         user.setEmail(this.email);
-        user.setPassword(this.password);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(this.password));
         user.setRole((short) 1);
         user.setPicture(this.picture);
         return user;
     }
-
-
 
 
     public String getPassword() {
@@ -110,5 +111,13 @@ public class CreateUserDto {
 
     public void setEvenements(Collection<Evenement> evenements) {
         this.evenements = evenements;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

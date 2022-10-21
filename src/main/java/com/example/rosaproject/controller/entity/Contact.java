@@ -3,7 +3,6 @@ package com.example.rosaproject.controller.entity;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
-import java.util.Objects;
 
 @Entity
 @Table(name = "contact", schema = "rosacrm", catalog = "")
@@ -42,7 +41,7 @@ public class Contact {
     private Users user;
     @ManyToOne
     @JoinColumn(name = "entreprise_id", referencedColumnName = "id", nullable = false)
-    private Entreprises entreprise;
+    private Entreprise entreprise;
     @OneToMany(mappedBy = "contact")
     private Collection<Echange> echangesById;
     @OneToMany(mappedBy = "contact")
@@ -129,12 +128,12 @@ public class Contact {
         this.user = usersById1;
     }
 
-    public Entreprises getEntreprise() {
+    public Entreprise getEntreprise() {
         return entreprise;
     }
 
-    public void setEntreprise(Entreprises entreprisesById2) {
-        this.entreprise = entreprisesById2;
+    public void setEntreprise(Entreprise entrepriseById2) {
+        this.entreprise = entrepriseById2;
     }
 
     public Collection<Echange> getEchangesById() {

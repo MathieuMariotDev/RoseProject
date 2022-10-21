@@ -7,7 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}">
-  <title>home</title>
+  <title>register account</title>
 </head>
 <body>
 
@@ -15,20 +15,24 @@
   <div th:insert="../fragments/header :: header">
   </div>
   <main class="d-flex flex-column align-items-center">
-    <h1>Form</h1>
-    <form class=" col-3 d-flex flex-column align-items-center border border-secondary rounded" action="#" th:action="@{/users/register}" th:object="${user}" method="post"
+    <h1>Creer un compte</h1>
+    <form
+          action="#" th:action="@{/user/register}" th:object="${user}" method="post"
           enctype="multipart/form-data">
-      <div>
-        <input type="text" th:field="*{email}"  id="email" name="email" placeholder="Entrez un email" />
+      <div class="form-floating my-5">
+        <input type="text" th:field="*{email}"  class="form-control" id="floatingEmail" placeholder="Entrez un email" required />
+        <label for="floatingEmail">Email</label>
       </div>
-      <div>
-        <input type="password" th:field="*{password}" id="password" name="password" placeholder="Entrez un mot de passe"/>
+      <div class="form-floating my-5">
+        <input type="password" class="form-control" th:field="*{password}" id="floatingPassword"  placeholder="Entrez un mot de passe" required/>
+        <label for="floatingPassword">Mot de passe</label>
       </div>
-      <div>
-        <label for="pictureFile">image</label>
-        <input type="file" th:field="*{pictureFile}" id="pictureFile" name="password" />
+      <div class="form-floating my-5">
+        <input type="file" class="form-control"  th:field="*{pictureFile}" id="floatingPicture" required />
+        <label for="floatingPicture">image</label>
       </div>
-      <input type="submit" class="btn btn-primary" value="Create User">
+      <input type="submit" class="w-100 btn btn-lg btn-primary"  value="Creer compte">
+      <a class="d-flex justify-content-center" th:href="@{/user/signin}">Vous possedez un compte ? Cliquez ICI </a>
     </form>
   </main>
   <footer>

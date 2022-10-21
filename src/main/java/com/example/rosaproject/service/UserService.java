@@ -4,11 +4,10 @@ import com.example.rosaproject.controller.dto.CreateUserDto;
 import com.example.rosaproject.controller.entity.Users;
 import com.example.rosaproject.exception.UserNotFoundException;
 import com.example.rosaproject.repository.UserRepository;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Optional;
 
 
 @Service
@@ -37,6 +36,12 @@ public class UserService {
     public Users findById(long id) {
        Users user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));;
+        return user;
+    }
+
+    public Users findByEmail() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Users user = userRepository.findUsersByEmail(auth.getName());
         return user;
     }
 }

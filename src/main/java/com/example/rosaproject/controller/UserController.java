@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
     private UserService userService;
@@ -31,6 +31,18 @@ public class UserController {
     @GetMapping("/init")
     public String initExample(){
         return "example";
+    }
+
+    @GetMapping("/showProfile")
+    public String displayProfile(Model model){
+        Users foundUser = userService.findByEmail();
+        model.addAttribute("user" , foundUser);
+        return "userProfile";
+    }
+
+    @GetMapping("/login")
+    public String loginForm(){
+        return "login";
     }
 
 
@@ -56,8 +68,7 @@ public class UserController {
 
     @GetMapping("/edit")
     public String displayEditForm(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Users foundUser = userService.findById(1);
+        Users foundUser = userService.findByEmail();
         model.addAttribute("user" , foundUser);
         return "userEditForm";
     }

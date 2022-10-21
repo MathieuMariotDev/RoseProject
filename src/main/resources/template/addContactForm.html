@@ -16,6 +16,35 @@
   </div>
   <main>
 
+    <form action="#" th:action="@{/add/prospect}" th:object="${contact}">
+
+      <div class="from-floating">
+        <label for="name">Prénom</label>
+        <input id="name" type="text" th:field="*{name}" placeholder="Prénom" class="form-control" >
+      </div>
+
+      <div class="from-floating">
+        <label for="firstName">Nom</label>
+        <input id="firstName" type="text"th:field="*{firstName}"  placeholder="Nom" class="form-control" >
+      </div>
+
+      <div class="from-floating">
+        <label for="cellPhone">Numéro de téléphone portable</label>
+        <input id="cellPhone" type="text" th:field="*{cellPhone}"  placeholder="Numéro de téléphone portable" class="form-control" >
+      </div>
+
+      <div class="from-floating">
+        <label for="phone">Numéro de téléphone fixe</label>
+        <input id="phone" type="text" th:field="*{phone}"  placeholder="Numéro de téléphone fixe" class="form-control" >
+      </div>
+
+      <div class="from-floating">
+        <label for="email">Adresse email</label>
+        <input id="email" type="text" th:field="*{email}"  placeholder="Adresse email" class="form-control" >
+      </div>
+    </form>
+
+
   </main>
   <footer>
 
