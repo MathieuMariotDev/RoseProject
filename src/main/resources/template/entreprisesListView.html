@@ -16,7 +16,7 @@
   </div>
   <main>
 
-    <div class="col-3" th:each="entreprise: ${entreprises}">
+    <div class="col-5" th:each="entreprise: ${entreprises}">
       <div class="row justify-content-center">
 
           <div class = "card m-3">
@@ -76,6 +76,10 @@
                 <!--todo : aligner horizontalement les boutons-->
                 <li class="list-group-item">
 
+                  <div>
+                    <a th:href="@{/entreprises/details/{id}(id=${entreprise.id})}">Prospects et clients</a>
+                  </div>
+
                 </li>
 
               </ul>
@@ -85,9 +89,11 @@
         </div>
 
       </div>
-    </div>
+
 
   </main>
+
+</div>
   <footer>
 
   </footer>
