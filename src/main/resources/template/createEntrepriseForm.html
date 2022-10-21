@@ -19,7 +19,7 @@
 
       <div class="col-5">
 
-      <form th:action="@{/entreprises/add}" th:object="${entreprise}" method="post">
+      <form th:action="@{/entreprises/add}" th:object="${entreprise}" method="post" enctype="multipart/form-data">
 
         <h1 class="h3 mb-3 fw-normal my-5">Login</h1>
 
@@ -28,9 +28,9 @@
           <label for="name">Entreprise</label>
         </div>
 
-        <div class="form-floating my-5">
-          <input class="form-control" id="logo" type="text" th:field="*{logo}" placeholder="https://www.myCompanyLogo.com">
+        <div>
           <label for="logo" class="form-label">Logo (URL)</label>
+          <input class="form-control" id="logo" type="file" th:field="*{pictureFile}">
         </div>
 
         <div class="form-floating my-5">

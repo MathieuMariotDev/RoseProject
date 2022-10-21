@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,8 +20,11 @@ public class EntrepriseService {
 
     private EntrepriseRepository entrepriseRepository;
 
-    public EntrepriseService(EntrepriseRepository entrepriseRepository) {
+    private StorageService storageService;
+
+    public EntrepriseService(EntrepriseRepository entrepriseRepository, StorageService storageService) {
         this.entrepriseRepository = entrepriseRepository;
+        this.storageService = storageService;
     }
 
     public List<Entreprise> getAllEntreprises() {
@@ -47,8 +51,6 @@ public class EntrepriseService {
 
     public void createEntreprise(CreateEntrepriseDto createEntreprise) {
 
-       // User user = new User();
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
         User connectedUser = customUser.getUser();
@@ -67,8 +69,13 @@ public class EntrepriseService {
         entreprise.setTypeOfActivity(createEntreprise.getTypeOfActivity());
         entreprise.setCreateDate(createEntreprise.getCreateDate());
 */
+        MultipartFile picture = createEntreprise.getPictureFile();
+        storageService.save(picture);
+        createEntreprise.setLogo("http://localhost:8080/images/" + picture.getOriginalFilename());
+
         createEntreprise.setUser(connectedUser);
         createEntreprise.setUser(customUser.getUser());
+
         entrepriseRepository.save(createEntreprise.dtoCreateEntrepriseToEntreprise());
     }
 }

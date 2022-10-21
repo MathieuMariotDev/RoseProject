@@ -4,6 +4,7 @@ import com.example.rosaproject.controller.entity.Contact;
 import com.example.rosaproject.controller.entity.Entreprise;
 import com.example.rosaproject.controller.entity.User;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -12,6 +13,8 @@ import java.util.Collection;
 public class CreateEntrepriseDto {
 
     private String logo;
+
+    private MultipartFile pictureFile;
 
     private String name;
 
@@ -67,6 +70,14 @@ public class CreateEntrepriseDto {
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public MultipartFile getPictureFile() {
+        return pictureFile;
+    }
+
+    public void setPictureFile(MultipartFile pictureFile) {
+        this.pictureFile = pictureFile;
     }
 
     public String getName() {
