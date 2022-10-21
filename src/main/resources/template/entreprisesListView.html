@@ -82,6 +82,13 @@
 
                 </li>
 
+                <!--edit-->
+                <div>
+                  <form th:action="@{/entreprises/edit/{id}(id=${entreprise.id})}" method="get">
+                    <button class="btn btn-secondary" type="submit">Modifier</button>
+                  </form>
+                </div>
+
               </ul>
 
             </div>

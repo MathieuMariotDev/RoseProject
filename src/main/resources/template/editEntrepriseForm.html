@@ -20,7 +20,7 @@
 
       <div class="col-5">
 
-        <form action="#" th:action="@{/entreprises/edit/{id}(id=${entreprise.id})}" th:object="${entreprise}" method="post" enctype="multipart/form-data">
+        <form th:action="@{/entreprises/edit/{id}(id=${entreprise.id})}" th:object="${entreprise}" method="post" enctype="multipart/form-data">
 
           <h1 class="h3 mb-3 fw-normal my-5">Modifier les informations</h1>
 
