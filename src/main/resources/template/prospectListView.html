@@ -11,28 +11,30 @@
 </head>
 <body>
 
-<div class="container-fluid px-0">
+<div class="container-fluid row">
   <div th:insert="../fragments/header :: header">
   </div>
   <main>
+    <div class="row row-cols-4 justify-content space-between mx-3">
+      <th:block th:each="prospect :${prospects}">
+        <div class="col my-5">
+          <div class="card">
+            <img th:src="${prospect.picture}" alt="" class="img-fluid">
+            <div class="card-body">
+              <div class="card-text">
+                <h3 th:text="${prospect.name}"></h3>
+                <h3 th:text="${prospect.firstName}"></h3>
+              </div>
+            </div>
+            <div class="card-footer">
 
-    <div class="d-flex align-items-center min-vh-100">
-      <div class="row mx-auto">
+              <a th:href="@{/contact/update/{id}(id=${prospect.id})}" class="btn btn-warning">Modifier le prospect</a>
+              <a th:href="@{/contact/details/{id}(id=${prospect.id})}" class="btn btn-info">Voire le détails</a>
 
-        <div class="col">
-          <h1 class="text-center">ARE YOU SUR YOU WANT TO DELETE THE CONTACT</h1>
+            </div>
+          </div>
         </div>
-
-        <div class="d-flex justify-content-between">
-          <a class="btn btn-success w-25 my-3" role="button" th:href="@{/contact/home}">NO</a>
-          <form class="w-25 my-3"  method="post" th:action="@{/contact/delete/{id}(id=${contact.id})}">
-            <button class="btn btn-danger w-100" role="button" type="submit">YES</button>
-          </form>
-        </div>
-      </div>
-    </div>
-
-
+      </th:block>
   </main>
   <footer>
 

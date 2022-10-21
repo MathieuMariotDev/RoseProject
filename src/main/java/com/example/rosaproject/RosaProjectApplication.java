@@ -1,9 +1,11 @@
 package com.example.rosaproject;
 
 import com.example.rosaproject.controller.entity.Contact;
+import com.example.rosaproject.controller.entity.Echange;
 import com.example.rosaproject.controller.entity.Entreprise;
 import com.example.rosaproject.controller.entity.User;
 import com.example.rosaproject.repository.ContactRepository;
+import com.example.rosaproject.repository.EchangeRepository;
 import com.example.rosaproject.repository.EntrepriseRepository;
 import com.example.rosaproject.repository.UserRepository;
 import com.example.rosaproject.service.StorageService;
@@ -25,11 +27,14 @@ public class RosaProjectApplication implements CommandLineRunner {
 
     ContactRepository contactRepository;
 
-    public RosaProjectApplication(StorageService storageService, UserRepository userRepository, EntrepriseRepository entrepriseRepository, ContactRepository contactRepository) {
+    EchangeRepository echangeRepository;
+
+    public RosaProjectApplication(StorageService storageService, UserRepository userRepository, EntrepriseRepository entrepriseRepository, ContactRepository contactRepository, EchangeRepository echangeRepository) {
         this.storageService = storageService;
         this.userRepository = userRepository;
         this.entrepriseRepository = entrepriseRepository;
         this.contactRepository = contactRepository;
+        this.echangeRepository = echangeRepository;
     }
 
     public static void main(String[] args) {
@@ -53,6 +58,15 @@ public class RosaProjectApplication implements CommandLineRunner {
         contactRepository.save(contact);
 
         contactRepository.save(client);
+
+        Echange echange=new Echange(LocalDate.now(),"En cours","Premier contact effectué .Me semble très sympatique et ouvert a la discussion",user,contact);
+
+        Echange echange1=new Echange(LocalDate.now(),"En cours","Second contact prometteur nous devons finalisé",user,contact);
+
+        echangeRepository.save(echange);
+
+        echangeRepository.save(echange1);
+
     }
 
 

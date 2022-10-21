@@ -2,6 +2,7 @@ package com.example.rosaproject.controller.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,7 +14,7 @@ public class Echange {
     private Long id;
     @Basic
     @Column(name = "createDate")
-    private LocalDateTime createDate;
+    private LocalDate createDate;
     @Basic
     @Column(name = "statusProspecting")
     private String statusProspecting;
@@ -22,7 +23,7 @@ public class Echange {
     private String message;
     @Basic
     @Column(name = "TimeBeforeReminder")
-    private Date timeBeforeReminder;
+    private LocalDateTime timeBeforeReminder;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
@@ -31,7 +32,7 @@ public class Echange {
     @JoinColumn(name = "contact_id", referencedColumnName = "id", nullable = false)
     private Contact contact;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -39,11 +40,11 @@ public class Echange {
         this.id = id;
     }
 
-    public LocalDateTime getCreateDate() {
+    public LocalDate getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(LocalDateTime createDate) {
+    public void setCreateDate(LocalDate createDate) {
         this.createDate = createDate;
     }
 
@@ -63,11 +64,11 @@ public class Echange {
         this.message = message;
     }
 
-    public Date getTimeBeforeReminder() {
+    public LocalDateTime getTimeBeforeReminder() {
         return timeBeforeReminder;
     }
 
-    public void setTimeBeforeReminder(Date timeBeforeReminder) {
+    public void setTimeBeforeReminder(LocalDateTime timeBeforeReminder) {
         this.timeBeforeReminder = timeBeforeReminder;
     }
 
@@ -85,5 +86,16 @@ public class Echange {
 
     public void setContact(Contact contactById2) {
         this.contact = contactById2;
+    }
+
+    public Echange() {
+    }
+
+    public Echange(LocalDate createDate, String statusProspecting, String message, User user, Contact contact) {
+        this.createDate = createDate;
+        this.statusProspecting = statusProspecting;
+        this.message = message;
+        this.user = user;
+        this.contact = contact;
     }
 }

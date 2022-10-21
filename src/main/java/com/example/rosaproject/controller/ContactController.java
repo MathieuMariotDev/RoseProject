@@ -75,5 +75,15 @@ public class ContactController {
         return "redirect:/contact/home";
     }
 
+    @GetMapping("/listProspect")
+    public String listViewProspect(Model model){
+        model.addAttribute("prospects",contactService.getAllProspect());
+        return "prospectListView";
+    }
 
+    @GetMapping("/listClient")
+    public String listViewClient(Model model){
+        model.addAttribute("clients",contactService.getAllClient());
+        return "clientListView";
+    }
 }
