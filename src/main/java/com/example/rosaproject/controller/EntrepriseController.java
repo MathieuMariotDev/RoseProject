@@ -66,4 +66,10 @@ public class EntrepriseController {
         return new RedirectView("/entreprises/all");
     }
 
+    @PostMapping("/delete/{id}")
+    public RedirectView deleteEntreprise(@PathVariable("id") long id) {
+        entrepriseService.deleteEntreprise(id);
+        return new RedirectView("/entreprises/all");
+    }
+
 }

@@ -41,7 +41,7 @@ public class Contact {
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
     @ManyToOne
-    @JoinColumn(name = "entreprise_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "entreprise_id", referencedColumnName = "id", nullable = true)
     private Entreprise entreprise;
     @OneToMany(mappedBy = "contact")
     private Collection<Echange> echangesById;
