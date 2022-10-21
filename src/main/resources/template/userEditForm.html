@@ -27,8 +27,17 @@
                 <input type="password" class="form-control" th:field="*{password}" id="floatingPassword" th:value="${user.password}" name="password" required/>
                 <label for="floatingPassword">Mot de passe</label>
             </div>
+            <div class="d-flex justify-content-center">
+                <img th:src="${user.picture}"
+                     alt="Generic placeholder image" class="img-fluid"
+                     style="width: 180px; border-radius: 10px;">
+            </div>
             <div class="form-floating my-5">
-                <input type="file" class="form-control" th:field="*{pictureFile}" id="floatingPicture" th:value="${user.picture}" name="password" required/>
+                <input type="text" class="form-control" th:value="${user.picture}" th:field="*{picture}" id="floatingPictureUrl" name="picture" />
+                <label for="floatingPictureUrl">lien de l'image</label>
+            </div>
+            <div class="form-floating my-5">
+                <input type="file" class="form-control" th:field="*{pictureFile}" id="floatingPicture"  name="pictureFile"/>
                 <label for="floatingPicture">image</label>
             </div>
             <input type="hidden" th:field="*{id}" id="id" th:value="${user.id}" name="id"/>

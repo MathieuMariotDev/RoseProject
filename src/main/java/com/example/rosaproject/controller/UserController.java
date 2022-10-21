@@ -77,7 +77,7 @@ public class UserController {
     public String deleteUserChoice(@PathVariable("id") Long id,Model model){
         User userFound = userService.findById(id);
         model.addAttribute("user",userFound);
-        return "confirmDelete";
+        return "adminDeleteUserValidation";
     }
 
     @PostMapping("/adminDeleteUser/{id}")
@@ -86,6 +86,19 @@ public class UserController {
         return "redirect:/user/allUsers";
     }
 
+    @GetMapping ("/deleteUser")
+    public String deleteUserChoice(Model model){
+        User userFound = userService.findByEmail();
+        model.addAttribute("user",userFound);
+        return "deleteUserValidation";
+    }
+
+    @PostMapping ("/deleteUser/{id}")
+    public String deleteUser(@PathVariable("id") Long id,Model model){
+        userService.deleteUser();
+        SecurityContextHolder.clearContext();
+        return "redirect:/user/login";
+    }
 
     @GetMapping("/edit")
     public String displayEditForm(Model model) {

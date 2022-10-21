@@ -31,8 +31,10 @@ public class UserService {
          userRepository.save(createUserDto.toUser());
     }
 
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+    public void deleteUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User userToDelete = userRepository.findUsersByEmail(auth.getName());
+        userRepository.delete(userToDelete);
     }
 
 
@@ -53,14 +55,16 @@ public class UserService {
     }
 
     public void editUser(CreateUserDto createUserDto) {
-        MultipartFile picture = createUserDto.getPictureFile();
-        storageService.save(picture);
-        createUserDto.setPicture("http://localhost:8080/images/" + picture.getOriginalFilename());
-
         User editUser = userRepository.findById(createUserDto.getId())
-                        .orElseThrow(() -> new UserNotFoundException(createUserDto.getId()));;
-        createUserDto.toUserModify(editUser);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                .orElseThrow(() -> new UserNotFoundException(createUserDto.getId()));;
+        if (createUserDto.getPictureFile().isEmpty() || createUserDto.getPictureFile() == null) {
+            createUserDto.toUserModify(editUser);
+        }else{
+            MultipartFile picture = createUserDto.getPictureFile();
+            storageService.save(picture);
+            createUserDto.setPicture("http://localhost:8080/images/" + picture.getOriginalFilename());
+            createUserDto.toUserModify(editUser);
+        }
         userRepository.save(editUser);
     }
 

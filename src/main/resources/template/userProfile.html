@@ -15,9 +15,9 @@
   <div th:insert="../fragments/header :: header">
   </div>
   <main>
-    <h1>Votre profile</h1>
-    <section class="vh-100" >
-      <div class="container py-5 h-100">
+    <section>
+      <div class="container py-5 h-100 d-flex flex-column align-items-center">
+        <h1>Votre profile</h1>
         <div class="row d-flex justify-content-center align-items-center h-100">
           <div class="col col-md-9 col-lg-7 col-xl-5">
             <div class="card" style="border-radius: 15px;">
@@ -30,10 +30,9 @@
                   </div>
                   <div class="flex-grow-1 ms-3">
                     <h5 class="mb-1" th:text="${user.email}"></h5>
-                    <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
-                         style="background-color: #efefef;">
+                    <div class="d-flex justify-content-start rounded-3 p-2 mb-2">
                       <div class="d-flex pt-1">
-                        <a class="btn btn-primary" th:href="@{/user/delete}">Effacer compte </a>
+                        <a class="btn btn-primary" th:href="@{/user/deleteUser}">Effacer compte </a>
                         <a class="btn btn-primary" th:href="@{/user/edit}">Modifier compte </a>
                       </div>
                     </div>
