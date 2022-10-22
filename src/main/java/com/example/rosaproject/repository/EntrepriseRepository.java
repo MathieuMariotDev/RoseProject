@@ -14,4 +14,6 @@ public interface EntrepriseRepository extends CrudRepository<Entreprise, Long> {
     Entreprise findByIdAndUser(long id, User user);
 
     List<Entreprise> findAllByUserOrderByNameAsc(User user);
+
+    List<Entreprise> findEntrepriseByNameContainsAndUserOrCityContainsAndUser(String name, User user1, String city, User user2);
 }

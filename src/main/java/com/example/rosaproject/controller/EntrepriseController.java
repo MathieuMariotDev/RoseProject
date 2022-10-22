@@ -6,10 +6,7 @@ import com.example.rosaproject.service.EntrepriseService;
 import com.example.rosaproject.service.StorageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
@@ -28,9 +25,14 @@ public class EntrepriseController {
     }
 
     @GetMapping("/all")
-    public String displayAllEntreprises(Model model) {
-        List<Entreprise> entrepriseList = entrepriseService.getAllEntreprises();
-        model.addAttribute("entreprises", entrepriseList);
+    public String displayAllEntreprises(Model model, @RequestParam(value = "search", required = false) String searchValue) {
+        if (searchValue != null) {
+            List<Entreprise> entrepriseList = entrepriseService.getEntrepriseByKeywords(searchValue, searchValue);
+            model.addAttribute("entreprises", entrepriseList);
+        } else{
+            List<Entreprise> entrepriseList = entrepriseService.getAllEntreprises();
+            model.addAttribute("entreprises", entrepriseList);
+        }
         return "entreprisesListView";
     }
 

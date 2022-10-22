@@ -16,7 +16,22 @@
   </div>
   <main>
 
-    <div class="col-5" th:each="entreprise: ${entreprises}">
+    <div class="row m-3 justify-content-between">
+
+      <div class="col-3">
+        <h1>Entreprises</h1>
+      </div>
+
+      <div class="col-3">
+        <form class="d-flex" role="search" method="get" th:action="@{/entreprises/all}">
+          <input class="form-control me-2" name="search" type="search" placeholder="Rechercher une entreprise" aria-label="Rechercher">
+          <button class="btn btn-outline-success" type="submit">Rechercher</button>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="col-5 m-3" th:each="entreprise: ${entreprises}">
       <div class="row justify-content-center">
 
           <div class = "card m-3">

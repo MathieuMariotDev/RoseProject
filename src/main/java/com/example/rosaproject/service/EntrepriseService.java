@@ -49,6 +49,14 @@ public class EntrepriseService {
         }
     }
 
+    public List<Entreprise> getEntrepriseByKeywords(String name, String city) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
+        User connectedUser = customUser.getUser();
+
+        return this.entrepriseRepository.findEntrepriseByNameContainsAndUserOrCityContainsAndUser(name, connectedUser, city, connectedUser);
+    }
+
     public void createEntreprise(CreateEntrepriseDto createEntreprise) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
