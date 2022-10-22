@@ -5,7 +5,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "contact", schema = "rosacrm", catalog = "")
@@ -33,6 +35,17 @@ public class Contact {
     @Column(name = "createDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createDate;
+
+    private String statusProspecting;
+
+    public String getStatusProspecting() {
+        return statusProspecting;
+    }
+
+    public void setStatusProspecting(String statusProspecting) {
+        this.statusProspecting = statusProspecting;
+    }
+
     @Basic
     @Column(name = "isClient")
     private boolean isClient=false;
@@ -44,9 +57,9 @@ public class Contact {
     @JoinColumn(name = "entreprise_id", referencedColumnName = "id", nullable = false)
     private Entreprise entreprise;
     @OneToMany(mappedBy = "contact")
-    private Collection<Echange> echangesById;
+    private List<Echange> echangesById = new ArrayList<>();
     @OneToMany(mappedBy = "contact")
-    private Collection<Evenement> evenementsById;
+    private List<Evenement> evenementsById  = new ArrayList<>();
 
     private String picture;
 
@@ -63,7 +76,7 @@ public class Contact {
         this.picture = picture;
     }
 
-    public Contact(String email, String name, String firstName, String cellPhone, String phone, LocalDate createDate, boolean isClient, User user, Entreprise entreprise,String picture) {
+    public Contact(String email, String name, String firstName, String cellPhone, String phone, LocalDate createDate, boolean isClient, User user, Entreprise entreprise,String picture,String statusProspecting) {
         this.email = email;
         this.name = name;
         this.firstName = firstName;
@@ -74,6 +87,7 @@ public class Contact {
         this.user = user;
         this.entreprise = entreprise;
         this.picture = picture;
+        this.statusProspecting = statusProspecting;
     }
 
     public Contact() {
@@ -160,19 +174,19 @@ public class Contact {
         this.entreprise = entrepriseById2;
     }
 
-    public Collection<Echange> getEchangesById() {
+    public List<Echange> getEchangesById() {
         return echangesById;
     }
 
-    public void setEchangesById(Collection<Echange> echangesById) {
+    public void setEchangesById(List<Echange> echangesById) {
         this.echangesById = echangesById;
     }
 
-    public Collection<Evenement> getEvenementsById() {
+    public List<Evenement> getEvenementsById() {
         return evenementsById;
     }
 
-    public void setEvenementsById(Collection<Evenement> evenementsById) {
+    public void setEvenementsById(List<Evenement> evenementsById) {
         this.evenementsById = evenementsById;
     }
 }

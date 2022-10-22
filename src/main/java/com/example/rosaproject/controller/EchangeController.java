@@ -1,8 +1,6 @@
 package com.example.rosaproject.controller;
 
 import com.example.rosaproject.controller.entity.Echange;
-import com.example.rosaproject.model.Status;
-import com.example.rosaproject.repository.ContactRepository;
 import com.example.rosaproject.service.ContactService;
 import com.example.rosaproject.service.EchangeService;
 import org.springframework.stereotype.Controller;
@@ -11,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Arrays;
 
 @Controller
 @RequestMapping("/echange")
@@ -53,13 +49,23 @@ public class EchangeController {
         return "redirect:/contact/details/"+idContact;
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/add/{id}")
     public String submitAddEchange(@PathVariable("id") Long idContact,Echange echange){
         echangeService.addEchange(idContact,echange);
-        return "redirect:/contact/details/1";
+        return "redirect:/contact/details/"+idContact;
     }
 
+    @PostMapping("/add/resume/note/{id}")
+    public String submitAddRelanceNote(@PathVariable("id") Long idContact,Echange echange){
+        echangeService.addResumeNote(idContact,echange);
+        return "redirect:/contact/details/"+idContact;
+    }
 
+    @PostMapping("/add/resume/timer/{id}/{idEchange}")
+    public String submitAddResumeTimer(@PathVariable("id") Long idContact,@PathVariable("idEchange") Long idEchange,Echange echange){
+        echangeService.addResumeTimer(idEchange,echange);
+        return "redirect:/contact/details/"+idContact;
+    }
 
 
 }

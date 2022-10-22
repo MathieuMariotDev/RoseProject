@@ -1,15 +1,17 @@
 package com.example.rosaproject.controller;
 
 import com.example.rosaproject.controller.dto.CreateContactDto;
+import com.example.rosaproject.controller.dto.SearchDto;
 import com.example.rosaproject.controller.entity.Contact;
+import com.example.rosaproject.controller.entity.Echange;
 import com.example.rosaproject.service.ContactService;
 import com.example.rosaproject.service.EntrepriseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/contact")
@@ -45,6 +47,7 @@ public class ContactController {
     @GetMapping("/details/{id}")
     public String detailsContact(@PathVariable("id") Long id, Model model){
         model.addAttribute("contact",contactService.findContactById(id));
+        model.addAttribute("echangeForSubmit",new Echange());
         return "detailsContact";
     }
 
@@ -75,9 +78,16 @@ public class ContactController {
         return "redirect:/contact/home";
     }
 
-    @GetMapping("/listProspect")
-    public String listViewProspect(Model model){
-        model.addAttribute("prospects",contactService.getAllProspect());
+    @GetMapping({"/listProspect","/"})
+    public String listViewProspect(Model model,SearchDto search){
+        List<Contact> prospectList = new ArrayList<>();
+        if(search !=null){
+            prospectList = contactService.searchProspect(search);
+        }else{
+            prospectList = contactService.getAllProspect();
+        }
+        model.addAttribute("searchDto",new SearchDto());
+        model.addAttribute("prospects",prospectList);
         return "prospectListView";
     }
 

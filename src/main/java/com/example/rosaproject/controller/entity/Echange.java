@@ -1,5 +1,7 @@
 package com.example.rosaproject.controller.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -14,7 +16,8 @@ public class Echange {
     private Long id;
     @Basic
     @Column(name = "createDate")
-    private LocalDate createDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime createDate;
     @Basic
     @Column(name = "statusProspecting")
     private String statusProspecting;
@@ -23,6 +26,7 @@ public class Echange {
     private String message;
     @Basic
     @Column(name = "TimeBeforeReminder")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime timeBeforeReminder;
 
     @ManyToOne
@@ -36,15 +40,15 @@ public class Echange {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public LocalDate getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(LocalDate createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 
@@ -91,7 +95,7 @@ public class Echange {
     public Echange() {
     }
 
-    public Echange(LocalDate createDate, String statusProspecting, String message, User user, Contact contact) {
+    public Echange(LocalDateTime createDate, String statusProspecting, String message, User user, Contact contact) {
         this.createDate = createDate;
         this.statusProspecting = statusProspecting;
         this.message = message;
