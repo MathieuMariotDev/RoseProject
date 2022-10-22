@@ -68,13 +68,15 @@
                 </li>
 
                 <li class="list-group-item">
-                  <div th:text="'Adresse : ' + ${entreprise.address}"></div>
+                  <div th:text="'Adresse : '"></div>
+                  <a th:text="${entreprise.address} + ' ' + ${entreprise.postalCode} + ' ' + ${entreprise.city}" th:href="'https://www.google.com/maps'"></a>
                 </li>
 
                 <li class="list-group-item">
                   <div th:text="'Adresse complémentaire : ' + ${entreprise.additionalAddress}"></div>
                 </li>
 
+                <!--
                 <li class="list-group-item">
                   <div th:text="'Ville : ' + ${entreprise.city}"></div>
                 </li>
@@ -82,6 +84,7 @@
                 <li class="list-group-item">
                   <div th:text="'Code Postal : ' + ${entreprise.postalCode}"></div>
                 </li>
+                -->
 
                 <li class="list-group-item">
                   <div th:text="'Type d\'activité : ' + ${entreprise.typeOfActivity}"></div>
