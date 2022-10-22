@@ -69,7 +69,7 @@
 
                 <li class="list-group-item">
                   <div th:text="'Adresse : '"></div>
-                  <a th:text="${entreprise.address} + ' ' + ${entreprise.postalCode} + ' ' + ${entreprise.city}" th:href="'https://www.google.com/maps'"></a>
+                  <a th:text="${entreprise.address} + ' ' + ${entreprise.postalCode} + ' ' + ${entreprise.city}" th:href="'https://maps.google.co.in/maps?q=' + ${entreprise.address} + ${entreprise.postalCode} + ${entreprise.city}"></a>
                 </li>
 
                 <li class="list-group-item">
