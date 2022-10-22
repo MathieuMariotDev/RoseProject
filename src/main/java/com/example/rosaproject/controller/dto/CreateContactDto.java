@@ -39,6 +39,16 @@ public class CreateContactDto {
 
     private MultipartFile file;
 
+    private String statusProspecting;
+
+    public String getStatusProspecting() {
+        return statusProspecting;
+    }
+
+    public void setStatusProspecting(String statusProspecting) {
+        this.statusProspecting = statusProspecting;
+    }
+
     public MultipartFile getFile() {
         return file;
     }

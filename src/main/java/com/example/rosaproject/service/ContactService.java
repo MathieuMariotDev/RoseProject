@@ -1,16 +1,20 @@
 package com.example.rosaproject.service;
 
 import com.example.rosaproject.controller.dto.CreateContactDto;
+import com.example.rosaproject.controller.dto.SearchDto;
 import com.example.rosaproject.controller.entity.Contact;
 import com.example.rosaproject.controller.entity.User;
 import com.example.rosaproject.repository.ContactRepository;
 import com.example.rosaproject.security.CustomUserDetails;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -41,6 +45,7 @@ public class ContactService {
         CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
         createContactDto.setUser(customUser.getUser());
         createContactDto.setCreateDate(LocalDate.now());
+        createContactDto.setStatusProspecting("A prospecter");
         if (createContactDto.getFile().isEmpty() || createContactDto.getFile() == null){
             createContactDto.setPicture("http://localhost:8080/images/" + "default.jpg");
         }else{
@@ -97,6 +102,37 @@ public class ContactService {
 
     }
 
+    public List<Contact> searchProspect(SearchDto searchDto){
+        List<Contact> contactList = new ArrayList<>();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
+        Sort sort=null;
+        if(searchDto.getSearchAZ() && searchDto.getSearchRecent()){
+             sort = Sort.by("name").ascending().by("firstName").ascending().by("createDate").descending();
+        }
+        else if (searchDto.getSearchZA() && searchDto.getSearchOld()){
+             sort = Sort.by("name").descending().by("firstName").descending().by("createDate").ascending();
+        }
+        else if (searchDto.getSearchAZ() && searchDto.getSearchOld()){
+            sort = Sort.by("name").ascending().by("firstName").ascending().by("createDate").ascending();
+        }else if(searchDto.getSearchZA() && searchDto.getSearchRecent()){
+            sort =  Sort.by("name").descending().by("firstName").descending().by("createDate").descending();
+        }
+        else if (searchDto.getSearchZA()){
+             sort = Sort.by("name").descending();
+        }
+        else if (searchDto.getSearchAZ()){
+            sort = Sort.by("name").ascending();
+        }
+        else if (searchDto.getSearchOld()){
+            sort = Sort.by("createDate").ascending();
+        }
+        else if (searchDto.getSearchRecent()){
+            sort = Sort.by("createDate").descending();
+        }
+        contactList = contactRepository.findContactFilter(customUser.getUser(),sort);
+        return contactList;
+    }
 
 
 }

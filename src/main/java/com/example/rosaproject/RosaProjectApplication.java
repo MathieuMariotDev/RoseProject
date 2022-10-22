@@ -15,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class RosaProjectApplication implements CommandLineRunner {
@@ -52,16 +53,16 @@ public class RosaProjectApplication implements CommandLineRunner {
         Entreprise entreprise = new Entreprise("www.monlogo.com","La redoute","00123659895","Lentreprise@entreprise.com","+33750828587","+33233657895","www.monsite.com","100 rue de Brest","batiment 3","Rennes","35000","Vente de vêtement", LocalDate.now(),user);
         entrepriseRepository.save(entreprise);
 
-        Contact contact = new Contact("paul@entreprise.com","Paul","Ohrel","0750998872","0250998874",LocalDate.now(),false,user,entreprise,"http://localhost:8080/images/default.jpg");
+        Contact contact = new Contact("paul@entreprise.com","Paul","Ohrel","0750998872","0250998874",LocalDate.now(),false,user,entreprise,"http://localhost:8080/images/default.jpg","En cours de prospection");
 
-        Contact client = new Contact("Garitou@entreprise.com","Garitou","Labrou","0750995588","0250994403",LocalDate.now(),false,user,entreprise,"http://localhost:8080/images/default.jpg");
+        Contact contact1 = new Contact("Garitou@entreprise.com","Garitou","Labrou","0750995588","0250994403",LocalDate.now(),false,user,entreprise,"http://localhost:8080/images/default.jpg","A prospecter");
         contactRepository.save(contact);
 
-        contactRepository.save(client);
+        contactRepository.save(contact1);
 
-        Echange echange=new Echange(LocalDate.now(),"En cours","Premier contact effectué .Me semble très sympatique et ouvert a la discussion",user,contact);
+        Echange echange=new Echange(LocalDateTime.now(),"En cours","Premier contact effectué .Me semble très sympatique et ouvert a la discussion",user,contact);
 
-        Echange echange1=new Echange(LocalDate.now(),"En cours","Second contact prometteur nous devons finalisé",user,contact);
+        Echange echange1=new Echange(LocalDateTime.now(),"En cours","Second contact prometteur nous devons finalisé",user,contact);
 
         echangeRepository.save(echange);
 

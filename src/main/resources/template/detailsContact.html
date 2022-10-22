@@ -10,7 +10,8 @@
   <title>home</title>
 </head>
 <body>
-
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 <div class="container-fluid row">
   <div th:insert="../fragments/header :: header">
   </div>
@@ -41,6 +42,61 @@
 
               <p>Lien vers le détails de son entreprise</p>
                <!-- TODO -->
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNote">
+                Passage au statut a relancer
+              </button>
+
+
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTimeBefore">
+                Temps avant relance
+              </button>
+
+              <!-- Modal timber before relance -->
+              <div class="modal fade" id="modalTimeBefore" tabindex="-1" aria-labelledby="modalTimeBefore" aria-hidden="true">
+                <form th:action="@{/echange/add/resume/timer/{id}/{idEchange} (id=${contact.id},idEchange=${contact.getEchangesById().get(contact.getEchangesById().size()-1).id})}"  method="post" th:object="${echangeForSubmit}">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Sélectionner la Durée avant passage au statut a relancer</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <input type="datetime-local" th:field="${echangeForSubmit.timeBeforeReminder}">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-secondary">Enregistrer la compte a rebour</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </div>
+                </div>
+                </form>
+              </div>
+
+              <!-- Modal -->
+              <div class="modal fade" id="modalNote" tabindex="-1" aria-labelledby="modalTimeBefore" aria-hidden="true">
+                <form th:action="@{/echange/add/resume/note/{id} (id=${contact.id})}"  method="post" th:object="${echangeForSubmit}">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+
+                      <h5 class="modal-title">Motif pour la relance :</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <label for="textAreainputModal">Note sur l'échange</label>
+                      <textarea class="form-control" id="textAreainputModal" rows="4" th:text="${echangeForSubmit.message}" th:field="${echangeForSubmit.message}"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-secondary">Enregistrer note de relance</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </div>
+                </div>
+                </form>
+              </div>
+
 
 
               <a  th:href="@{/contact/delete/{id}(id=${contact.id})}" class="btn btn-danger">Supprimer ce contact</a>
@@ -50,10 +106,22 @@
         </div>
       </div>
     </div>
-    <button type="button" id="buttonShowForm" class="btn btn-info">Ajouter une note ou demarrer la prospection</button>
-    <div class="row justify-content-center" id="formAdd">
 
-      </div>
+    <button type="button" id="buttonShowForm" class="btn btn-info">Ajouter une note ou demarrer la prospection</button>
+
+      <form id="formAdd" th:action="@{/echange/add/{id} (id=${contact.id})}" method="post" th:object="${echangeForSubmit}">
+        <div class="row justify-content-center">
+          <!--Material textarea-->
+          <h3><strong th:text="'Statut actuelle : ' +${contact.getEchangesById().get(contact.getEchangesById().size()-1).statusProspecting}"/></h3>
+          <div class="form-outline">
+            <label for="textAreaExample1">Note sur l'échange</label>
+            <textarea class="form-control" id="textAreainput" rows="4" th:text="${echangeForSubmit.message}" th:field="${echangeForSubmit.message}"></textarea>
+          </div>
+          <button class="w-25 btn btn-lg btn-primary my-3" type="submit">Ajouter un échange</button>
+        </div>
+        </th:block>
+
+      </form>
 
 
         <th:block th:each="echange :${contact.getEchangesById()}">
@@ -69,12 +137,10 @@
             <textarea class="form-control" id="textAreaExample1" rows="4" th:text="${echange.message}
 "  readonly></textarea>
           </div>
-            <a  th:href="@{/echange/update/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}" class="btn btn-warning">Mettre a jour l'échange</a>
-            <a  th:href="@{/echange/delete/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}" class="btn btn-danger">Supprimer l'échange</a>
+            <a  th:href="@{/echange/update/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}" class="btn btn-warning w-25">Mettre a jour l'échange</a>
+            <a  th:href="@{/echange/delete/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}" class="btn btn-danger w-25">Supprimer l'échange</a>
           </div>
         </th:block>
-
-
 
 
 
@@ -83,34 +149,6 @@
 
   </footer>
 </div>
-
-<script>
-
-  let htmlFormAddEchange="<form th:action=\"@{/echange/update/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}\" method=\"post\" th:object=\"${echange}\">\n" +
-          "            <h3><strong th:text=\"'Statut actuelle : ' +${echange.statusProspecting}\"/></h3>\n" +
-          "\n" +
-          "\n" +
-          "            <h4><strong th:text=\" 'Date de création: ' +${echange.createDate}\"/></h4>\n" +
-          "            <div class=\"form-outline\">\n" +
-          "                <label for=\"textAreaExample1\">Note sur l'échange</label>\n" +
-          "                <textarea class=\"form-control\" id=\"textAreaExample1\" rows=\"4\" th:field=\"${echange.message}\" th:text=\"${echange.message}\n" +
-          "\" ></textarea>\n" +
-          "            </div>\n" +
-          "                <button class=\"w-100 btn btn-lg btn-primary my-3\" type=\"submit\">Modifier l'échange</button>\n" +
-          "            </form>"
-
-
-
-let btnShow = document.getElementById("buttonShowForm");
-
-  btnShow.addEventListener("click", ev => {
-    console.log("clicked");
-    document.getElementById("formAdd").innerHTML = htmlFormAddEchange;
-  });
-
-
-
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
