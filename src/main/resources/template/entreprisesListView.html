@@ -49,15 +49,18 @@
                 </li>
 
                 <li class="list-group-item">
-                  <div th:text="'Email : ' + ${entreprise.email}"></div>
+                  <div th:text="'Email : '"></div>
+                  <a th:text="${entreprise.email}" th:href="'mailto:' + ${entreprise.email}"></a>
                 </li>
 
                 <li class="list-group-item">
-                  <div th:text="'Téléphone portable : ' + ${entreprise.cellPhone}"></div>
+                  <div th:text="'Téléphone portable : '"></div>
+                  <a th:text="${entreprise.cellPhone}" th:href="'tel:' + ${entreprise.cellPhone}"></a>
                 </li>
 
                 <li class="list-group-item">
-                  <div th:text="'Téléphone fixe : ' + ${entreprise.phone}"></div>
+                  <div th:text="'Téléphone fixe : '"></div>
+                  <a th:text="${entreprise.phone}" th:href="'tel:' + ${entreprise.phone}"></a>
                 </li>
 
                 <li class="list-group-item">
