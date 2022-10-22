@@ -82,43 +82,47 @@
 
                 </li>
 
-                <!--edit-->
-                <div>
-                  <form th:action="@{/entreprises/edit/{id}(id=${entreprise.id})}" method="get">
-                    <button class="btn btn-secondary" type="submit">Modifier</button>
-                  </form>
-                </div>
+                <li class="list-group-item">
 
-                <!--remove-->
-                <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  Supprimer
-                </button>
+                  <!--edit-->
+                  <div>
+                    <form th:action="@{/entreprises/edit/{id}(id=${entreprise.id})}" method="get">
+                      <button class="btn btn-secondary" type="submit">Modifier</button>
+                    </form>
+                  </div>
 
-                <form th:action="@{/entreprises/delete/{id}(id=${entreprise.id})}" method="post">
+                  <!--remove-->
+                  <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Supprimer
+                  </button>
 
-                  <!-- Modal -->
-                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Suppression de l'entreprise</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          Voulez-vous vraiment supprimer l'entreprise ?
-                        </div>
-                        <div class="modal-footer">
+                  <form th:action="@{/entreprises/delete/{id}(id=${entreprise.id})}" method="post">
 
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Suppression de l'entreprise</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            Voulez-vous vraiment supprimer l'entreprise ?
+                          </div>
+                          <div class="modal-footer">
 
-                          <button type="submit" class="btn btn-danger">Supprimer</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
 
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                </form>
+                  </form>
+
+                </li>
 
               </ul>
 

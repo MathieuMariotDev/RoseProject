@@ -44,7 +44,8 @@ public class Contact {
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
     @ManyToOne
-    @JoinColumn(name = "entreprise_id", referencedColumnName = "id", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "entreprise_id", referencedColumnName = "id", nullable = false)
     private Entreprise entreprise;
     @OneToMany(mappedBy = "contact")
     private Collection<Echange> echangesById;
