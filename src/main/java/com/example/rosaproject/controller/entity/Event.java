@@ -29,6 +29,19 @@ public class Event {
     @Column(name = "dateTimeEnd")
     private LocalDateTime dateTimeEnd;
 
+    public Event() {
+    }
+
+    public Event(String name, String description, String address, LocalDateTime dateTimeStart, LocalDateTime dateTimeEnd, User user, Contact contact) {
+        this.name = name;
+        this.description = description;
+        this.address = address;
+        this.dateTimeStart = dateTimeStart;
+        this.dateTimeEnd = dateTimeEnd;
+        this.user = user;
+        this.contact = contact;
+    }
+
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)

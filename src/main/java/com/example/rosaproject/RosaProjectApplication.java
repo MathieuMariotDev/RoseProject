@@ -1,14 +1,8 @@
 package com.example.rosaproject;
 
-import com.example.rosaproject.controller.entity.Contact;
-import com.example.rosaproject.controller.entity.Echange;
-import com.example.rosaproject.controller.entity.Entreprise;
-import com.example.rosaproject.controller.entity.User;
+import com.example.rosaproject.controller.entity.*;
 import com.example.rosaproject.model.Status;
-import com.example.rosaproject.repository.ContactRepository;
-import com.example.rosaproject.repository.EchangeRepository;
-import com.example.rosaproject.repository.EntrepriseRepository;
-import com.example.rosaproject.repository.UserRepository;
+import com.example.rosaproject.repository.*;
 import com.example.rosaproject.service.StorageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @SpringBootApplication
 public class RosaProjectApplication implements CommandLineRunner {
@@ -31,12 +26,15 @@ public class RosaProjectApplication implements CommandLineRunner {
 
     EchangeRepository echangeRepository;
 
-    public RosaProjectApplication(StorageService storageService, UserRepository userRepository, EntrepriseRepository entrepriseRepository, ContactRepository contactRepository, EchangeRepository echangeRepository) {
+    EventRepository eventRepository;
+
+    public RosaProjectApplication(StorageService storageService, UserRepository userRepository, EntrepriseRepository entrepriseRepository, ContactRepository contactRepository, EchangeRepository echangeRepository, EventRepository eventRepository) {
         this.storageService = storageService;
         this.userRepository = userRepository;
         this.entrepriseRepository = entrepriseRepository;
         this.contactRepository = contactRepository;
         this.echangeRepository = echangeRepository;
+        this.eventRepository = eventRepository;
     }
 
     public static void main(String[] args) {
@@ -68,6 +66,17 @@ public class RosaProjectApplication implements CommandLineRunner {
         echangeRepository.save(echange);
 
         echangeRepository.save(echange1);
+
+        Event event1 = new Event("event1","description1","Adresse 1", LocalDateTime.parse("2022-10-13T01:00:00"), LocalDateTime.parse("2022-10-10T02:00:00"), user,contact);
+        Event event2 = new Event("event2","description2","Adresse 2", LocalDateTime.parse("2022-10-13T02:00:00"), LocalDateTime.parse("2022-10-13T03:00:00"), user,contact);
+        Event event3 = new Event("event3","description3","Adresse 3", LocalDateTime.parse("2022-10-13T03:00:00"), LocalDateTime.parse("2022-10-13T05:00:00"), user,contact);
+        Event event4 = new Event("event4","description4","Adresse 4", LocalDateTime.parse("2022-10-13T04:00:00"), LocalDateTime.parse("2022-10-13T06:00:00"), user,contact1);
+
+        eventRepository.save(event1);
+        eventRepository.save(event2);
+        eventRepository.save(event3);
+        eventRepository.save(event4);
+
 
     }
 
