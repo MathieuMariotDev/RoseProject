@@ -8,10 +8,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -68,7 +66,7 @@ public class Contact {
     private List<Echange> echangesById = new ArrayList<>();
     @OneToMany(mappedBy = "contact")
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
-    private List<Evenement> evenementsById  = new ArrayList<>();
+    private List<Event> evenementsById  = new ArrayList<>();
 
     private String picture;
 
@@ -191,11 +189,11 @@ public class Contact {
         this.echangesById = echangesById;
     }
 
-    public List<Evenement> getEvenementsById() {
+    public List<Event> getEvenementsById() {
         return evenementsById;
     }
 
-    public void setEvenementsById(List<Evenement> evenementsById) {
+    public void setEvenementsById(List<Event> evenementsById) {
         this.evenementsById = evenementsById;
     }
 }
