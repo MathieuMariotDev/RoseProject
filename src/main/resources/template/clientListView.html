@@ -15,6 +15,36 @@
   <div th:insert="../fragments/header :: header">
   </div>
   <main>
+
+    <form th:action="@{/contact/listClient}"  th:object="${searchDto}"  method="get">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault1" th:field="${searchDto.searchAZ}">
+        <label class="form-check-label" for="flexSwitchCheckDefault1">A-Z</label>
+      </div>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault2" th:field="${searchDto.searchZA}">
+        <label class="form-check-label" for="flexSwitchCheckDefault2">Z-A</label>
+      </div>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault3" th:field="${searchDto.searchRecent}">
+        <label class="form-check-label" for="flexSwitchCheckDefault3">Plus récent</label>
+      </div>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault4" th:field="${searchDto.searchOld}">
+        <label class="form-check-label" for="flexSwitchCheckDefault4">Plus ancien</label>
+      </div>
+
+
+
+
+      <input class="form-control me-2" type="search" placeholder="Saisir un nom a chercher" aria-label="Search" th:field="${searchDto.searchValue}">
+
+      <button type="submit">Search</button>
+    </form>
+
+
+
+
     <div class="row row-cols-4 justify-content space-between mx-3">
       <th:block th:each="client :${clients}">
         <div class="col my-5">
@@ -28,8 +58,8 @@
             </div>
             <div class="card-footer">
 
-              <a th:href="@{/contact/update/{id}(id=${client.id})}" class="btn btn-warning">Modifier le client</a>
-              <a th:href="@{/contact/details/{id}(id=${client.id})}" class="btn btn-info">Voire le détails</a>
+              <a th:href="@{/contact/update/client/{id}(id=${client.id})}" class="btn btn-warning">Modifier le client</a>
+              <a th:href="@{/contact/details/client/{id}(id=${client.id})}" class="btn btn-info">Voire le détails</a>
 
             </div>
           </div>

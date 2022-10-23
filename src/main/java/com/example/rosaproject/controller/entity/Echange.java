@@ -36,6 +36,26 @@ public class Echange {
     @JoinColumn(name = "contact_id", referencedColumnName = "id", nullable = false)
     private Contact contact;
 
+    String reference;
+
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    private String prospecting;
+
+    public String getProspecting() {
+        return prospecting;
+    }
+
+    public void setProspecting(String prospecting) {
+        this.prospecting = prospecting;
+    }
+
     public Long getId() {
         return id;
     }
@@ -95,11 +115,12 @@ public class Echange {
     public Echange() {
     }
 
-    public Echange(LocalDateTime createDate, String statusProspecting, String message, User user, Contact contact) {
+    public Echange(LocalDateTime createDate, String statusProspecting, String message, User user, Contact contact,String reference) {
         this.createDate = createDate;
         this.statusProspecting = statusProspecting;
         this.message = message;
         this.user = user;
         this.contact = contact;
+        this.reference = reference;
     }
 }

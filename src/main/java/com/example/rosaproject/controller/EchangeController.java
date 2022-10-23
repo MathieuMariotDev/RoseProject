@@ -55,15 +55,28 @@ public class EchangeController {
         return "redirect:/contact/details/"+idContact;
     }
 
+    @PostMapping("/add/client/{id}")
+    public String submitAddEchangeToClient(@PathVariable("id") Long idContact,Echange echange){
+        echangeService.addEchangeForClient(echange,idContact);
+        return "redirect:/contact/details/client/"+idContact;
+    }
+
+
     @PostMapping("/add/resume/note/{id}")
     public String submitAddRelanceNote(@PathVariable("id") Long idContact,Echange echange){
         echangeService.addResumeNote(idContact,echange);
         return "redirect:/contact/details/"+idContact;
     }
 
-    @PostMapping("/add/resume/timer/{id}/{idEchange}")
-    public String submitAddResumeTimer(@PathVariable("id") Long idContact,@PathVariable("idEchange") Long idEchange,Echange echange){
-        echangeService.addResumeTimer(idEchange,echange);
+    @PostMapping("/add/resume/timer/{id}")
+    public String submitAddResumeTimer(@PathVariable("id") Long idContact,Echange echange){
+        echangeService.addResumeTimer(idContact,echange);
+        return "redirect:/contact/details/"+idContact;
+    }
+
+    @PostMapping("add/client/resume/timer/{id}")
+    public String submitAddContactTimer(@PathVariable("id") Long idContact,Echange echange){
+        echangeService.addContactTimerForClient(idContact,echange);
         return "redirect:/contact/details/"+idContact;
     }
 

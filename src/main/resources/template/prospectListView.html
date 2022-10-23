@@ -33,6 +33,15 @@
         <label class="form-check-label" for="flexSwitchCheckDefault4">Plus ancien</label>
       </div>
 
+      <select th:field="${searchDto.prospectingStatu}" id="isClient" class="form-select col-6 my-3">
+        <option selected th:value="${null}">Filtrer par status</option>
+        <th:block th:each="statu :${status}">
+          <option th:value="${statu}"  th:text="${statu.getStatusName()}"></option>
+        </th:block>
+      </select>
+
+      <input class="form-control me-2" type="search" placeholder="Saisir un nom a chercher" aria-label="Search" th:field="${searchDto.searchValue}">
+
         <button type="submit">Search</button>
     </form>
     

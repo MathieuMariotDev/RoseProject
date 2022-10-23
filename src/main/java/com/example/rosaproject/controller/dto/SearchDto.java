@@ -1,5 +1,6 @@
 package com.example.rosaproject.controller.dto;
 
+import com.example.rosaproject.model.Status;
 import org.springframework.data.domain.Sort;
 
 public class SearchDto {
@@ -11,6 +12,26 @@ public class SearchDto {
     Boolean searchOld=false;
 
     Boolean searchRecent=false;
+
+    Status prospectingStatu;
+
+    String searchValue;
+
+    public String getSearchValue() {
+        return searchValue;
+    }
+
+    public void setSearchValue(String searchValue) {
+        this.searchValue = searchValue;
+    }
+
+    public Status getProspectingStatu() {
+        return prospectingStatu;
+    }
+
+    public void setProspectingStatu(Status prospectingStatu) {
+        this.prospectingStatu = prospectingStatu;
+    }
 
     public SearchDto() {
     }

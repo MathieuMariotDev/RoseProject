@@ -16,7 +16,7 @@
   </div>
   <main>
 
-    <form action="#" th:action="@{/contact/update/{id}(id=${contact.id})}" th:object="${contact}" method="post" enctype="multipart/form-data">
+    <form action="#" th:action="@{/contact/update/client/{id}(id=${contact.id})}" th:object="${contact}" method="post" enctype="multipart/form-data">
 
       <div>
         <label for="picture">Image actuelle pour cette personne</label>
@@ -62,17 +62,6 @@
         <th:block th:each="entreprise :${entreprises}">
           <option th:value="${entreprise.id}" th:text="${entreprise.name}"></option>
         </th:block>
-      </select>
-
-      <select th:field="*{client}" id="isClient" class="form-select col-6 my-3">
-        <div th:if="*{!client}" >
-          <option selected th:value="${false}" th:text="Prospect"></option>
-          <option th:value="${true}" th:text="Client"></option>
-        </div>
-        <div th:if="*{client}" >
-          <option selected th:value="${true}" th:text="Client"></option>
-          <option th:value="${false}" th:text="Prospect"></option>
-        </div>
       </select>
 
 

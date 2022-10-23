@@ -2,7 +2,6 @@ package com.example.rosaproject.repository;
 
 import com.example.rosaproject.controller.entity.Contact;
 import com.example.rosaproject.controller.entity.User;
-import net.bytebuddy.TypeCache;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -13,14 +12,23 @@ import java.util.List;
 @Repository
 public interface ContactRepository extends CrudRepository<Contact, Long> {
     // Retourne la liste de contact qui sont des clients
-    List<Contact> findContactByIsClientTrue();
+    List<Contact> findContactByIsClientTrueAndUser(User user);
     // Retourne la liste de contact qui ne sont pas des clients
-    List<Contact> findContactByIsClientFalse();
+    List<Contact> findContactByIsClientFalseAndUser(User user);
     // Retourne la liste de contact qui sont des clients trié dans l'ordre ASC
 
-    @Query("SELECT c FROM Contact c where c.user = :user")
-    List<Contact> findContactFilter(User user, Sort sort);
+    @Query("SELECT c FROM Contact c where c.user = :user and c.isClient = :isClient")
+    List<Contact> findContactByUserWithFilter(User user, Sort sort,boolean isClient);
 
+    @Query("SELECT c FROM Contact c where c.user = :user and c.statusProspecting = :prospectingStatus and c.isClient = :isClient")
+    List<Contact> findContactByUserWithFilterAndStatusProspecting(User user ,Sort sort , String prospectingStatus,boolean isClient);
+
+
+
+    @Query("SELECT c FROM Contact c where c.user = :user and c.statusProspecting = :prospectingStatus and c.isClient = :isClient AND (LOWER(c.name)  LIKE LOWER(CONCAT('%',:searchValue,'%')) or c.firstName like LOWER(CONCAT('%',:searchValue,'%')))")
+    List<Contact> findContactByUserAndNameContainsOrFirstNameContainsStatusProspectingEqualsWithFilter(User user ,Sort sort ,String searchValue, String prospectingStatus,boolean isClient);
+    @Query("SELECT c FROM Contact c where c.user = :user and c.isClient = :isClient AND  ( LOWER(c.name)  LIKE LOWER(CONCAT('%',:searchValue,'%')) or c.firstName like LOWER(CONCAT('%',:searchValue,'%')))")
+    List<Contact>  findContactByUserAndNameFirstNameContainsNofilter(User user,String searchValue,boolean isClient);
 
 
     List<Contact> findContactByIsClientTrueOrderByNameAsc();

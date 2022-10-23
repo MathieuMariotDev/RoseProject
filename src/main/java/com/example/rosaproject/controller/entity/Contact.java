@@ -1,5 +1,6 @@
 package com.example.rosaproject.controller.entity;
 
+import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -57,8 +58,10 @@ public class Contact {
     @JoinColumn(name = "entreprise_id", referencedColumnName = "id", nullable = false)
     private Entreprise entreprise;
     @OneToMany(mappedBy = "contact")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private List<Echange> echangesById = new ArrayList<>();
     @OneToMany(mappedBy = "contact")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private List<Evenement> evenementsById  = new ArrayList<>();
 
     private String picture;
