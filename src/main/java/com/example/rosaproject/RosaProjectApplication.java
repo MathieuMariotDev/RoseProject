@@ -51,7 +51,7 @@ public class RosaProjectApplication implements CommandLineRunner {
         String mdp = encoder.encode("0123");
         User user = new User(mdp,"http://localhost:8080/images/"+"personne1","math.mariot@gmail.com", (short) 1);
         userRepository.save(user);
-        Entreprise entreprise = new Entreprise("www.monlogo.com","La redoute","00123659895","Lentreprise@entreprise.com","0750828587","Lentreprise@entreprise.com","www.monsite.com","16 rue de la chambre","batiment 3","Nantes","78000","Vente de vêtement", LocalDate.now(),user);
+        Entreprise entreprise = new Entreprise("www.monlogo.com","La redoute","00123659895","Lentreprise@entreprise.com","+33750828587","+33233657895","www.monsite.com","100 rue de Brest","batiment 3","Rennes","35000","Vente de vêtement", LocalDate.now(),user);
         entrepriseRepository.save(entreprise);
 
         Contact contact = new Contact("paul@entreprise.com","Paul","Ohrel","0750998872","0250998874",LocalDate.now(),false,user,entreprise,"http://localhost:8080/images/default.jpg",Status.cours.getStatusName());

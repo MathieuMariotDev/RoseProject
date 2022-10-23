@@ -8,6 +8,7 @@ import java.util.Collection;
 
 public class CreateUserDto {
 
+    private long id;
     private String password;
 
     private MultipartFile pictureFile;
@@ -44,7 +45,25 @@ public class CreateUserDto {
         return user;
     }
 
+    public CreateUserDto toDto(User user){
+        CreateUserDto userDto = new CreateUserDto();
+        userDto.setId(user.getId());
+        userDto.setEmail(user.getEmail());
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        userDto.setPassword(encoder.encode(user.getPassword()));
+        userDto.setRole((short) 1);
+        userDto.setPicture(user.getPicture());
+        return userDto;
+    }
 
+    public User toUserModify(User user){
+        user.setEmail(this.email);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(this.password));
+        user.setRole((short) 1);
+        user.setPicture(this.picture);
+        return user;
+    }
     public String getPassword() {
         return password;
     }
@@ -107,5 +126,13 @@ public class CreateUserDto {
 
     public void setEvenements(Collection<Evenement> evenements) {
         this.evenements = evenements;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

@@ -1,6 +1,10 @@
 package com.example.rosaproject.controller.entity;
 
 import org.hibernate.annotations.Cascade;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -52,9 +56,11 @@ public class Contact {
     private boolean isClient=false;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "entreprise_id", referencedColumnName = "id", nullable = false)
     private Entreprise entreprise;
     @OneToMany(mappedBy = "contact")
