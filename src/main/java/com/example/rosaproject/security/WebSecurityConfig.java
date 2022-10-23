@@ -78,7 +78,7 @@ public class WebSecurityConfig {
 
             @Override
             public void customize(WebSecurity web) {
-                web.ignoring().antMatchers("fragments/**","/css/**", "/js/**", "images/**", "/favicon.ico");
+                web.ignoring().antMatchers("fragments/**","/css/**", "/js/**", "images/**","/pictures/", "/favicon.ico");
             }
         };
     }

@@ -1,55 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-
+  <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div th:fragment="header">
   <header>
-
-    <nav id="headerBarre" class="navbar navbar-expand-lg  col-12">
-        <a class="navbar-brand text-white" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active text-white" aria-current="page" href="#">tableau de bord</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#">Prospects</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#">Clients</a>
-            </li>
-
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Entreprises
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" th:href="@{/entreprises/all}">Liste des entreprises</a></li>
-                <li><a class="dropdown-item" th:href="@{/entreprises/add}">Ajouter une entreprise</a></li>
-              </ul>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#">Calendrier</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Parametres
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
+    <nav class="principal sb-topnav navbar navbar-expand navbar-dark">
+      <!-- Navbar Brand-->
+      <a class="navbar-brand ps-3" href="index.html">
+        Rosas</a>
+       <!-- <img src="../static/pictures/truc.png" th:src="@{/pictures/truc.png}"
+             alt="" style="width: 50px; height: 50px"/>-->
+      <!-- Sidebar Toggle-->
+      <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+      <!-- Navbar Search-->
+      <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+      </div>
+      <!-- Navbar-->
+      <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <div sec:authorize="isAuthenticated()">
+              <li>
+                <form  action="#"
+                           th:action="@{/logout}" method="post">
+                  <input type="submit" class="border-0" value="Logout">
+                </form>
+              <li><a class="dropdown-item" th:href="@{/user/showProfile}">Profile</a></li>
+              </li>
+            </div>
+            <div sec:authorize="isAnonymous()">
+              <li><a class="dropdown-item" th:href="@{/user/login}">Login</a></li>
+              <li><a class="dropdown-item" th:href="@{/user/register}">Inscription</a></li>
+            </div>
           </ul>
-        </div>
+        </li>
+      </ul>
     </nav>
+    </header>
+
 
   </header>
 </div>
