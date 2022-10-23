@@ -11,6 +11,8 @@ import java.util.List;
 @Repository
 public interface EntrepriseRepository extends CrudRepository<Entreprise, Long> {
 
+    long countEntreprisesByUser(User user);
+
     Entreprise findByIdAndUser(long id, User user);
 
     List<Entreprise> findAllByUserOrderByNameAsc(User user);

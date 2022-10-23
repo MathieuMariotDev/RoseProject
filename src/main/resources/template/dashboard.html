@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}">
+  <title>Home</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+<body>
+
+<div class="container-fluid row">
+  <div th:insert="../fragments/header :: header">
+  </div>
+  <main>
+
+    <h1 class="text-center m-3" th:text="'Bienvenue sur Rosa\'s'"></h1>
+
+    <div class="container">
+
+    <div class="row justify-content-center">
+
+      <div class="col-10">
+
+        <div class = "card m-3">
+          <div class="card-body">
+            <p th:text="${'Bienvenue, cher client, sur le site de référence de prospection, référence en France. Vous avez des difficultés pour vous retrouver dans vos contacts, gérer les entreprises ou encore les dates de vos rendez-vous ?'}"></p>
+            <p th:text="${'Rosa''s est LA plateforme qu''il vous faut ! Avec Rosa''s les tracas s''effacent.'}"></p>
+            <p th:text="${'Sur ce site vous avez la possibilité de créer et gérer vos prospects et clients en temps réel, retrouver un contact dans votre liste n''a jamais été aussi facile grâce à des fonctions innovantes et intuitives. Vous pouvez les classer et les gérer par entreprises.'}"></p>
+            <p th:text="${'Une fonctionnalité calendrier vous permettra de voir vos événements pour vous organiser et les modifier à votre guise.'}"></p>
+            <p th:text="${'Nous vous souhaitons une agréable expérience et une bonne prospection.'}"></p>
+            <p th:text="${'Maintenant a vos claviers.'}"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-5">
+
+          <div class = "card m-3">
+            <h3 class="card-name text-center" th:text="'Votre résumé statistique'"></h3>
+            <div class="card-body">
+
+              <div th:text="'Nombre de contacts : ' + ${nbContacts}"></div>
+              <div th:text="'Nombre de prospects : ' + ${nbProspects}"></div>
+              <div th:text="'Nombre de clients : ' + ${nbClients}"></div>
+              <div th:text="'Nombre d\'entreprises : ' + ${nbEntreprises}"></div>
+              <div th:text="'Nombre de prospections restantes : '"></div>
+              <div th:text="'Nombre de prospections effectuées : '"></div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-5">
+
+          <div class = "card m-3">
+            <div class="card-body">
+
+              <input type="hidden" id="nbProspects" th:value="${nbProspects}">
+              <input type="hidden" id="nbClients" th:value="${nbClients}">
+
+              <!--Div that will hold the pie chart-->
+              <div id="chart_div"></div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    </div>
+
+    <!--résumé statistique-->
+
+    <!--graphiques (google charts)-->
+
+  </main>
+  <footer>
+
+  </footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous">
+</script>
+
+
+
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" th:src="@{/js/graph.js}"></script>
+</body>
+</html>

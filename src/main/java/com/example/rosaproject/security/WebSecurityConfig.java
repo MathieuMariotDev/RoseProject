@@ -37,7 +37,7 @@ public class WebSecurityConfig {
                 .loginPage("/user/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/contact/add/prospect", true)
+                .defaultSuccessUrl("/dashboard", true)
                 .permitAll()
 
                 //Configuration du logout
@@ -78,7 +78,7 @@ public class WebSecurityConfig {
 
             @Override
             public void customize(WebSecurity web) {
-                web.ignoring().antMatchers("fragments/**","/css/**", "/js/**", "images/**", "/favicon.ico");
+                web.ignoring().antMatchers("/fragments/**","/css/**", "/js/**", "/pictures/**", "/favicon.ico");
             }
         };
     }

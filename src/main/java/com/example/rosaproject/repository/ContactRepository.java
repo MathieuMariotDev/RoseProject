@@ -12,6 +12,12 @@ import java.util.List;
 
 @Repository
 public interface ContactRepository extends CrudRepository<Contact, Long> {
+
+    // dashboard
+    long countContactsByUser(User user);
+    long countContactsByUserAndIsClientFalse(User user); // prospects
+    long countContactsByUserAndIsClientTrue(User user); // clients
+
     // Retourne la liste de contact qui sont des clients
     List<Contact> findContactByIsClientTrue();
     // Retourne la liste de contact qui ne sont pas des clients
