@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Map;
+
 @Controller
 @RequestMapping("/dashboard")
 public class DashboardController {
@@ -30,6 +32,9 @@ public class DashboardController {
 
         long nbEntreprises = dashboardService.countAllEntreprises();
         model.addAttribute("nbEntreprises", nbEntreprises);
+
+        /*Map<String, Long> nbContactsByEntreprise = dashboardService.countContactsByEntreprise();
+        model.addAttribute("nbContactsByEntreprise", nbContactsByEntreprise);*/
 
         return "dashboard";
     }

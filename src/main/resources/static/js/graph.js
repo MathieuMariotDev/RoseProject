@@ -30,3 +30,29 @@ function drawChart() {
     var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
     chart.draw(data, options);
 }
+
+
+//var nbContactsByEntreprise = parseInt($("#nbContactsByEntreprise").val())
+
+function drawChart2() {
+
+    // Create the data table.
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Entreprise');
+    data.addColumn('number', 'Number');
+    data.addRows([
+        ['Prospects', nbProspects],
+        ['Clients', nbClients]
+    ]);
+
+    // Set chart options
+    var options = {
+        'title': 'Répartition du nombre de contacts',
+        'width': 400,
+        'height': 300
+    };
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+}

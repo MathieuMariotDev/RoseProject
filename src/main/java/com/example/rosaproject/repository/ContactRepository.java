@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface ContactRepository extends CrudRepository<Contact, Long> {
@@ -16,6 +17,11 @@ public interface ContactRepository extends CrudRepository<Contact, Long> {
     long countContactsByUser(User user);
     long countContactsByUserAndIsClientFalse(User user); // prospects
     long countContactsByUserAndIsClientTrue(User user); // clients
+
+    /*@Query("select c.entreprise.name, count(c)" +
+            " from Contact c" +
+            " group by c.user.id, c.entreprise.id")
+    Map<String, Long> countContactsByEntrepriseIdAndUser(User user);*/
 
     // Retourne la liste de contact qui sont des clients
     List<Contact> findContactByIsClientTrueAndUser(User user);

@@ -8,6 +8,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class DashboardService {
 
@@ -47,4 +50,11 @@ public class DashboardService {
         User connectedUser = customUser.getUser();
         return this.entrepriseRepository.countEntreprisesByUser(connectedUser);
     }
+
+    /*public Map<String, Long> countContactsByEntreprise() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
+        User connectedUser = customUser.getUser();
+        return this.contactRepository.countContactsByEntrepriseIdAndUser(connectedUser);
+    }*/
 }
