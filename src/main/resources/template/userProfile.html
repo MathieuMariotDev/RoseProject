@@ -58,13 +58,13 @@
     <main>
       <div class="container h-100 d-flex flex-column align-items-center">
         <h1 class="mt-5 mb-5" >Votre profil</h1>
-        <div class="card d-flex justify-content-center col-3 p-2">
+        <div class="card d-flex justify-content-center col-3 p-4">
           <div>
             <img th:src="${user.picture}"
                  alt="100x100" class="img-fluid rounded-circle" data-holder-rendered="true">
           </div>
           <div class="card-body">
-            <h5 class="mb-1 d-flex justify-content-center" style="font-size:2vw;" th:text="${user.email}"></h5>
+            <h5 class="mb-1 d-flex justify-content-center" style="font-size:1.5vw;" th:text="${user.email}"></h5>
 
             <div class="d-flex justify-content-around">
               <a class="btn btn-primary" th:href="@{/user/deleteUser}">Effacer compte </a>
