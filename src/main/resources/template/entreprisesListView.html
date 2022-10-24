@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -55,7 +55,7 @@
     </nav>
   </div>
   <div id="layoutSidenav_content">
-    <main>
+    <main class="m-0">
 
       <div class="container-fluid">
 
@@ -65,7 +65,8 @@
             <h1><i class="fa-regular fa-building"></i> Entreprises</h1>
           </div>
 
-          <div class="col-3">
+          <div class="col-4  d-flex justify-content-between" >
+            <a class="nav-link btn text-white d-flex align-items-center btn-primary"th:href="@{/entreprises/add}">Ajouter entreprise</a>
             <form class="d-flex" role="search" method="get" th:action="@{/entreprises/all}">
               <input class="form-control me-2" name="search" type="search" placeholder="Rechercher une entreprise" aria-label="Rechercher">
               <button class="btn btn-outline-success" type="submit">Rechercher</button>
@@ -78,9 +79,8 @@
 
           <div class="col-5 m-3" th:each="entreprise: ${entreprises}">
 
-
-            <div class = "card m-3">
-              <h3 class="card-name text-center" th:text="${entreprise.name}"></h3>
+            <div class = " m-3 border border-secondary rounded">
+              <h3 class="card-name text-center mt-4" th:text="${entreprise.name}"></h3>
               <div class="card-body">
 
                 <ul class="list-group list-group-flush">
@@ -148,7 +148,7 @@
 
                   </li>
 
-                  <li class="list-group-item">
+                  <li class="list-group-item d-flex justify-content-around">
 
                     <!--edit-->
                     <div>
@@ -162,36 +162,36 @@
                       Supprimer
                     </button>
 
-                    <form th:action="@{/entreprises/delete/{id}(id=${entreprise.id})}" method="post">
 
-                      <!-- Modal -->
-                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Suppression de l'entreprise</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              Voulez-vous vraiment supprimer l'entreprise ?
-                            </div>
-                            <div class="modal-footer">
-
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-
-                              <button type="submit" class="btn btn-danger">Supprimer</button>
-
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                    </form>
 
                   </li>
 
                 </ul>
+                <form th:action="@{/entreprises/delete/{id}(id=${entreprise.id})}" method="post">
 
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Suppression de l'entreprise</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Voulez-vous vraiment supprimer l'entreprise ?
+                        </div>
+                        <div class="modal-footer">
+
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+
+                          <button type="submit" class="btn btn-danger">Supprimer</button>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </form>
               </div>
             </div>
           </div>

@@ -8,6 +8,9 @@ main{
     background-color: #232F3E !important;
 
 }
+.btn-secondary{
+    background-color: #EDAE49 !important;
+}
 .btn{
     border: none !important;
 }

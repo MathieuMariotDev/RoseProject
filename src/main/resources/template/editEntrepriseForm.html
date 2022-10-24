@@ -59,87 +59,99 @@
 
       <div class="container text-center d-flex justify-content-center">
 
-        <div class="col-5">
+        <div class="col-12">
 
-          <form th:action="@{/entreprises/edit/{id}(id=${entreprise.id})}" th:object="${entreprise}" method="post" enctype="multipart/form-data">
+
+          <form th:action="@{/entreprises/edit/{id}(id=${entreprise.id})}" class="d-flex flex-column align-items-center "
+                th:object="${entreprise}" method="post" enctype="multipart/form-data">
 
             <h1 class="h3 mb-3 fw-normal my-5">Modifier les informations</h1>
+            <div class="d-flex justify-content-between align-items-center col-8">
 
-            <div class="form-floating my-5">
-              <input class="form-control" id="name" type="text" th:field="*{name}" th:value="${entreprise.name}">
-              <label for="name">Entreprise</label>
+              <div class="form-floating my-5 border border-dark rounded">
+                <input class="form-control" id="name" type="text" th:field="*{name}" th:value="${entreprise.name}">
+                <label for="name">Entreprise</label>
+              </div>
+
+              <div class="form-floating my-5 border border-dark rounded">
+                <input class="form-control" id="typeOfActivity" type="text" th:field="*{typeOfActivity}" th:value="${entreprise.typeOfActivity}">
+                <label for="typeOfActivity" class="form-label">Type d'activité de l'entreprise</label>
+              </div>
+
+              <div class="form-floating my-5 border border-dark rounded">
+                <input class="form-control" id="createDate" type="date" th:field="*{createDate}" th:value="${entreprise.createDate}">
+                <label for="createDate" class="form-label">Date de création de l'entreprise</label>
+              </div>
+
             </div>
+            <div class="d-flex justify-content-between align-items-center col-8">
+              <div class="form-floating my-5 border border-dark rounded">
+                <input class="form-control" id="siret" type="text" th:field="*{siret}" th:value="${entreprise.siret}">
+                <label for="siret" class="form-label">Numéro SIRET</label>
+              </div>
 
-            <div>
-              <label for="picture">Image actuelle pour cette personne</label>
-              <img th:src="${entreprise.logo}" id="picture">
-              <input type="hidden" th:field="*{logo}" th:value="${entreprise.logo}">
+              <div class="form-floating my-5 border border-dark rounded">
+                <input class="form-control" id="email" type="text" th:field="*{email}" th:value="${entreprise.email}">
+                <label for="email" class="form-label">Adresse email</label>
+              </div>
+
+              <div class="form-floating my-5 border border-dark rounded">
+                <input class="form-control" id="cellphone" type="text" th:field="*{cellPhone}" th:value="${entreprise.cellPhone}">
+                <label for="cellphone" class="form-label">Numéro de téléphone portable</label>
+              </div>
             </div>
+            <div class="d-flex justify-content-between align-items-center col-8">
+              <div class="form-floating my-5 border border-dark rounded">
+                <input class="form-control" id="phone" type="text" th:field="*{phone}" th:value="${entreprise.phone}">
+                <label for="phone" class="form-label">Numéro de téléphone fixe</label>
+              </div>
 
-            <div>
-              <label for="pictureFile">Insérer une image de remplacement :</label>
-              <input type="file" th:field="*{pictureFile}" id="pictureFile">
+              <div class="form-floating my-5 border border-dark rounded">
+                <input class="form-control" id="urlWebSite" type="text" th:field="*{urlWebSite}" th:value="${entreprise.urlWebSite}">
+                <label for="urlWebSite" class="form-label">Adresse du site Web</label>
+              </div>
+
+              <div class="form-floating my-5 border border-dark rounded">
+                <input class="form-control" id="address" type="text" th:field="*{address}" th:value="${entreprise.address}">
+                <label for="address" class="form-label">Adresse de l'entreprise</label>
+              </div>
             </div>
+            <div class="d-flex justify-content-between align-items-center col-8">
+              <div class="form-floating my-5 border border-dark rounded">
+                <input class="form-control" id="additionalAddress" type="text" th:field="*{additionalAddress}" th:value="${entreprise.additionalAddress}">
+                <label for="additionalAddress" class="form-label">Complément d'adresse</label>
+              </div>
 
-            <div class="form-floating my-5">
-              <input class="form-control" id="siret" type="text" th:field="*{siret}" th:value="${entreprise.siret}">
-              <label for="siret" class="form-label">Numéro SIRET</label>
+              <div class="form-floating my-5 border border-dark rounded">
+                <input class="form-control" id="city" type="text" th:field="*{city}" th:value="${entreprise.city}">
+                <label for="city" class="form-label">Ville</label>
+              </div>
+
+              <div class="form-floating my-5 border border-dark rounded">
+                <input class="form-control" id="postalCode" type="text" th:field="*{postalCode}" th:value="${entreprise.postalCode}">
+                <label for="postalCode" class="form-label">Code postal</label>
+              </div>
             </div>
+            <div class="d-flex justify-content-between align-items-center col-8">
+              <div class="container-fluid col-3">
+                <label for="picture">Image actuelle</label>
+                <img class="img-fluid" th:src="${entreprise.logo}"
+                     id="picture">
+                <input type="hidden" th:field="*{logo}" th:value="${entreprise.logo}">
+              </div>
 
-            <div class="form-floating my-5">
-              <input class="form-control" id="email" type="text" th:field="*{email}" th:value="${entreprise.email}">
-              <label for="email" class="form-label">Adresse email</label>
+              <div class="d-flex flex-column">
+                <label for="pictureFile">Insérer une image de remplacement :</label>
+                <input type="file" th:field="*{pictureFile}" id="pictureFile">
+              </div>
+
             </div>
-
-            <div class="form-floating my-5">
-              <input class="form-control" id="cellphone" type="text" th:field="*{cellPhone}" th:value="${entreprise.cellPhone}">
-              <label for="cellphone" class="form-label">Numéro de téléphone portable</label>
+            <div class="d-flex justify-content-around mt-3 col-3">
+              <button type="submit" class="btn btn-primary">Enregistrer</button>
+              <a class="btn btn-danger" th:href="@{/entreprises/all/}">Annuler</a>
             </div>
-
-            <div class="form-floating my-5">
-              <input class="form-control" id="phone" type="text" th:field="*{phone}" th:value="${entreprise.phone}">
-              <label for="phone" class="form-label">Numéro de téléphone fixe</label>
-            </div>
-
-            <div class="form-floating my-5">
-              <input class="form-control" id="urlWebSite" type="text" th:field="*{urlWebSite}" th:value="${entreprise.urlWebSite}">
-              <label for="urlWebSite" class="form-label">Adresse du site Web</label>
-            </div>
-
-            <div class="form-floating my-5">
-              <input class="form-control" id="address" type="text" th:field="*{address}" th:value="${entreprise.address}">
-              <label for="address" class="form-label">Adresse de l'entreprise</label>
-            </div>
-
-            <div class="form-floating my-5">
-              <input class="form-control" id="additionalAddress" type="text" th:field="*{additionalAddress}" th:value="${entreprise.additionalAddress}">
-              <label for="additionalAddress" class="form-label">Complément d'adresse</label>
-            </div>
-
-            <div class="form-floating my-5">
-              <input class="form-control" id="city" type="text" th:field="*{city}" th:value="${entreprise.city}">
-              <label for="city" class="form-label">Ville</label>
-            </div>
-
-            <div class="form-floating my-5">
-              <input class="form-control" id="postalCode" type="text" th:field="*{postalCode}" th:value="${entreprise.postalCode}">
-              <label for="postalCode" class="form-label">Code postal</label>
-            </div>
-
-            <div class="form-floating my-5">
-              <input class="form-control" id="typeOfActivity" type="text" th:field="*{typeOfActivity}" th:value="${entreprise.typeOfActivity}">
-              <label for="typeOfActivity" class="form-label">Type d'activité de l'entreprise</label>
-            </div>
-
-            <div class="form-floating my-5">
-              <input class="form-control" id="createDate" type="date" th:field="*{createDate}" th:value="${entreprise.createDate}">
-              <label for="createDate" class="form-label">Date de création de l'entreprise</label>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
 
           </form>
-
         </div>
 
       </div>
