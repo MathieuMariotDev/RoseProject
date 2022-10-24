@@ -21,7 +21,7 @@ public class User {
     private String email;
     @Basic
     @Column(name = "role")
-    private Short role;
+    private String role;
     @OneToMany(mappedBy = "user")
     private Collection<Contact> contacts;
     @OneToMany(mappedBy = "user")
@@ -34,7 +34,7 @@ public class User {
     public User() {
     }
 
-    public User(String password, String picture, String email, Short role) {
+    public User(String password, String picture, String email, String role) {
         this.password = password;
         this.picture = picture;
         this.email = email;
@@ -73,11 +73,11 @@ public class User {
         this.email = email;
     }
 
-    public Short getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Short role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,7 +47,7 @@
             <nav class="sb-sidenav-menu-nested nav">
               <a class="nav-link"th:href="@{/user/deleteUser}">Supprimer compte</a>
               <a class="nav-link"th:href="@{/user/edit}">Modifier compte</a>
-              <a class="nav-link"th:href="@{/user/allUsers}">Tous les utilisateurs</a>
+              <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link"th:href="@{/user/allUsers}">Tous les utilisateurs</a>
             </nav>
           </div>
         </div>
@@ -99,6 +99,4 @@
         crossorigin="anonymous">
 </script>
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
-</script>
-</body>
 </html>

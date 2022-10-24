@@ -50,8 +50,8 @@ public class RosaProjectApplication implements CommandLineRunner {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String mdp = encoder.encode("0123");
 
-        User user = new User(mdp,"http://localhost:8080/images/user.jpg","math.mariot@gmail.com", (short) 1);
-        User user1 = new User(mdp,"http://localhost:8080/images/photo-mmerosa.jpg","rosa@worktogether.fr", (short) 1);
+        User user = new User(mdp,"http://localhost:8080/images/user.jpg","math.mariot@gmail.com", "ROLE_USER");
+        User user1 = new User(mdp,"http://localhost:8080/images/photo-mmerosa.jpg","rosa@worktogether.fr", "ROLE_USER");
 
         userRepository.save(user);
         userRepository.save(user1);
