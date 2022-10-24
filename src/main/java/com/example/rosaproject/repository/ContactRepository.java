@@ -2,6 +2,7 @@ package com.example.rosaproject.repository;
 
 import com.example.rosaproject.controller.entity.Contact;
 import com.example.rosaproject.controller.entity.User;
+import com.example.rosaproject.model.Status;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -15,13 +16,17 @@ public interface ContactRepository extends CrudRepository<Contact, Long> {
 
     // dashboard
     long countContactsByUser(User user);
+
     long countContactsByUserAndIsClientFalse(User user); // prospects
+    long countContactsByUserAndStatusProspectingAndIsClientFalse(User user, String status);
+
     long countContactsByUserAndIsClientTrue(User user); // clients
 
     /*@Query("select c.entreprise.name, count(c)" +
             " from Contact c" +
             " group by c.user.id, c.entreprise.id")
     Map<String, Long> countContactsByEntrepriseIdAndUser(User user);*/
+
 
     // Retourne la liste de contact qui sont des clients
     List<Contact> findContactByIsClientTrueAndUser(User user);

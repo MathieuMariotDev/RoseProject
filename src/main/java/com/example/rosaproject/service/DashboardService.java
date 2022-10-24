@@ -1,6 +1,7 @@
 package com.example.rosaproject.service;
 
 import com.example.rosaproject.controller.entity.User;
+import com.example.rosaproject.model.Status;
 import com.example.rosaproject.repository.ContactRepository;
 import com.example.rosaproject.repository.EchangeRepository;
 import com.example.rosaproject.repository.EntrepriseRepository;
@@ -61,6 +62,34 @@ public class DashboardService {
         CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
         User connectedUser = customUser.getUser();
         return this.echangeRepository.entreprisesbyNotesCount().stream().collect(Collectors.toMap(obj -> (String)obj[0], obj -> (Long)obj[1]));
+    }
+
+    public long prospectsByProspectionAucun() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
+        User connectedUser = customUser.getUser();
+        return this.contactRepository.countContactsByUserAndStatusProspectingAndIsClientFalse(connectedUser, Status.Aucun.getStatusName());
+    }
+
+    public long prospectsByProspectionEnCours() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
+        User connectedUser = customUser.getUser();
+        return this.contactRepository.countContactsByUserAndStatusProspectingAndIsClientFalse(connectedUser, Status.cours.getStatusName());
+    }
+
+    public long prospectsByProspectionARelancer() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
+        User connectedUser = customUser.getUser();
+        return this.contactRepository.countContactsByUserAndStatusProspectingAndIsClientFalse(connectedUser, Status.relancer.getStatusName());
+    }
+
+    public long prospectsByProspectionTermine() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
+        User connectedUser = customUser.getUser();
+        return this.contactRepository.countContactsByUserAndStatusProspectingAndIsClientFalse(connectedUser, Status.termine.getStatusName());
     }
 
     /*public Map<String, Long> countContactsByEntreprise() {

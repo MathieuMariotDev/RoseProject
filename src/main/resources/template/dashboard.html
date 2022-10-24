@@ -76,11 +76,18 @@
               <div id="chart_div"></div>
               </div>
 
-                <div class="col-6">
-              <input type="hidden" id="entreprisesbyNotesCount" th:value="${entreprisesbyNotesCount}">
-              <!--Div that will hold the pie chart-->
-              <div id="chart_div_2"></div>
-                </div>
+              <div class="col-6">
+                <input type="hidden" id="entreprisesbyNotesCount" th:value="${entreprisesbyNotesCount}">
+                <!--Div that will hold the pie chart-->
+                <div id="chart_div_2"></div>
+              </div>
+
+                <input type="hidden" id="nbProspectsProspectionAucun" th:value="${nbProspectsProspectionAucun}">
+                <input type="hidden" id="nbProspectsProspectionEnCours" th:value="${nbProspectsProspectionEnCours}">
+                <input type="hidden" id="nbProspectsProspectionARelancer" th:value="${nbProspectsProspectionARelancer}">
+                <input type="hidden" id="nbProspectsProspectionTermine" th:value="${nbProspectsProspectionTermine}">
+
+                <div id="columnchart_values" style="width: 900px; height: 300px;"></div>
 
             </div>
 

@@ -35,13 +35,19 @@ public class DashboardController {
         model.addAttribute("nbEntreprises", nbEntreprises);
 
         Map<String, Long> entreprisesbyNotesCount = dashboardService.entreprisesbyNotesCount();
-        /*for (Map.Entry<String, Long> entry : entreprisesbyNotesCount.entrySet()) {
-
-        }*/
-
         model.addAttribute("entreprisesbyNotesCount", new JSONObject(entreprisesbyNotesCount));
 
-        //model.addAllAttributes(entreprisesbyNotesCount);
+        long nbProspectsProspectionAucun = dashboardService.prospectsByProspectionAucun();
+        model.addAttribute("nbProspectsProspectionAucun", nbProspectsProspectionAucun);
+
+        long nbProspectsProspectionEnCours = dashboardService.prospectsByProspectionEnCours();
+        model.addAttribute("nbProspectsProspectionEnCours", nbProspectsProspectionEnCours);
+
+        long nbProspectsProspectionARelancer = dashboardService.prospectsByProspectionARelancer();
+        model.addAttribute("nbProspectsProspectionARelancer", nbProspectsProspectionARelancer);
+
+        long nbProspectsProspectionTermine = dashboardService.prospectsByProspectionTermine();
+        model.addAttribute("nbProspectsProspectionTermine", nbProspectsProspectionTermine);
 
         /*Map<String, Long> nbContactsByEntreprise = dashboardService.countContactsByEntreprise();
         model.addAttribute("nbContactsByEntreprise", nbContactsByEntreprise);*/
