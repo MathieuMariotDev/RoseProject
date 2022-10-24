@@ -48,7 +48,7 @@ public class RosaProjectApplication implements CommandLineRunner {
         storageService.init();
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String mdp = encoder.encode("0123");
-        User user = new User(mdp,"http://localhost:8080/images/"+"personne1","math.mariot@gmail.com", (short) 1);
+        User user = new User(mdp,"http://localhost:8080/images/"+"personne1","math.mariot@gmail.com", "ROLE_USER");
         userRepository.save(user);
         Entreprise entreprise = new Entreprise("www.monlogo.com","La redoute","00123659895","Lentreprise@entreprise.com","+33750828587","+33233657895","www.monsite.com","100 rue de Brest","batiment 3","Rennes","35000","Vente de vêtement", LocalDate.now(),user);
         entrepriseRepository.save(entreprise);

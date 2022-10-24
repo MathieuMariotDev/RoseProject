@@ -6,6 +6,7 @@ import com.example.rosaproject.controller.entity.User;
 
 import com.example.rosaproject.service.UserService;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

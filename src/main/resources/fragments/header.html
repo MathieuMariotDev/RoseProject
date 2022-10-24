@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
@@ -22,27 +22,22 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <div sec:authorize="isAuthenticated()">
-              <li>
+
+              <li sec:authorize="isAuthenticated()">
                 <form  action="#"
                            th:action="@{/logout}" method="post">
                   <input type="submit" class="border-0" value="Logout">
                 </form>
-              <li><a class="dropdown-item" th:href="@{/user/showProfile}">Profile</a></li>
+              <li sec:authorize="isAuthenticated()"><a class="dropdown-item" th:href="@{/user/showProfile}">Profile</a></li>
               </li>
-            </div>
-            <div sec:authorize="isAnonymous()">
-              <li><a class="dropdown-item" th:href="@{/user/login}">Login</a></li>
-              <li><a class="dropdown-item" th:href="@{/user/register}">Inscription</a></li>
-            </div>
+
+              <li sec:authorize="isAnonymous()"><a class="dropdown-item" th:href="@{/user/login}">Login</a></li>
+              <li sec:authorize="isAnonymous()"><a class="dropdown-item" th:href="@{/user/register}">Inscription</a></li>
           </ul>
         </li>
       </ul>
     </nav>
     </header>
-
-
-  </header>
 </div>
 </div>
 </body>

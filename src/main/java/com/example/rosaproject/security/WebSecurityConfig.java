@@ -26,8 +26,8 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
-                .antMatchers("/user/**").permitAll()
-
+                .antMatchers("/user/register").permitAll()
+                .antMatchers("/user/allUsers").hasRole("ADMIN")
                 // Configure les autres URL
                 .anyRequest().authenticated()
 
