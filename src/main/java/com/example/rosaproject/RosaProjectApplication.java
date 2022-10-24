@@ -92,5 +92,4 @@ public class RosaProjectApplication implements CommandLineRunner {
 
     }
 
-
 }

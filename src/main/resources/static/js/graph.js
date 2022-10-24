@@ -3,6 +3,7 @@ google.charts.load('current', {'packages':['corechart']});
 
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(drawChart);
+google.charts.setOnLoadCallback(drawChart2);
 
 var nbProspects = parseInt($("#nbProspects").val());
 var nbClients = parseInt($("#nbClients").val());
@@ -32,7 +33,10 @@ function drawChart() {
 }
 
 
-//var nbContactsByEntreprise = parseInt($("#nbContactsByEntreprise").val())
+var entreprisesbyNotesCount = JSON.parse($("#entreprisesbyNotesCount").val());
+//console.log(entreprisesbyNotesCount);
+
+var entreprisesNames = Object.keys(entreprisesbyNotesCount);
 
 function drawChart2() {
 
@@ -40,19 +44,21 @@ function drawChart2() {
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Entreprise');
     data.addColumn('number', 'Number');
-    data.addRows([
-        ['Prospects', nbProspects],
-        ['Clients', nbClients]
-    ]);
+
+    entreprisesNames.forEach(entreprise => {
+        data.addRow([
+            entreprise, entreprisesbyNotesCount[entreprise]
+        ]);
+    })
 
     // Set chart options
     var options = {
-        'title': 'Répartition du nombre de contacts',
+        'title': 'Répartition des notes par entreprise',
         'width': 400,
         'height': 300
     };
 
     // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    var chart = new google.visualization.PieChart(document.getElementById('chart_div_2'));
     chart.draw(data, options);
 }

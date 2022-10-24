@@ -2,6 +2,7 @@ package com.example.rosaproject.service;
 
 import com.example.rosaproject.controller.entity.User;
 import com.example.rosaproject.repository.ContactRepository;
+import com.example.rosaproject.repository.EchangeRepository;
 import com.example.rosaproject.repository.EntrepriseRepository;
 import com.example.rosaproject.security.CustomUserDetails;
 import org.springframework.security.core.Authentication;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class DashboardService {
@@ -18,9 +20,12 @@ public class DashboardService {
 
     private EntrepriseRepository entrepriseRepository;
 
-    public DashboardService(ContactRepository contactRepository, EntrepriseRepository entrepriseRepository) {
+    private EchangeRepository echangeRepository;
+
+    public DashboardService(ContactRepository contactRepository, EntrepriseRepository entrepriseRepository, EchangeRepository echangeRepository) {
         this.contactRepository = contactRepository;
         this.entrepriseRepository = entrepriseRepository;
+        this.echangeRepository = echangeRepository;
     }
 
     public long countAllContacts() {
@@ -49,6 +54,13 @@ public class DashboardService {
         CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
         User connectedUser = customUser.getUser();
         return this.entrepriseRepository.countEntreprisesByUser(connectedUser);
+    }
+
+    public Map<String, Long> entreprisesbyNotesCount() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
+        User connectedUser = customUser.getUser();
+        return this.echangeRepository.entreprisesbyNotesCount().stream().collect(Collectors.toMap(obj -> (String)obj[0], obj -> (Long)obj[1]));
     }
 
     /*public Map<String, Long> countContactsByEntreprise() {
