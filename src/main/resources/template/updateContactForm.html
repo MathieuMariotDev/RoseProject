@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,89 +7,142 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}">
+  <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
   <title>home</title>
 </head>
-<body>
-
-<div class="container-fluid row">
-  <div th:insert="../fragments/header :: header">
+<body class="sb-nav-fixed">
+<div th:insert="../fragments/header :: header"></div>
+<div id="layoutSidenav">
+  <div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+      <div class="sb-sidenav-menu">
+        <div class="nav">
+          <div class="sb-sidenav-menu-heading">Interface</div>
+          <a class="nav-link collapsed" th:href="@{/dashboard}" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            <div class="sb-nav-link-icon"><i class="fa-solid fa-gauge-high"></i></div>
+            Tableau de bord
+          </a>
+          <a class="nav-link collapsed mt-3"th:href="@{/contact/listProspect}">
+            <div class="sb-nav-link-icon"><i class="fa-regular fa-address-book"></i></div>
+            Prospects
+          </a>
+          <a class="nav-link collapsed mt-3"th:href="@{/contact/listClient/}">
+            <div class="sb-nav-link-icon"><i class="fa-regular fa-address-card"></i></div>
+            Clients
+          </a>
+          <a class="nav-link collapsed mt-3"th:href="@{/entreprises/all}">
+            <div class="sb-nav-link-icon"><i class="fa-regular fa-building"></i></div>
+            Entreprises
+          </a>
+          <a class="nav-link collapsed mt-3"th:href="@{/event/calendard}">
+            <div class="sb-nav-link-icon"><i class="fa-regular fa-calendar"></i></div>
+            Calendrier
+          </a>
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+            Parametres
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+              <a class="nav-link"th:href="@{/user/deleteUser}">Supprimer compte</a>
+              <a class="nav-link"th:href="@{/user/edit}">Modifier compte</a>
+              <a class="nav-link"th:href="@{/user/allUsers}">Tous les utilisateurs</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </nav>
   </div>
-  <main>
+  <div id="layoutSidenav_content">
+    <main>
 
-    <form action="#" th:action="@{/contact/update/{id}(id=${contact.id})}" th:object="${contact}" method="post" enctype="multipart/form-data">
+      <form action="#" th:action="@{/contact/update/{id}(id=${contact.id})}" th:object="${contact}" method="post" enctype="multipart/form-data">
 
-      <div>
-        <label for="picture">Image actuelle pour cette personne</label>
-        <img type="file" th:src="${contact.picture}" id="picture" >
-        <input type="hidden" th:field="*{picture}" th:value="*{picture}">
-      </div>
-
-      <div>
-        <input type="file" th:field="*{file}" id="file" >
-        <label for="picture">Insérer une image de remplacement :</label>
-      </div>
-
-
-      <div class="form-floating my-5">
-        <input id="name" type="text" th:field="*{name}" th:value="*{name}" placeholder="Prénom" class="form-control" >
-        <label for="name">Prénom</label>
-      </div>
-
-      <div class="form-floating my-5">
-        <input id="firstName" type="text" th:field="*{firstName}" th:value="*{firstName}" placeholder="Prénom" class="form-control" >
-        <label for="firstName">Nom</label>
-      </div>
-
-
-      <div class="form-floating my-5">
-        <input id="cellPhone" type="text" th:field="*{cellPhone}" th:value="*{cellPhone}" placeholder="Numéro de téléphone portable" class="form-control" >
-        <label for="cellPhone">Numéro de téléphone portable</label>
-      </div>
-
-
-      <div class="form-floating my-5">
-        <input id="phone" type="text" th:field="*{phone}" th:value="*{phone}" placeholder="Numéro de téléphone fixe" class="form-control" >
-        <label for="phone">Numéro de téléphone fixe</label>
-      </div>
-
-      <div class="form-floating my-5">
-        <input id="email" type="text" th:field="*{email}" th:value="*{email}" placeholder="Adresse email" class="form-control" >
-        <label for="email">Adresse email</label>
-      </div>
-
-      <select th:field="*{entreprise}" id="contact1" class="form-select col-6 my-3">
-        <option selected th:value="${contact.entreprise.id}" th:text="${contact.entreprise.name}"></option>
-        <th:block th:each="entreprise :${entreprises}">
-          <option th:value="${entreprise.id}" th:text="${entreprise.name}"></option>
-        </th:block>
-      </select>
-
-      <select th:field="*{client}" id="isClient" class="form-select col-6 my-3">
-        <div th:if="*{!client}" >
-          <option selected th:value="${false}" th:text="Prospect"></option>
-          <option th:value="${true}" th:text="Client"></option>
+        <div>
+          <label for="picture">Image actuelle pour cette personne</label>
+          <img type="file" th:src="${contact.picture}" id="picture" >
+          <input type="hidden" th:field="*{picture}" th:value="*{picture}">
         </div>
-        <div th:if="*{client}" >
-          <option selected th:value="${true}" th:text="Client"></option>
-          <option th:value="${false}" th:text="Prospect"></option>
+
+        <div>
+          <input type="file" th:field="*{file}" id="file" >
+          <label for="picture">Insérer une image de remplacement :</label>
         </div>
-      </select>
 
 
-      <button class="w-100 btn btn-lg btn-primary my-3" type="submit">Ajouter un prospect</button>
+        <div class="form-floating my-5">
+          <input id="name" type="text" th:field="*{name}" th:value="*{name}" placeholder="Prénom" class="form-control" >
+          <label for="name">Prénom</label>
+        </div>
 
-    </form>
+        <div class="form-floating my-5">
+          <input id="firstName" type="text" th:field="*{firstName}" th:value="*{firstName}" placeholder="Prénom" class="form-control" >
+          <label for="firstName">Nom</label>
+        </div>
 
 
-  </main>
-  <footer>
+        <div class="form-floating my-5">
+          <input id="cellPhone" type="text" th:field="*{cellPhone}" th:value="*{cellPhone}" placeholder="Numéro de téléphone portable" class="form-control" >
+          <label for="cellPhone">Numéro de téléphone portable</label>
+        </div>
 
-  </footer>
+
+        <div class="form-floating my-5">
+          <input id="phone" type="text" th:field="*{phone}" th:value="*{phone}" placeholder="Numéro de téléphone fixe" class="form-control" >
+          <label for="phone">Numéro de téléphone fixe</label>
+        </div>
+
+        <div class="form-floating my-5">
+          <input id="email" type="text" th:field="*{email}" th:value="*{email}" placeholder="Adresse email" class="form-control" >
+          <label for="email">Adresse email</label>
+        </div>
+
+        <select th:field="*{entreprise}" id="contact1" class="form-select col-6 my-3">
+          <option selected th:value="${contact.entreprise.id}" th:text="${contact.entreprise.name}"></option>
+          <th:block th:each="entreprise :${entreprises}">
+            <option th:value="${entreprise.id}" th:text="${entreprise.name}"></option>
+          </th:block>
+        </select>
+
+        <select th:field="*{client}" id="isClient" class="form-select col-6 my-3">
+          <div th:if="*{!client}" >
+            <option selected th:value="${false}" th:text="Prospect"></option>
+            <option th:value="${true}" th:text="Client"></option>
+          </div>
+          <div th:if="*{client}" >
+            <option selected th:value="${true}" th:text="Client"></option>
+            <option th:value="${false}" th:text="Prospect"></option>
+          </div>
+        </select>
+
+
+        <button class="w-100 btn btn-lg btn-primary my-3" type="submit">Modifier un prospect</button>
+
+      </form>
+
+
+    </main>
+    <footer class="py-4 bg-light mt-auto">
+      <div class="container-fluid px-4">
+        <div class="d-flex align-items-center justify-content-between small">
+          <div class="text-muted">Copyright &copy; Rosa's 2022</div>
+          <div>
+            <a href="#">Privacy Policy</a>
+            &middot;
+            <a href="#">Terms &amp; Conditions</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
 </div>
+</body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous">
-
+</script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
 </script>
 </body>
 </html>

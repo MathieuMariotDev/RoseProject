@@ -46,7 +46,11 @@ public class CreateEntrepriseDto {
 
     private User user;
 
+
+
+
     public Entreprise toEntreprise(){
+
         Entreprise entreprise = new Entreprise();
         entreprise.setId(this.id);
         entreprise.setLogo(this.logo);

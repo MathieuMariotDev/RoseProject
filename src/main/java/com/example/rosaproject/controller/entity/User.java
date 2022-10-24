@@ -29,7 +29,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Collection<Entreprise> entreprises;
     @OneToMany(mappedBy = "user")
-    private Collection<Evenement> evenements;
+    private Collection<Event> events;
 
     public User() {
     }
@@ -105,11 +105,11 @@ public class User {
         this.entreprises = entreprises;
     }
 
-    public Collection<Evenement> getEvenements() {
-        return evenements;
+    public Collection<Event> getEvenements() {
+        return events;
     }
 
-    public void setEvenements(Collection<Evenement> evenements) {
-        this.evenements = evenements;
+    public void setEvenements(Collection<Event> events) {
+        this.events = events;
     }
 }

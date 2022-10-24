@@ -3,8 +3,10 @@ package com.example.rosaproject.service;
 import com.example.rosaproject.controller.dto.CreateContactDto;
 import com.example.rosaproject.controller.dto.SearchDto;
 import com.example.rosaproject.controller.entity.Contact;
-import com.example.rosaproject.controller.entity.User;
+import com.example.rosaproject.controller.entity.Echange;
+import com.example.rosaproject.model.Status;
 import com.example.rosaproject.repository.ContactRepository;
+import com.example.rosaproject.repository.EchangeRepository;
 import com.example.rosaproject.security.CustomUserDetails;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
@@ -13,8 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -26,18 +28,25 @@ public class ContactService {
     StorageService storageService;
     UserService userService;
 
-    public ContactService(ContactRepository contactRepository, StorageService storageService, UserService userService) {
+    EchangeRepository echangeRepository;
+
+    public ContactService(ContactRepository contactRepository, StorageService storageService, UserService userService, EchangeRepository echangeRepository) {
         this.contactRepository = contactRepository;
         this.storageService = storageService;
         this.userService = userService;
+        this.echangeRepository = echangeRepository;
     }
 
     public List<Contact> getAllProspect() {
-        return contactRepository.findContactByIsClientFalse();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
+        return contactRepository.findContactByIsClientTrueAndUser(customUser.getUser());
     }
 
     public List<Contact> getAllClient() {
-        return contactRepository.findContactByIsClientTrue();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
+        return contactRepository.findContactByIsClientTrueAndUser(customUser.getUser());
     }
 
     public void addProspect(CreateContactDto createContactDto){
@@ -45,7 +54,7 @@ public class ContactService {
         CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
         createContactDto.setUser(customUser.getUser());
         createContactDto.setCreateDate(LocalDate.now());
-        createContactDto.setStatusProspecting("A prospecter");
+        createContactDto.setStatusProspecting(Status.Aucun.getStatusName());
         if (createContactDto.getFile().isEmpty() || createContactDto.getFile() == null){
             createContactDto.setPicture("http://localhost:8080/images/" + "default.jpg");
         }else{
@@ -55,6 +64,20 @@ public class ContactService {
         }
         contactRepository.save(createContactDto.toContact());
     }
+
+    public void prospectToClient(Long idContact){
+        Contact contact = findContactById(idContact);
+        contact.setIsClient(true);
+
+        contact.setStatusProspecting(Status.termine.getStatusName());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
+        Echange echange = new Echange(LocalDateTime.now(),Status.termine.getStatusName(),"Transformation du prospect en Client",customUser.getUser(),contact,"Client"+contact.getEntreprise().getName());
+        contact.getEchangesById().add(echange);
+        echangeRepository.save(echange);
+        contactRepository.save(contact);
+    }
+
 
     public void addClient(CreateContactDto createContactDto){ // ??
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -102,7 +125,38 @@ public class ContactService {
 
     }
 
-    public List<Contact> searchProspect(SearchDto searchDto){
+    public void updateClient(Long id,CreateContactDto createClientDto){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
+        Contact client = findContactById(id);
+        if (createClientDto.getFile().isEmpty() || createClientDto.getFile() == null){
+            client.setPicture(createClientDto.getPicture());
+        }else{
+            MultipartFile picture = createClientDto.getFile();
+            storageService.save(picture);
+            client.setPicture("http://localhost:8080/images/" + picture.getOriginalFilename());
+        }
+
+        if (!client.getEntreprise().getId().equals(createClientDto.getEntreprise().getId())){
+            client.setIsClient(false);
+            client.setStatusProspecting(Status.Aucun.getStatusName());
+            Echange echange = new Echange(LocalDateTime.now(),Status.Aucun.getStatusName(),"Auto note : Le client a changé d'ntreprise ancienne entreprise :" + client.getEntreprise() +". Nouvelle :"+createClientDto.getEntreprise(),customUser.getUser(),client,"Prospecting"+createClientDto.getEntreprise());
+            echangeRepository.save(echange);
+        }
+
+        client.setEntreprise(createClientDto.getEntreprise());
+        client.setEmail(createClientDto.getEmail());
+        client.setFirstName(createClientDto.getFirstName());
+        client.setName(createClientDto.getName());
+        client.setPhone(createClientDto.getPhone());
+        client.setCellPhone(createClientDto.getCellPhone());
+        contactRepository.save(client);
+
+    }
+
+
+
+    public List<Contact> searchContact(SearchDto searchDto, boolean isClient){
         List<Contact> contactList = new ArrayList<>();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
@@ -130,7 +184,18 @@ public class ContactService {
         else if (searchDto.getSearchRecent()){
             sort = Sort.by("createDate").descending();
         }
-        contactList = contactRepository.findContactFilter(customUser.getUser(),sort);
+
+        if (searchDto.getProspectingStatu() != null && searchDto.getSearchValue() != null){
+            contactList = contactRepository.findContactByUserAndNameContainsOrFirstNameContainsStatusProspectingEqualsWithFilter(customUser.getUser(),sort, searchDto.getSearchValue(), searchDto.getProspectingStatu().getStatusName(),isClient);
+        }else if (searchDto.getProspectingStatu() != null){
+            contactList = contactRepository.findContactByUserWithFilterAndStatusProspecting(customUser.getUser(),sort, searchDto.getProspectingStatu().getStatusName(),isClient);
+        }
+        else if(searchDto.getSearchValue() != null){
+            contactList = contactRepository.findContactByUserAndNameFirstNameContainsNofilter(customUser.getUser(),searchDto.getSearchValue(),isClient);
+        }else{
+            contactList = contactRepository.findContactByUserWithFilter(customUser.getUser(),sort,isClient);
+        }
+
         return contactList;
     }
 

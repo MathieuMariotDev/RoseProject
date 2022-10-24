@@ -1,10 +1,8 @@
 package com.example.rosaproject.controller.dto;
 
 import com.example.rosaproject.controller.entity.*;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
 
@@ -33,7 +31,7 @@ public class CreateContactDto {
 
     private Collection<Echange> echangesById;
 
-    private Collection<Evenement> evenementsById;
+    private Collection<Event> evenementsById;
 
     private String picture;
 
@@ -181,11 +179,11 @@ public class CreateContactDto {
         this.echangesById = echangesById;
     }
 
-    public Collection<Evenement> getEvenementsById() {
+    public Collection<Event> getEvenementsById() {
         return evenementsById;
     }
 
-    public void setEvenementsById(Collection<Evenement> evenementsById) {
+    public void setEvenementsById(Collection<Event> evenementsById) {
         this.evenementsById = evenementsById;
     }
 

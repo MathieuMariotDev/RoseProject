@@ -4,13 +4,16 @@ import com.example.rosaproject.controller.dto.CreateContactDto;
 import com.example.rosaproject.controller.dto.SearchDto;
 import com.example.rosaproject.controller.entity.Contact;
 import com.example.rosaproject.controller.entity.Echange;
+import com.example.rosaproject.model.Status;
 import com.example.rosaproject.service.ContactService;
+import com.example.rosaproject.service.EchangeService;
 import com.example.rosaproject.service.EntrepriseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -21,14 +24,13 @@ public class ContactController {
 
     private EntrepriseService entrepriseService;
 
+    private EchangeService echangeService;
 
 
-
-
-
-    public ContactController(ContactService contactService, EntrepriseService entrepriseService) {
+    public ContactController(ContactService contactService, EntrepriseService entrepriseService, EchangeService echangeService) {
         this.contactService = contactService;
         this.entrepriseService = entrepriseService;
+        this.echangeService = echangeService;
     }
 
     @GetMapping("/add/prospect")
@@ -61,7 +63,33 @@ public class ContactController {
     @PostMapping("/update/{id}")
     public String updateContactSubmit(@PathVariable("id") Long id,CreateContactDto contact){
         contactService.updateContact(id,contact);
-        return "redirect:/home";
+        return "redirect:/contact/details/"+id;
+    }
+
+    @GetMapping("/update/client/{id}")
+    public String udpdateClientForm(@PathVariable("id") Long id, Model model){
+        model.addAttribute("contact",CreateContactDto.fromContact(contactService.findContactById(id)));
+        model.addAttribute("entreprises",entrepriseService.getAllEntreprises());
+        return "updateClientForm";
+    }
+
+    @PostMapping("/update/client/{id}")
+    public String updateClientSubmit(@PathVariable("id") Long id,CreateContactDto contact){
+        contactService.updateClient(id,contact);
+        return "redirect:/contact/details/client/"+id;
+    }
+
+    @GetMapping("/details/client/{id}")
+    public String detailsClient(@PathVariable("id") Long id, Model model){
+        Contact contact = contactService.findContactById(id);
+        model.addAttribute("contact",contact);
+        String reference = "Client"+contact.getEntreprise().getName();
+        List<Echange> listEchangeProspecting = echangeService.findOldEchange(reference);
+        List<Echange> listEchangeClient = echangeService.findClientEchange(reference);
+        model.addAttribute("echangeForSubmit",new Echange());
+        model.addAttribute("clientEchangeList",listEchangeClient);
+        model.addAttribute("prospectingEchangeList",listEchangeProspecting);
+        return "detailsClient";
     }
 
 
@@ -81,19 +109,30 @@ public class ContactController {
     @GetMapping({"/listProspect","/"})
     public String listViewProspect(Model model,SearchDto search){
         List<Contact> prospectList = new ArrayList<>();
-        if(search !=null){
-            prospectList = contactService.searchProspect(search);
-        }else{
-            prospectList = contactService.getAllProspect();
-        }
+        prospectList = contactService.searchContact(search,false);
         model.addAttribute("searchDto",new SearchDto());
+        List<Status> statusList = Arrays.asList(Status.values());
+        model.addAttribute("status",statusList);
         model.addAttribute("prospects",prospectList);
         return "prospectListView";
     }
 
     @GetMapping("/listClient")
-    public String listViewClient(Model model){
+    public String listViewClient(Model model,SearchDto search){
+        List<Contact> clientList = new ArrayList<>();
+        clientList = contactService.searchContact(search,true);
+        model.addAttribute("searchDto",new SearchDto());
         model.addAttribute("clients",contactService.getAllClient());
+
         return "clientListView";
     }
+
+    @PostMapping("/update/toClient/{id}")
+    public String toClientSubmit(@PathVariable("id") Long idContact){
+        contactService.prospectToClient(idContact);
+        return "redirect:/contact/details/client/"+idContact;
+    }
+
+
+
 }

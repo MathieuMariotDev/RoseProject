@@ -27,18 +27,18 @@ public class FileUploadController {
         this.storageRepository = storageRepository;
     }
 
+    /*
+        //@GetMapping("/")
+        public String listUploadedFiles(Model model) throws IOExceion {
+    /*
+            model.addAttribute("files", storageRepository.loadAll().map(
+                            path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
+                                    "serveFile", path.getFileName().toString()).build().toUri().toString())
+                    .collect(Collectors.toList()));
 
-    @GetMapping("/")
-    public String listUploadedFiles(Model model) throws IOException {
-
-        model.addAttribute("files", storageRepository.loadAll().map(
-                        path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
-                                "serveFile", path.getFileName().toString()).build().toUri().toString())
-                .collect(Collectors.toList()));
-
-        return "uploadForm";
-    }
-
+            return "uploadForm";
+        }
+    */
     @GetMapping(value = "/images/{filename:.+}", produces = {MediaType.IMAGE_PNG_VALUE,MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_GIF_VALUE})
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {

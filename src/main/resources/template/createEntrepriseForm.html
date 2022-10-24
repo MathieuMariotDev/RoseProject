@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,104 +7,157 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}">
-  <title>Créer une entreprise</title>
+  <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+  <title>home</title>
 </head>
-<body>
-
-<div class="container-fluid row">
-  <div th:insert="../fragments/header :: header">
+<body class="sb-nav-fixed">
+<div th:insert="../fragments/header :: header"></div>
+<div id="layoutSidenav">
+  <div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+      <div class="sb-sidenav-menu">
+        <div class="nav">
+          <div class="sb-sidenav-menu-heading">Interface</div>
+          <a class="nav-link collapsed" th:href="@{/dashboard}" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            <div class="sb-nav-link-icon"><i class="fa-solid fa-gauge-high"></i></div>
+            Tableau de bord
+          </a>
+          <a class="nav-link collapsed mt-3"th:href="@{/contact/listProspect}">
+            <div class="sb-nav-link-icon"><i class="fa-regular fa-address-book"></i></div>
+            Prospects
+          </a>
+          <a class="nav-link collapsed mt-3"th:href="@{/contact/listClient/}">
+            <div class="sb-nav-link-icon"><i class="fa-regular fa-address-card"></i></div>
+            Clients
+          </a>
+          <a class="nav-link collapsed mt-3"th:href="@{/entreprises/all}">
+            <div class="sb-nav-link-icon"><i class="fa-regular fa-building"></i></div>
+            Entreprises
+          </a>
+          <a class="nav-link collapsed mt-3"th:href="@{/event/calendard}">
+            <div class="sb-nav-link-icon"><i class="fa-regular fa-calendar"></i></div>
+            Calendrier
+          </a>
+          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+            Parametres
+            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+              <a class="nav-link"th:href="@{/user/deleteUser}">Supprimer compte</a>
+              <a class="nav-link"th:href="@{/user/edit}">Modifier compte</a>
+              <a class="nav-link"th:href="@{/user/allUsers}">Tous les utilisateurs</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </nav>
   </div>
-  <main>
-    <div class="container text-center d-flex justify-content-center">
+  <div id="layoutSidenav_content">
+    <main>
+      <div class="container text-center d-flex justify-content-center">
 
-      <div class="col-5">
+        <div class="col-5">
 
-      <form th:action="@{/entreprises/add}" th:object="${entreprise}" method="post" enctype="multipart/form-data">
+          <form th:action="@{/entreprises/add}" th:object="${entreprise}" method="post" enctype="multipart/form-data">
 
-        <h1 class="h3 mb-3 fw-normal my-5">Saisir les informations</h1>
+            <h1 class="h3 mb-3 fw-normal my-5">Saisir les informations</h1>
 
-        <div class="form-floating my-5">
-          <input class="form-control" id="name" type="text" th:field="*{name}" placeholder="My Company">
-          <label for="name">Entreprise</label>
+            <div class="form-floating my-5">
+              <input class="form-control" id="name" type="text" th:field="*{name}" placeholder="My Company">
+              <label for="name">Entreprise</label>
+            </div>
+
+            <div>
+              <label for="logo" class="form-label">Logo (URL)</label>
+              <input class="form-control" id="logo" type="file" th:field="*{pictureFile}">
+            </div>
+
+            <div class="form-floating my-5">
+              <input class="form-control" id="siret" type="text" th:field="*{siret}" placeholder="Numéro SIRET">
+              <label for="siret" class="form-label">Numéro SIRET</label>
+            </div>
+
+            <div class="form-floating my-5">
+              <input class="form-control" id="email" type="text" th:field="*{email}" placeholder="myEmail@email.com">
+              <label for="email" class="form-label">Adresse email</label>
+            </div>
+
+            <div class="form-floating my-5">
+              <input class="form-control" id="cellphone" type="text" th:field="*{cellPhone}" placeholder="Téléphone portable">
+              <label for="cellphone" class="form-label">Numéro de téléphone portable</label>
+            </div>
+
+            <div class="form-floating my-5">
+              <input class="form-control" id="phone" type="text" th:field="*{phone}" placeholder="Téléphone fixe">
+              <label for="phone" class="form-label">Numéro de téléphone fixe</label>
+            </div>
+
+            <div class="form-floating my-5">
+              <input class="form-control" id="urlWebSite" type="text" th:field="*{urlWebSite}" placeholder="https://www.myWebsite.com">
+              <label for="urlWebSite" class="form-label">Adresse du site Web</label>
+            </div>
+
+            <div class="form-floating my-5">
+              <input class="form-control" id="address" type="text" th:field="*{address}" placeholder="Adresse de l'entreprise">
+              <label for="address" class="form-label">Adresse de l'entreprise</label>
+            </div>
+
+            <div class="form-floating my-5">
+              <input class="form-control" id="additionalAddress" type="text" th:field="*{additionalAddress}" placeholder="Complément d'adresse">
+              <label for="additionalAddress" class="form-label">Complément d'adresse</label>
+            </div>
+
+            <div class="form-floating my-5">
+              <input class="form-control" id="city" type="text" th:field="*{city}" placeholder="Ville">
+              <label for="city" class="form-label">Ville</label>
+            </div>
+
+            <div class="form-floating my-5">
+              <input class="form-control" id="postalCode" type="text" th:field="*{postalCode}" placeholder="Code postal">
+              <label for="postalCode" class="form-label">Code postal</label>
+            </div>
+
+            <div class="form-floating my-5">
+              <input class="form-control" id="typeOfActivity" type="text" th:field="*{typeOfActivity}" placeholder="Type d'activité">
+              <label for="typeOfActivity" class="form-label">Type d'activité de l'entreprise</label>
+            </div>
+
+            <div class="form-floating my-5">
+              <input class="form-control" id="createDate" type="date" th:field="*{createDate}" placeholder="Date de création">
+              <label for="createDate" class="form-label">Date de création de l'entreprise</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+          </form>
+
         </div>
 
-        <div>
-          <label for="logo" class="form-label">Logo (URL)</label>
-          <input class="form-control" id="logo" type="file" th:field="*{pictureFile}">
+      </div>
+
+    </main>
+    <footer class="py-4 bg-light mt-auto">
+      <div class="container-fluid px-4">
+        <div class="d-flex align-items-center justify-content-between small">
+          <div class="text-muted">Copyright &copy; Rosa's 2022</div>
+          <div>
+            <a href="#">Privacy Policy</a>
+            &middot;
+            <a href="#">Terms &amp; Conditions</a>
+          </div>
         </div>
-
-        <div class="form-floating my-5">
-          <input class="form-control" id="siret" type="text" th:field="*{siret}" placeholder="Numéro SIRET">
-          <label for="siret" class="form-label">Numéro SIRET</label>
-        </div>
-
-        <div class="form-floating my-5">
-          <input class="form-control" id="email" type="text" th:field="*{email}" placeholder="myEmail@email.com">
-          <label for="email" class="form-label">Adresse email</label>
-        </div>
-
-        <div class="form-floating my-5">
-          <input class="form-control" id="cellphone" type="text" th:field="*{cellPhone}" placeholder="Téléphone portable">
-          <label for="cellphone" class="form-label">Numéro de téléphone portable</label>
-        </div>
-
-        <div class="form-floating my-5">
-          <input class="form-control" id="phone" type="text" th:field="*{phone}" placeholder="Téléphone fixe">
-          <label for="phone" class="form-label">Numéro de téléphone fixe</label>
-        </div>
-
-        <div class="form-floating my-5">
-          <input class="form-control" id="urlWebSite" type="text" th:field="*{urlWebSite}" placeholder="https://www.myWebsite.com">
-          <label for="urlWebSite" class="form-label">Adresse du site Web</label>
-        </div>
-
-        <div class="form-floating my-5">
-          <input class="form-control" id="address" type="text" th:field="*{address}" placeholder="Adresse de l'entreprise">
-          <label for="address" class="form-label">Adresse de l'entreprise</label>
-        </div>
-
-        <div class="form-floating my-5">
-          <input class="form-control" id="additionalAddress" type="text" th:field="*{additionalAddress}" placeholder="Complément d'adresse">
-          <label for="additionalAddress" class="form-label">Complément d'adresse</label>
-        </div>
-
-        <div class="form-floating my-5">
-          <input class="form-control" id="city" type="text" th:field="*{city}" placeholder="Ville">
-          <label for="city" class="form-label">Ville</label>
-        </div>
-
-        <div class="form-floating my-5">
-          <input class="form-control" id="postalCode" type="text" th:field="*{postalCode}" placeholder="Code postal">
-          <label for="postalCode" class="form-label">Code postal</label>
-        </div>
-
-        <div class="form-floating my-5">
-          <input class="form-control" id="typeOfActivity" type="text" th:field="*{typeOfActivity}" placeholder="Type d'activité">
-          <label for="typeOfActivity" class="form-label">Type d'activité de l'entreprise</label>
-        </div>
-
-        <div class="form-floating my-5">
-          <input class="form-control" id="createDate" type="date" th:field="*{createDate}" placeholder="Date de création">
-          <label for="createDate" class="form-label">Date de création de l'entreprise</label>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Enregistrer</button>
-
-      </form>
-
-    </div>
-
-    </div>
-
-  </main>
-  <footer>
-
-  </footer>
+      </div>
+    </footer>
+  </div>
 </div>
+</body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous">
-
+</script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
 </script>
 </body>
 </html>

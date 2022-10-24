@@ -2,7 +2,7 @@ package com.example.rosaproject.model;
 
 public enum Status { //TODO DELETE ?
 
-    Aucun("Aucun"),cours("En cours"),relancer("A relancer"),termine("Terminé");
+    Aucun("A prospecter"),cours("En cours de prospection"),relancer("A relancer"),termine("Terminé");
 
     private String statusName;
 
