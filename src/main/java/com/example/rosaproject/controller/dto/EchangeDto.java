@@ -3,14 +3,10 @@ package com.example.rosaproject.controller.dto;
 import com.example.rosaproject.controller.entity.Contact;
 import com.example.rosaproject.controller.entity.Echange;
 import com.example.rosaproject.controller.entity.User;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
 import java.time.LocalDateTime;
 
 public class EchangeDto{
@@ -33,6 +29,9 @@ public class EchangeDto{
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime timeBeforeReminder;
 
+    private String timerReminderString;
+
+
     public LocalDateTime getTimeBeforeReminder() {
         return timeBeforeReminder;
     }
@@ -51,6 +50,7 @@ public class EchangeDto{
         echangeDto.setStatusProspecting(echangeDto.getStatusProspecting());
         echangeDto.setCreateDate(echange.getCreateDate());
         echangeDto.setMessage(echangeDto.getMessage());
+        echangeDto.setTimeBeforeReminder(echangeDto.getTimeBeforeReminder());
         return echangeDto;
     }
 

@@ -87,15 +87,15 @@ public class EchangeService {
         contactRepository.save(contact);
     }
 
-    public List<Echange> findClientEchange(String reference){
+    public List<Echange> findClientEchange(String reference,Contact contact){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
-        return echangeRepository.findEchangeByReferenceAndUser(reference,customUser.getUser());
+        return echangeRepository.findEchangeByReferenceAndUserAndContact(reference,customUser.getUser(),contact);
     }
-    public List<Echange> findOldEchange(String reference){
+    public List<Echange> findOldEchange(String reference,Contact contact){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
-        return echangeRepository.findEchangeByReferenceNotContainsAndUser(reference,customUser.getUser());
+        return echangeRepository.findEchangeByReferenceNotContainsAndUserAndContact(reference,customUser.getUser(),contact);
     }
 
     public void addEchangeForClient(Echange echange,Long idContact){

@@ -19,6 +19,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -195,7 +196,7 @@ public class ContactService {
             contactList = contactRepository.findContactByUserWithFilterAndStatusProspecting(customUser.getUser(),sort, searchDto.getProspectingStatu().getStatusName(),isClient);
         }
         else if(searchDto.getSearchValue() != null){
-            contactList = contactRepository.findContactByUserAndNameFirstNameContainsNofilter(customUser.getUser(),searchDto.getSearchValue(),isClient);
+            contactList = contactRepository.findContactByUserAndNameFirstNameContainsNofilter(customUser.getUser(),sort,searchDto.getSearchValue(),isClient);
         }else{
             contactList = contactRepository.findContactByUserWithFilter(customUser.getUser(),sort,isClient);
         }
@@ -216,7 +217,16 @@ public class ContactService {
             }
         }
 
+        contact.setEchangesById(contact.getEchangesById().stream().map(echange -> updateGoodFormatForDisplay(echange)).collect(Collectors.toList()));
         return contact;
+    }
+
+    public Echange updateGoodFormatForDisplay(Echange echange){
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        LocalDateTime isoFormatDate = echange.getCreateDate();
+        String newFormat = isoFormatDate.format(dateTimeFormatter);
+        echange.setCreateDateString(newFormat);
+        return echange;
     }
 
 

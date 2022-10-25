@@ -87,8 +87,8 @@ public class ContactController {
         Contact contact = contactService.compareDateUpdateContact(contactService.findContactById(id));
         model.addAttribute("contact",contact);
         String reference = "Client"+contact.getEntreprise().getName();
-        List<Echange> listEchangeProspecting = echangeService.findOldEchange(reference);
-        List<Echange> listEchangeClient = echangeService.findClientEchange(reference);
+        List<Echange> listEchangeProspecting = echangeService.findOldEchange(reference,contact);
+        List<Echange> listEchangeClient = echangeService.findClientEchange(reference,contact);
         model.addAttribute("echangeForSubmit",new EchangeDto());
         model.addAttribute("clientEchangeList",listEchangeClient);
         model.addAttribute("prospectingEchangeList",listEchangeProspecting);
@@ -107,7 +107,7 @@ public class ContactController {
     @PostMapping("/delete/{id}")
     public String submitDeleteContact(@PathVariable("id") Long id){
         contactService.deleteContact(id);
-        return "redirect:/contact/home";
+        return "redirect:/dashboard";
     }
 
     @GetMapping({"/listProspect","/"})
@@ -126,7 +126,7 @@ public class ContactController {
         List<Contact> clientList = new ArrayList<>();
         clientList = contactService.searchContact(search,true);
         model.addAttribute("searchDto",new SearchDto());
-        model.addAttribute("clients",contactService.getAllClient());
+        model.addAttribute("clients",clientList);
 
         return "clientListView";
     }

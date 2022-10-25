@@ -19,8 +19,8 @@ public interface EchangeRepository extends CrudRepository<Echange, Long> {
             " group by e.contact.entreprise.id")
     List<Object[]> entreprisesbyUserAndNotes(User user);
 
-    List<Echange> findEchangeByReferenceAndUser(String reference, User user);
+    List<Echange> findEchangeByReferenceAndUserAndContact(String reference, User user,Contact contact);
 
-    List<Echange> findEchangeByReferenceNotContainsAndUser(String reference, User user);
+    List<Echange> findEchangeByReferenceNotContainsAndUserAndContact(String reference, User user,Contact contact);
 
 }

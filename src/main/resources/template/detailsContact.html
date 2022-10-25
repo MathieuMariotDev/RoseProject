@@ -174,7 +174,7 @@
                   <div class="row justify-content-center">
                     <!--Material textarea-->
                     <h5 class="mt-3"><strong th:text="'Statut : ' +${echange.statusProspecting}"/></h5>
-                    <h5><strong th:text=" 'Date de création: ' +${echange.createDate}"/></h5>
+                    <h5><strong th:text=" 'Date de création: ' +${echange.createDateString}"/></h5>
                     <div class="form-outline">
                       <label for="textAreaExample1">Note sur l'échange</label>
                       <textarea class="form-control" id="textAreaExample1" rows="4" th:text="${echange.message}"  readonly></textarea>

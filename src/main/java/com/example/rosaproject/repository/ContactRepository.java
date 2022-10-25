@@ -46,7 +46,7 @@ public interface ContactRepository extends CrudRepository<Contact, Long> {
     @Query("SELECT c FROM Contact c where c.user = :user and c.statusProspecting = :prospectingStatus and c.isClient = :isClient AND (LOWER(c.name)  LIKE LOWER(CONCAT('%',:searchValue,'%')) or c.firstName like LOWER(CONCAT('%',:searchValue,'%')))")
     List<Contact> findContactByUserAndNameContainsOrFirstNameContainsStatusProspectingEqualsWithFilter(User user ,Sort sort ,String searchValue, String prospectingStatus,boolean isClient);
     @Query("SELECT c FROM Contact c where c.user = :user and c.isClient = :isClient AND  ( LOWER(c.name)  LIKE LOWER(CONCAT('%',:searchValue,'%')) or c.firstName like LOWER(CONCAT('%',:searchValue,'%')))")
-    List<Contact>  findContactByUserAndNameFirstNameContainsNofilter(User user,String searchValue,boolean isClient);
+    List<Contact>  findContactByUserAndNameFirstNameContainsNofilter(User user,Sort sort,String searchValue,boolean isClient);
 
 
     List<Contact> findContactByIsClientTrueOrderByNameAsc();

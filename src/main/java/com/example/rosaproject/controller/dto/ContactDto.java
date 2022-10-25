@@ -1,11 +1,15 @@
 package com.example.rosaproject.controller.dto;
 
-import com.example.rosaproject.controller.entity.Contact;
+import com.example.rosaproject.controller.entity.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactDto {
 
@@ -25,6 +29,62 @@ public class ContactDto {
     private LocalDate createDate;
 
     private String statusProspecting;
+
+    private boolean isClient=false;
+
+
+    private User user;
+
+    private Entreprise entreprise;
+
+    private List<Echange> echangesById = new ArrayList<>();
+
+
+    private List<Event> evenementsById  = new ArrayList<>();
+
+
+
+
+
+    public boolean isClient() {
+        return isClient;
+    }
+
+    public void setClient(boolean client) {
+        isClient = client;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Entreprise getEntreprise() {
+        return entreprise;
+    }
+
+    public void setEntreprise(Entreprise entreprise) {
+        this.entreprise = entreprise;
+    }
+
+    public List<Echange> getEchangesById() {
+        return echangesById;
+    }
+
+    public void setEchangesById(List<Echange> echangesById) {
+        this.echangesById = echangesById;
+    }
+
+    public List<Event> getEvenementsById() {
+        return evenementsById;
+    }
+
+    public void setEvenementsById(List<Event> evenementsById) {
+        this.evenementsById = evenementsById;
+    }
 
     public Long getId() {
         return id;
@@ -100,4 +160,8 @@ public class ContactDto {
         contactDto.setFirstName(contact.getFirstName());
         return contactDto;
     }
+
+
+
+
 }

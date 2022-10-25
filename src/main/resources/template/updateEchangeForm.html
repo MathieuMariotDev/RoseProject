@@ -62,7 +62,7 @@
                 <form th:action="@{/echange/update/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}" method="post" th:object="${echange}">
                     <h3><strong th:text="'Statut actuelle : ' +${echange.statusProspecting}"/></h3>
 
-                    <h4><strong th:text=" 'Date de création: ' +${echange.createDate}"/></h4>
+                    <h4><strong th:text=" 'Date de création: ' +${echange.createDateString}"/></h4>
                     <div class="form-outline">
                         <label for="textAreaExample1">Note sur l'échange</label>
                         <textarea class="form-control" id="textAreaExample1" rows="4" th:field="${echange.message}" th:text="${echange.message}" ></textarea>

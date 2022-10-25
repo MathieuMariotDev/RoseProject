@@ -12,8 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EntrepriseService {
@@ -27,11 +31,23 @@ public class EntrepriseService {
         this.storageService = storageService;
     }
 
+    public Entreprise updateDateFormat(Entreprise entreprise){
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate date = entreprise.getCreateDate();
+        String newFormat = date.format(dateTimeFormatter);
+        entreprise.setCreateDateString(newFormat);
+        return entreprise;
+    }
+
+
+
     public List<Entreprise> getAllEntreprises() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
         User connectedUser = customUser.getUser();
-        return (List<Entreprise>) this.entrepriseRepository.findAllByUserOrderByNameAsc(connectedUser);
+        List<Entreprise> listEntreprise = entrepriseRepository.findAllByUserOrderByNameAsc(connectedUser);
+        List<Entreprise> listDateUpdate = listEntreprise.stream().map(entreprise -> updateDateFormat(entreprise)).collect(Collectors.toList());
+        return (List<Entreprise>) listDateUpdate;
     }
 
     public Entreprise getSpecificEntreprise(long id) {
@@ -53,8 +69,9 @@ public class EntrepriseService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
         User connectedUser = customUser.getUser();
-
-        return this.entrepriseRepository.findEntrepriseByNameContainsAndUserOrCityContainsAndUser(name, connectedUser, city, connectedUser);
+        List<Entreprise> entrepriseList = entrepriseRepository.findEntrepriseByNameContainsAndUserOrCityContainsAndUser(name, connectedUser, city, connectedUser);
+        List<Entreprise> listDateUpdate = entrepriseList.stream().map(entreprise -> updateDateFormat(entreprise)).collect(Collectors.toList());
+        return listDateUpdate;
     }
 
     public void createEntreprise(CreateEntrepriseDto createEntreprise) {

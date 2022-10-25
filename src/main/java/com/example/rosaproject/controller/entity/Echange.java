@@ -1,5 +1,6 @@
 package com.example.rosaproject.controller.entity;
 
+import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,6 +19,18 @@ public class Echange {
     @Column(name = "createDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime createDate;
+
+    @Transient
+    private String createDateString;
+
+    public String getCreateDateString() {
+        return createDateString;
+    }
+
+    public void setCreateDateString(String createDateString) {
+        this.createDateString = createDateString;
+    }
+
     @Basic
     @Column(name = "statusProspecting")
     private String statusProspecting;

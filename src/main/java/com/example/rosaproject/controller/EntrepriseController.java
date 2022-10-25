@@ -36,6 +36,8 @@ public class EntrepriseController {
         return "entreprisesListView";
     }
 
+
+
     @GetMapping("/details/{id}")
     public String displaySpecificEntreprise(@PathVariable("id") long id, Model model) {
         Entreprise entreprise = entrepriseService.getSpecificEntreprise(id);

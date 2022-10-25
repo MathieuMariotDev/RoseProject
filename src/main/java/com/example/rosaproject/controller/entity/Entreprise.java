@@ -57,6 +57,17 @@ public class Entreprise {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createDate;
 
+    @Transient
+    private String createDateString;
+
+    public String getCreateDateString() {
+        return createDateString;
+    }
+
+    public void setCreateDateString(String createDateString) {
+        this.createDateString = createDateString;
+    }
+
     @OneToMany(mappedBy = "entreprise")
     private Collection<Contact> contactsById;
     @ManyToOne
