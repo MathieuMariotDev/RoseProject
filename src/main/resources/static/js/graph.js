@@ -75,17 +75,6 @@ var nbProspectsProspectionTermine = parseInt($("#nbProspectsProspectionTermine")
 // draws it.
 function drawChart3() {
 
-    // Create the data table.
-    /*var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Prospection');
-    data.addColumn('number', 'Number');
-    data.addRows([
-        ['Aucune', nbProspectsProspectionAucun],
-        ['En cours', nbProspectsProspectionEnCours],
-        ['A relancer', nbProspectsProspectionARelancer],
-        ['Terminé', nbProspectsProspectionTermine]
-    ]);*/
-
     var data = google.visualization.arrayToDataTable([
         ["Prospection", "Number", { role: "style" } ],
         ["Aucune", nbProspectsProspectionAucun, "#b87333"],
