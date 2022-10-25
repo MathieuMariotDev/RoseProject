@@ -69,7 +69,6 @@
             description: moddescription.value
           };
 
-          editDialog.dialog( "close" );
 
           $.ajax({
             type: "DELETE",
@@ -100,6 +99,8 @@
         moduid.value = event.id;
         modcontactid.value = event.contact.id;
         moduserid.value = event.user.id;
+        modname.value = event.contact.name;
+        modfirstname.value = event.contact.firstName;
         //editDialog.dialog( "open" );
         $("#edit-dialog-form").modal('show');
       }
@@ -157,7 +158,11 @@
         $("#edit-dialog-form").modal('hide');
       });
 
-
+      $("#deleteButton").click(function () {
+        console.log("i'm clicked before delete");
+        var isvalid =  removeEvent();
+        $("#edit-dialog-form").modal('hide');
+      });
       function addEvent(start, end) {
         var valid = true;
 
@@ -272,7 +277,7 @@
           eventClick: function(event, element) {
             editEvent(event, element);
 
-            //$('#calendar').fullCalendar('updateEvent', event);
+            $('#calendar').fullCalendar('updateEvent', event);
           },
           eventMouseover: function(event, jsEvent, view) {
 
@@ -519,35 +524,52 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Modifier l'évènement</h5>
-
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5>Modifier l'évènement</h5>
               </div>
               <div class="modal-body">
-                <input type="text" name="description" id="modtitle" value="" class=""/>
-                <input type="hidden" id="moduserid" value="">
+                <div class="form-floating my-2">
+                <input type="text" name="modtitle" class="form-control" id="modtitle" value=""/>
+                  <label for="modtitle">Titre de l'évènement</label>
+                </div>
+                <div class="form-floating my-2">
+                  <input type="text" name="modfirstname" class="form-control" id="modfirstname" value=""/>
+                  <label for="modfirstname">Prénom </label>
+                </div>
+                <div class="form-floating my-2">
+                  <input type="text" name="modname" class="form-control" id="modname" value=""/>
+                  <label for="modname">Nom </label>
+                </div>
+
+                  <input type="hidden" id="moduserid" value="">
                 <input type="hidden" id="modcontactid" value="">
-                <label for="moddescription">description:</label>
-               <input type="text" name="description" id="moddescription" value="" class=""/>
-                <br></br>
-                <label for="modstartdateandtime">starts:</label>
+                <div class="form-floating my-2">
+                <textarea class="form-control" id="moddescription" rows="4" ></textarea>
+                  <label for="moddescription">Note sur l'échange</label>
+                </div>
+                <div>
+                <label for="modstartdateandtime">Date et heure de début :</label>
                 <input type="datetime-local" id="modstartdateandtime"/>
-                <br></br>
-                <label for="modenddateandtime">ends:</label>
+                </div>
+                <div>
+                <label for="modenddateandtime">Date et heure de fin :</label>
                 <input type="datetime-local" id="modenddateandtime"/>
+                </div>
                 <input type="hidden" name="moduid" id="moduid"/>
 
                 <input type="submit" tabindex="-1" style="position:absolute; top:-1000px"/>
               </div>
               <div class="modal-footer">
-                <button type="button" id="dismissModal"  class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                 <button id="validate" type="button"  class="btn btn-success" data-dismiss="modal">Validate</button>
-
+                <button type="button" id="dismissModal"  class="btn btn-warning" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                <button type="button" id="deleteButton"  class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Supprimer</button>
               </div>
             </div>
           </div>
         </form>
       </div>
+
+
+
 
     </main>
 

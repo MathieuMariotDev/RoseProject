@@ -8,6 +8,7 @@ import com.example.rosaproject.repository.EventRepository;
 import com.example.rosaproject.security.CustomUserDetails;
 import com.example.rosaproject.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -82,13 +83,15 @@ public class EventController {
     }
 
     @RequestMapping(value="/event", method=RequestMethod.PATCH)
-    public Event updateEvent(@RequestBody EventDto event) {
-        return eventService.updateEvent(event);
+    public ResponseEntity<EventDto> updateEvent(@RequestBody EventDto event) {
+        Event eventUpdate  = eventService.updateEvent(event);
+        return ResponseEntity.ok(EventDto.from(eventUpdate));
     }
 
     @RequestMapping(value="/event", method=RequestMethod.DELETE)
-    public void removeEvent(@RequestBody Event event) {
-        eventService.removeEvent(event.getId());
+    public ResponseEntity<Event> removeEvent(@RequestBody Event event){
+    eventService.removeEvent(event.getId());
+    return ResponseEntity.ok(event);
     }
 
 }
