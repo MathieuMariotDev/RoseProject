@@ -74,7 +74,7 @@
                   <div class="col-md-6"><label class="labels">Prenom</label><input type="text" class="form-control" value="" th:value="${contact.name}" placeholder="surname" readonly="readonly"></div>
                 </div>
                 <div class="row mt-3">
-                  <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="enter email id" th:value="${contact.email}"></div>
+                  <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="enter email id" th:value="${contact.email}" readonly="readonly"></div>
                   <div class="col-md-12"><label class="labels">Telephone portable</label><input type="text" class="form-control" placeholder="enter phone number" th:value="${contact.cellPhone}"  readonly="readonly"></div>
                   <div class="col-md-12"><label class="labels">Telephone fixe</label><input type="text" class="form-control" placeholder="enter phone number" th:value="${contact.phone}"  readonly="readonly"></div>
                   <div class="col-md-12"><label class="labels">Date prochaine relance</label><input type="text" class="form-control" placeholder="Non définie" th:value="${contact.timeBeforeReminder}"  readonly="readonly"></div>
@@ -319,6 +319,7 @@
         </div>
       </main>
     </main>
+
     <footer class="py-4 bg-light mt-auto">
       <div class="container-fluid px-4">
         <div class="d-flex align-items-center justify-content-between small">

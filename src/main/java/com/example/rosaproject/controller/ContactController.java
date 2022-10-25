@@ -45,7 +45,7 @@ public class ContactController {
     @PostMapping("/add/prospect")
     public String prospectSubmit(CreateContactDto createContactDto){
         contactService.addProspect(createContactDto);
-        return "redirect:/init";
+        return "redirect:/contact/listProspect";
     }
 
     @GetMapping("/details/{id}")

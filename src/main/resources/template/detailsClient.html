@@ -92,7 +92,7 @@
                                     <div class="col-md-12"><label class="labels">Email</label><input type="text"
                                                                                                      class="form-control"
                                                                                                      placeholder="enter email id"
-                                                                                                     th:value="${contact.email}">
+                                                                                                     th:value="${contact.email}" readonly="readonly">
                                     </div>
                                     <div class="col-md-12"><label class="labels">Telephone portable</label><input
                                             type="text" class="form-control" placeholder="enter phone number"
@@ -126,7 +126,7 @@
                                                                                                      readonly="readonly">
                                     </div>
                                     <div><a th:href="@{/entreprises/all}"
-                                            th:text="'Détails de l\'entreprise ' + ${contact.entreprise.name}"></a>
+                                            th:text="'Détails de l\'entreprise ' + ${contact.entreprise.name}" ></a>
                                     </div>
                                 </div>
                                 <div class="mt-5 col-12 d-flex justify-content-between">
@@ -264,7 +264,7 @@
                         <div class="col-md-4">
                             <a href="#" onclick="return show('Page2','Page1');" class="btn btn-primary">Voire l'historique de prospection</a>
                             <div class="p-3 py-5">
-                                <form id="formAdd" th:action="@{/echange/add/{id} (id=${contact.id})}" method="post" th:object="${echangeForSubmit}">
+                                <form id="formAdd" th:action="@{/echange/add/client/{id} (id=${contact.id})}" method="post" th:object="${echangeForSubmit}">
                                     <div class="row justify-content-center">
                                         <!--Material textarea-->
                                         <h4><strong th:text="'Statut actuelle : ' +${contact.statusProspecting}"/></h4>
@@ -347,7 +347,7 @@
                         </div>
                         <a th:href="@{/echange/update/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}"
                            class="btn btn-warning w-25">Mettre a jour l'échange</a>
-                        <a th:href="@{/echange/delete/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}"
+                        <a th:href="@{/echange/delete/client/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}"
                            class="btn btn-danger w-25">Supprimer l'échange</a>
                     </div>
                 </th:block>
