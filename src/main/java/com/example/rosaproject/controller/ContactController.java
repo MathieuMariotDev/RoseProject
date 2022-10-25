@@ -48,7 +48,7 @@ public class ContactController {
         return "redirect:/init";
     }
 
-    @GetMapping("/details/{id}")
+    @GetMapping("/details/prospect/{id}")
     public String detailsContact(@PathVariable("id") Long id, Model model){
         model.addAttribute("contact", contactService.compareDateUpdateContact(contactService.findContactById(id)));
         model.addAttribute("echangeForSubmit",new EchangeDto());
