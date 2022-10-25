@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,7 +47,7 @@
             <nav class="sb-sidenav-menu-nested nav">
               <a class="nav-link"th:href="@{/user/deleteUser}">Supprimer compte</a>
               <a class="nav-link"th:href="@{/user/edit}">Modifier compte</a>
-              <a class="nav-link"th:href="@{/user/allUsers}">Tous les utilisateurs</a>
+              <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link"th:href="@{/user/allUsers}">Tous les utilisateurs</a>
             </nav>
           </div>
         </div>
@@ -55,16 +55,16 @@
     </nav>
   </div>
   <div id="layoutSidenav_content">
-    <main>
+    <main class="m-0">
 
-      <h1 class="text-center">Prospects et clients</h1>
+      <h1 class="text-center mt-5 mb-5">Prospects et clients</h1>
 
       <div class="row">
 
         <div class="col-6">
 
           <div class = "card m-3">
-            <h3 class="card-name text-center" th:text="'Prospects :'"></h3>
+            <h3 class="card-name text-center mb-3 mt-3" th:text="'Prospects :'"></h3>
             <div class="card-body">
 
               <div th:each="contact: ${entreprise.contactsById}">
@@ -81,7 +81,7 @@
         <div class="col-6">
 
           <div class = "card m-3">
-            <h3 class="card-name text-center" th:text="'Clients :'"></h3>
+            <h3 class="card-name text-center mb-3 mt-3" th:text="'Clients :'"></h3>
             <div class="card-body">
 
               <div th:each="contact: ${entreprise.contactsById}">

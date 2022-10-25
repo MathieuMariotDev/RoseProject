@@ -55,141 +55,147 @@
     </nav>
   </div>
   <div id="layoutSidenav_content">
-    <main>
+    <main class="m-0">
 
-      <div class="row m-3 justify-content-between">
+      <div class="container-fluid">
 
-        <div class="col-3">
-          <h1>Entreprises</h1>
+        <div class="row m-3 justify-content-between">
+
+          <div class="col-3">
+            <h1><i class="fa-regular fa-building"></i> Entreprises</h1>
+          </div>
+
+          <div class="col-4  d-flex justify-content-between" >
+            <a class="nav-link btn text-white d-flex align-items-center btn-primary"th:href="@{/entreprises/add}">Ajouter entreprise</a>
+            <form class="d-flex" role="search" method="get" th:action="@{/entreprises/all}">
+              <input class="form-control me-2" name="search" type="search" placeholder="Rechercher une entreprise" aria-label="Rechercher">
+              <button class="btn btn-outline-success" type="submit">Rechercher</button>
+            </form>
+          </div>
+
         </div>
 
-        <div class="col-3">
-          <form class="d-flex" role="search" method="get" th:action="@{/entreprises/all}">
-            <input class="form-control me-2" name="search" type="search" placeholder="Rechercher une entreprise" aria-label="Rechercher">
-            <button class="btn btn-outline-success" type="submit">Rechercher</button>
-          </form>
-        </div>
-
-      </div>
-
-      <div class="col-5 m-3" th:each="entreprise: ${entreprises}">
         <div class="row justify-content-center">
 
-          <div class = "card m-3">
-            <h3 class="card-name text-center" th:text="${entreprise.name}"></h3>
-            <div class="card-body">
+          <div class="col-5 m-3" th:each="entreprise: ${entreprises}">
 
-              <ul class="list-group list-group-flush">
+            <div class = " m-3 border border-secondary rounded">
+              <h3 class="card-name text-center mt-4" th:text="${entreprise.name}"></h3>
+              <div class="card-body">
 
-                <li class="list-group-item">
-                  <img th:src="${entreprise.logo}">
-                </li>
+                <ul class="list-group list-group-flush">
 
-                <li class="list-group-item">
-                  <div th:text="'SIRET : ' + ${entreprise.siret}"></div>
-                </li>
+                  <li class="list-group-item">
+                    <img class="img-fluid" th:src="${entreprise.logo}">
+                  </li>
 
-                <li class="list-group-item">
-                  <div th:text="'Email : '"></div>
-                  <a th:text="${entreprise.email}" th:href="'mailto:' + ${entreprise.email}"></a>
-                </li>
+                  <li class="list-group-item">
+                    <div th:text="'SIRET : ' + ${entreprise.siret}"></div>
+                  </li>
 
-                <li class="list-group-item">
-                  <div th:text="'Téléphone portable : '"></div>
-                  <a th:text="${entreprise.cellPhone}" th:href="'tel:' + ${entreprise.cellPhone}"></a>
-                </li>
+                  <li class="list-group-item">
+                    <div th:text="'Email : '"></div>
+                    <a th:text="${entreprise.email}" th:href="'mailto:' + ${entreprise.email}"></a>
+                  </li>
 
-                <li class="list-group-item">
-                  <div th:text="'Téléphone fixe : '"></div>
-                  <a th:text="${entreprise.phone}" th:href="'tel:' + ${entreprise.phone}"></a>
-                </li>
+                  <li class="list-group-item">
+                    <div th:text="'Téléphone portable : '"></div>
+                    <a th:text="${entreprise.cellPhone}" th:href="'tel:' + ${entreprise.cellPhone}"></a>
+                  </li>
 
-                <li class="list-group-item">
-                  <div th:text="'Site Web : ' + ${entreprise.urlWebSite}"></div>
-                </li>
+                  <li class="list-group-item">
+                    <div th:text="'Téléphone fixe : '"></div>
+                    <a th:text="${entreprise.phone}" th:href="'tel:' + ${entreprise.phone}"></a>
+                  </li>
 
-                <li class="list-group-item">
-                  <div th:text="'Adresse : '"></div>
-                  <a th:text="${entreprise.address} + ' ' + ${entreprise.postalCode} + ' ' + ${entreprise.city}" th:href="'https://maps.google.co.in/maps?q=' + ${entreprise.address} + ${entreprise.postalCode} + ${entreprise.city}"></a>
-                </li>
+                  <li class="list-group-item">
+                    <div th:text="'Site Web : ' + ${entreprise.urlWebSite}"></div>
+                  </li>
 
-                <li class="list-group-item">
-                  <div th:text="'Adresse complémentaire : ' + ${entreprise.additionalAddress}"></div>
-                </li>
+                  <li class="list-group-item">
+                    <div th:text="'Adresse : '"></div>
+                    <a th:text="${entreprise.address} + ' ' + ${entreprise.postalCode} + ' ' + ${entreprise.city}" th:href="'https://maps.google.co.in/maps?q=' + ${entreprise.address} + ${entreprise.postalCode} + ${entreprise.city}"></a>
+                  </li>
 
-                <!--
-                <li class="list-group-item">
-                  <div th:text="'Ville : ' + ${entreprise.city}"></div>
-                </li>
+                  <li class="list-group-item">
+                    <div th:text="'Adresse complémentaire : ' + ${entreprise.additionalAddress}"></div>
+                  </li>
 
-                <li class="list-group-item">
-                  <div th:text="'Code Postal : ' + ${entreprise.postalCode}"></div>
-                </li>
-                -->
+                  <!--
+                  <li class="list-group-item">
+                    <div th:text="'Ville : ' + ${entreprise.city}"></div>
+                  </li>
 
-                <li class="list-group-item">
-                  <div th:text="'Type d\'activité : ' + ${entreprise.typeOfActivity}"></div>
-                </li>
+                  <li class="list-group-item">
+                    <div th:text="'Code Postal : ' + ${entreprise.postalCode}"></div>
+                  </li>
+                  -->
 
-                <li class="list-group-item">
-                  <div th:text="'Date de création : ' + ${entreprise.createDate}"></div>
-                </li>
+                  <li class="list-group-item">
+                    <div th:text="'Type d\'activité : ' + ${entreprise.typeOfActivity}"></div>
+                  </li>
 
-                <!--todo : aligner horizontalement les boutons-->
-                <li class="list-group-item">
+                  <li class="list-group-item">
+                    <div th:text="'Date de création : ' + ${entreprise.createDate}"></div>
+                  </li>
 
-                  <div>
-                    <a th:href="@{/entreprises/details/{id}(id=${entreprise.id})}">Prospects et clients</a>
-                  </div>
+                  <!--todo : aligner horizontalement les boutons-->
+                  <li class="list-group-item">
 
-                </li>
+                    <div>
+                      <a th:href="@{/entreprises/details/{id}(id=${entreprise.id})}">Prospects et clients</a>
+                    </div>
 
-                <li class="list-group-item">
+                  </li>
 
-                  <!--edit-->
-                  <div>
-                    <form th:action="@{/entreprises/edit/{id}(id=${entreprise.id})}" method="get">
-                      <button class="btn btn-secondary" type="submit">Modifier</button>
-                    </form>
-                  </div>
+                  <li class="list-group-item d-flex justify-content-around">
 
-                  <!--remove-->
-                  <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Supprimer
-                  </button>
+                    <!--edit-->
+                    <div>
+                      <form th:action="@{/entreprises/edit/{id}(id=${entreprise.id})}" method="get">
+                        <button class="btn btn-secondary" type="submit">Modifier</button>
+                      </form>
+                    </div>
 
-                  <form th:action="@{/entreprises/delete/{id}(id=${entreprise.id})}" method="post">
+                    <!--remove-->
+                    <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      Supprimer
+                    </button>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Suppression de l'entreprise</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            Voulez-vous vraiment supprimer l'entreprise ?
-                          </div>
-                          <div class="modal-footer">
 
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
 
-                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                  </li>
 
-                          </div>
+                </ul>
+                <form th:action="@{/entreprises/delete/{id}(id=${entreprise.id})}" method="post">
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Suppression de l'entreprise</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          Voulez-vous vraiment supprimer l'entreprise ?
+                        </div>
+                        <div class="modal-footer">
+
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+
+                          <button type="submit" class="btn btn-danger">Supprimer</button>
+
                         </div>
                       </div>
                     </div>
+                  </div>
 
-                  </form>
-
-                </li>
-
-              </ul>
-
+                </form>
+              </div>
             </div>
           </div>
+
         </div>
 
       </div>

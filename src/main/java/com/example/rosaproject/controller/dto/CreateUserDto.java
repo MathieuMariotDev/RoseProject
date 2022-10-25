@@ -25,7 +25,7 @@ public class CreateUserDto {
         this.picture = picture;
     }
 
-    private Short role;
+    private String role;
 
     private Collection<Contact> contacts;
 
@@ -40,7 +40,7 @@ public class CreateUserDto {
         user.setEmail(this.email);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(this.password));
-        user.setRole((short) 1);
+        user.setRole("ROLE_USER");
         user.setPicture(this.picture);
         return user;
     }
@@ -51,7 +51,7 @@ public class CreateUserDto {
         userDto.setEmail(user.getEmail());
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         userDto.setPassword(encoder.encode(user.getPassword()));
-        userDto.setRole((short) 1);
+        userDto.setRole(userDto.getRole());
         userDto.setPicture(user.getPicture());
         return userDto;
     }
@@ -60,7 +60,7 @@ public class CreateUserDto {
         user.setEmail(this.email);
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(this.password));
-        user.setRole((short) 1);
+        user.setRole("ROLE_USER");
         user.setPicture(this.picture);
         return user;
     }
@@ -88,11 +88,11 @@ public class CreateUserDto {
         this.email = email;
     }
 
-    public Short getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Short role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
