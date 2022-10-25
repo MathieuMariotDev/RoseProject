@@ -57,7 +57,7 @@
   <div id="layoutSidenav_content">
     <main>
       <div id="Page1">
-        <a href="#" onclick="return show('Page2','Page1');">Show page 2</a>
+        <a href="#" onclick="return show('Page2','Page1');">Echanges</a>
         <div class="row">
           <div class="col-6">
             <img th:src="${contact.picture}" alt="" class="img-fluid"/>
@@ -72,16 +72,18 @@
                     <h3><strong th:text="${contact.firstName}"/></h3>
                   </div>
                   <h4 th:text=" 'Adresse email : ' + ${contact.email}"></h4>
-                  <h4 th:text=" 'Numéro : ' + ${contact.phone}"></h4>
-                  <h4 th:text=" 'Numéro de protable: ' + ${contact.cellPhone}"></h4>
-                  <p th:text=" 'Nom de l  entreprise : ' + ${contact.entreprise.name}"></p>
-                  <p th:text=" 'Secteur d activité : ' + ${contact.entreprise.typeOfActivity}"></p>
-                  <p th:text=" 'Numéro de téléphone de l entreprise : ' + ${contact.entreprise.phone}"></p>
-                  <p th:text=" 'Adresse de l entreprise : '+ ${contact.entreprise.address}"></p>
-                  <p th:text=" 'Complément : '+ ${contact.entreprise.additionalAddress}"></p>
+                  <h4 th:text=" 'Numéro fixe : ' + ${contact.phone}"></h4>
+                  <h4 th:text=" 'Numéro de portable: ' + ${contact.cellPhone}"></h4>
+                  <p th:text=" 'Nom de l\'entreprise : ' + ${contact.entreprise.name}"></p>
+                  <p th:text=" 'Secteur d\'activité : ' + ${contact.entreprise.typeOfActivity}"></p>
+                  <p th:text=" 'Numéro de téléphone de l\'entreprise : ' + ${contact.entreprise.phone}"></p>
+                  <p th:text=" 'Adresse de l\'entreprise : '+ ${contact.entreprise.address}"></p>
+                  <p th:text=" 'Complément d\'adresse : '+ ${contact.entreprise.additionalAddress}"></p>
                   <p th:text=" 'Ville : '+ ${contact.entreprise.city}"></p>
 
-                  <p>Lien vers le détails de son entreprise</p>
+                  <a th:href="@{/entreprises/all}" th:text="'Détails de l\'entreprise ' + ${contact.entreprise.name}"></a>
+
+                  <p></p>
 
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEvent">
                     Programmer un évènement
@@ -126,8 +128,9 @@
                             </div>
                           </div>
                           <div class="modal-footer">
-                            <button type="submit" class="btn btn-secondary">Enregistrer l'évènement'</button>
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                            <button type="submit" class="btn btn-primary">Enregistrer l'évènement</button>
+
                           </div>
                         </div>
                       </div>
@@ -168,7 +171,36 @@
                     </div>
                   </div>
 
-                  <a  th:href="@{/contact/delete/{id}(id=${contact.id})}" class="btn btn-danger">Supprimer ce contact</a>
+                  <!--remove-->
+                  <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#clientModal">
+                    Supprimer
+                  </button>
+
+                  <form th:action="@{/contact/delete/client/{id}(id=${contact.id})}" method="post">
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="clientModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="clientModalLabel">Suppression du client</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            Voulez-vous vraiment supprimer ce client ?
+                          </div>
+                          <div class="modal-footer">
+
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+
+                              <button type="submit" class="btn btn-danger">Supprimer</button>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </form>
 
                 </div>
               </div>
@@ -205,7 +237,7 @@
       </div>
 
       <div id="Page2" style="display: none">
-        <a href="#" onclick="return show('Page1','Page2');">Show page 1</a>
+        <a href="#" onclick="return show('Page1','Page2');">Retour</a>
         <th:block th:each="echange :${prospectingEchangeList}">
 
 

@@ -53,7 +53,7 @@ public class ContactController {
         model.addAttribute("contact", contactService.compareDateUpdateContact(contactService.findContactById(id)));
         model.addAttribute("echangeForSubmit",new EchangeDto());
         model.addAttribute("event" , new EventDto());
-        return "detailsContact";
+        return "detailsProspect";
     }
 
     @GetMapping("/update/{id}")
@@ -98,16 +98,22 @@ public class ContactController {
 
 
 
-    @GetMapping("/delete/{id}")
+    /*@GetMapping("/delete/{id}")
     public String deleteContactValidation(@PathVariable("id") Long id,Model model){
         model.addAttribute("contact",contactService.findContactById(id));
         return "deleteValidation";
+    }*/
+
+    @PostMapping("/delete/client/{id}")
+    public String submitDeleteClient(@PathVariable("id") Long id){
+        contactService.deleteContact(id);
+        return "redirect:/contact/listClient/";
     }
 
-    @PostMapping("/delete/{id}")
-    public String submitDeleteContact(@PathVariable("id") Long id){
+    @PostMapping("/delete/prospect/{id}")
+    public String submitDeleteProspect(@PathVariable("id") Long id){
         contactService.deleteContact(id);
-        return "redirect:/dashboard";
+        return "redirect:/contact/listProspect";
     }
 
     @GetMapping({"/listProspect","/"})
