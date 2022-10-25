@@ -61,7 +61,7 @@ public class DashboardService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
         User connectedUser = customUser.getUser();
-        return this.echangeRepository.entreprisesbyNotesCount().stream().collect(Collectors.toMap(obj -> (String)obj[0], obj -> (Long)obj[1]));
+        return this.echangeRepository.entreprisesbyUserAndNotes(connectedUser).stream().collect(Collectors.toMap(obj -> (String)obj[0], obj -> (Long)obj[1]));
     }
 
     public long prospectsByProspectionAucun() {
