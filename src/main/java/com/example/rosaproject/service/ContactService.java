@@ -9,16 +9,20 @@ import com.example.rosaproject.repository.ContactRepository;
 import com.example.rosaproject.repository.EchangeRepository;
 import com.example.rosaproject.security.CustomUserDetails;
 import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 public class ContactService {
@@ -197,6 +201,22 @@ public class ContactService {
         }
 
         return contactList;
+    }
+
+    public List<Contact> autoUpdateListStatutWhenTimerEnd(List<Contact> listContact){
+        return listContact.stream().map(contact -> compareDateUpdateContact(contact)).collect(Collectors.toList());
+    }
+
+
+    public Contact compareDateUpdateContact(Contact contact){
+        if (contact.getEchangesById().size()-1 >-1 && contact.getTimeBeforeReminder() != null){
+            if (contact.getTimeBeforeReminder().compareTo(contact.getEchangesById().get(contact.getEchangesById().size()-1).getCreateDate())<0){
+                contact.setStatusProspecting(Status.relancer.getStatusName());
+                contactRepository.save(contact);
+            }
+        }
+
+        return contact;
     }
 
 

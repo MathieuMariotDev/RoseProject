@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -38,5 +39,6 @@ public interface ContactRepository extends CrudRepository<Contact, Long> {
     List<Contact> findContactByIsClientFalseOrderByNameAsc();
     // Retourne la liste de contact qui ne sont pas des clients trié dans l'ordre DESC
     List<Contact> findContactByIsClientFalseOrderByNameDesc();
+
 
 }
