@@ -18,7 +18,7 @@
       <div class="sb-sidenav-menu">
         <div class="nav">
           <div class="sb-sidenav-menu-heading">Interface</div>
-          <a class="nav-link collapsed" th:href="@{/dashboard}" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+          <a class="nav-link collapsed" th:href="@{/dashboard}">
             <div class="sb-nav-link-icon"><i class="fa-solid fa-gauge-high"></i></div>
             Tableau de bord
           </a>
@@ -67,7 +67,6 @@
               </div>
             </div>
             <div class="card-footer">
-              <h2><c:out value="${book.publishingDate}"></c:out></h2>
               <a th:href="@{/contact/update/{id}(id=${prospect.id})}" class="btn btn-warning">Modifier le prospect</a>
               <a th:href="@{/contact/details/{id}(id=${prospect.id})}" class="btn btn-info">Voire le détails</a>
 
