@@ -1,6 +1,7 @@
 package com.example.rosaproject.controller;
 
 import com.example.rosaproject.controller.dto.CreateContactDto;
+import com.example.rosaproject.controller.dto.EventDto;
 import com.example.rosaproject.controller.dto.SearchDto;
 import com.example.rosaproject.controller.entity.Contact;
 import com.example.rosaproject.controller.entity.Echange;
@@ -50,6 +51,7 @@ public class ContactController {
     public String detailsContact(@PathVariable("id") Long id, Model model){
         model.addAttribute("contact",contactService.findContactById(id));
         model.addAttribute("echangeForSubmit",new Echange());
+        model.addAttribute("event" , new EventDto());
         return "detailsContact";
     }
 
@@ -89,6 +91,7 @@ public class ContactController {
         model.addAttribute("echangeForSubmit",new Echange());
         model.addAttribute("clientEchangeList",listEchangeClient);
         model.addAttribute("prospectingEchangeList",listEchangeProspecting);
+        model.addAttribute("event" , new EventDto());
         return "detailsClient";
     }
 

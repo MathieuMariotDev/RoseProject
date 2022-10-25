@@ -82,6 +82,59 @@
                   <p th:text=" 'Ville : '+ ${contact.entreprise.city}"></p>
 
                   <p>Lien vers le détails de son entreprise</p>
+
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEvent">
+                    Programmer un évènement
+                  </button>
+                  <!-- Modal timber before relance -->
+                  <div class="modal fade" id="modalEvent" tabindex="-1" aria-labelledby="modalEvent" aria-hidden="true">
+                    <form th:action="@{/event/add/{id}/(id=${contact.id})}"  method="post" th:object="${event}">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="modal"><strong th:text=" 'Programmer un évènement avec : ' + ${contact.name} + ' ' + ${contact.firstName}"></strong> </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="modal-body">
+                              <div class="form-floating my-5">
+                                <input id="name" type="text" th:field="${event.title}" placeholder="Nom de l'évènement<" class="form-control" >
+                                <label for="name">Nom de l'évènement *</label>
+                              </div>
+                              <div class="form-floating my-5">
+                                <input id="phone" type="text" th:field="${event.phone}" placeholder="Nom de l'évènement<" class="form-control" >
+                                <label for="phone">Numéro de téléphone pour l'évènement</label>
+                              </div>
+                              <div class="form-floating my-5">
+                                <input id="address" type="text" th:field="${event.address}" placeholder="Nom de l'évènement<" class="form-control" >
+                                <label for="address">Adresse pour l'évènement</label>
+                              </div>
+                              <textarea class="form-control" id="textAreatext" rows="4"  th:field="${event.description}"></textarea>
+                              <label >Note sur l'échange *</label>
+                            </div>
+                            <div class="">
+                              <label >Date début ou jour :</label>
+                              <input type="datetime-local" th:field="${event.start}">
+                              <div class="form-check form-switch">
+                                <input id="fulldate" class="form-check-input" type="checkbox" th:field="${event.fullDay}">
+                                <label class="form-check-label" >Jour entier</label>
+                              </div>
+                            </div>
+                            <div id="dateTimeEnd" style="display: block;">
+                              <label>Date fin :</label>
+                              <input type="datetime-local" th:field="${event.finish}">
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="submit" class="btn btn-secondary">Enregistrer l'évènement'</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+
+
                   <!-- TODO -->
                   <div th:if="${contact.getEchangesById().size()-1 > -1}">
 
@@ -180,6 +233,25 @@
         document.getElementById(hidden).style.display='none';
         return false;
       }
+      let divFullDay = document.getElementById('fulldate');
+      let divAddTime = document.getElementById('dateTimeEnd');
+      // Listen for click events
+      // Listen for click events
+      document.getElementById('fulldate').addEventListener('click', function (event) {
+        console.log("clicked")
+
+
+
+        if (divAddTime.style.display === 'block' ){
+          divAddTime.style.display = 'none';
+        }else{
+          divAddTime.style.display = 'block';
+        }
+
+
+
+      }, false);
+
     </script>
 
 

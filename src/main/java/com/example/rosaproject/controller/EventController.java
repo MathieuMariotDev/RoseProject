@@ -6,7 +6,9 @@ import com.example.rosaproject.controller.entity.Event;
 import com.example.rosaproject.exception.BadDateFormatException;
 import com.example.rosaproject.repository.EventRepository;
 import com.example.rosaproject.security.CustomUserDetails;
+import com.example.rosaproject.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
@@ -23,16 +25,23 @@ import java.util.stream.Collectors;
 @RestController
 public class EventController {
 
-    @Autowired
+
     private EventRepository eventRespository;
 
+    private EventService eventService;
+
+    public EventController(EventRepository eventRespository, EventService eventService) {
+        this.eventRespository = eventRespository;
+        this.eventService = eventService;
+    }
+
     @RequestMapping(value="/allevents", method=RequestMethod.GET)
-    public List<EventDto> allEvents() {
+    public ResponseEntity<List<EventDto>> allEvents() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
         List<Event> eventList = eventRespository.findAllByUser(customUser.getUser());
         List<EventDto> eventDtoList = eventList.stream().map(event -> EventDto.from(event)).collect(Collectors.toList());
-        return eventDtoList;
+        return ResponseEntity.accepted().body(eventDtoList);
     }
 
     @RequestMapping(value="/events", method=RequestMethod.GET)
@@ -73,13 +82,13 @@ public class EventController {
     }
 
     @RequestMapping(value="/event", method=RequestMethod.PATCH)
-    public Event updateEvent(@RequestBody Event event) {
-        return eventRespository.save(event);
+    public Event updateEvent(@RequestBody EventDto event) {
+        return eventService.updateEvent(event);
     }
 
     @RequestMapping(value="/event", method=RequestMethod.DELETE)
     public void removeEvent(@RequestBody Event event) {
-        eventRespository.delete(event);
+        eventService.removeEvent(event.getId());
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.rosaproject.controller.entity;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -24,20 +25,43 @@ public class Event {
     private String address;
     @Basic
     @Column(name = "dateTimeStart")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dateTimeStart;
     @Basic
     @Column(name = "dateTimeEnd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dateTimeEnd;
+
+    private String phone;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public Event() {
     }
 
-    public Event(String name, String description, String address, LocalDateTime dateTimeStart, LocalDateTime dateTimeEnd, User user, Contact contact) {
+    public Event(String name, String description, String address, LocalDateTime dateTimeStart, LocalDateTime dateTimeEnd, User user, Contact contact,String phone) {
         this.name = name;
         this.description = description;
         this.address = address;
         this.dateTimeStart = dateTimeStart;
         this.dateTimeEnd = dateTimeEnd;
+        this.user = user;
+        this.contact = contact;
+        this.phone = phone;
+    }
+
+    public Event(String name, String description, String phone, LocalDateTime dateTimeStart, LocalDateTime dateTimeEnd, User user, Contact contact) {
+        this.name = name;
+        this.description = description;
+        this.dateTimeStart = dateTimeStart;
+        this.dateTimeEnd = dateTimeEnd;
+        this.phone = phone;
         this.user = user;
         this.contact = contact;
     }
