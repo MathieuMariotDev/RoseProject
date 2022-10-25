@@ -56,78 +56,73 @@
   </div>
   <div id="layoutSidenav_content">
     <main>
-
-      <div class="col-12">
-        <form class="d-flex flex-column align-items-center" action="#" th:action="@{/contact/update/{id}(id=${contact.id})}" th:object="${contact}"
-              method="post" enctype="multipart/form-data"><h1 class="h3 mb-3 mt-3 fw-normal my-5d-flex d-flex justify-content-center">Modification de contact</h1>
-          <div class="d-flex justify-content-between align-items-center col-7">
-            <div class="form-floating my-4 border border-dark rounded">
-              <input id="firstName" type="text" th:field="*{firstName}" th:value="*{firstName}" placeholder="Prénom" class="form-control" >
-              <label for="firstName">Nom</label>
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-5 border-right">
+          <form class=" p-3 py-5" action="#" th:action="@{/contact/update/{id}(id=${contact.id})}" th:object="${contact}"
+             method="post" enctype="multipart/form-data">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h4 class="text-right">Modifier contact</h4>
             </div>
-
-            <div class="form-floating my-4 border border-dark rounded">
-              <input id="name" type="text" th:field="*{name}" th:value="*{name}" placeholder="Prénom" class="form-control" >
-              <label for="name">Prénom</label>
-            </div>
-
-            <div class="form-floating my-4 border border-dark rounded">
-              <input id="email" type="text" th:field="*{email}" th:value="*{email}" placeholder="Adresse email" class="form-control" >
-              <label for="email">Adresse email</label>
-            </div>
-          </div>
-          <div class="d-flex justify-content-around align-items-center col-5">
-            <div class="form-floating my-4 border border-dark rounded">
-              <input id="cellPhone" type="text" th:field="*{cellPhone}" th:value="*{cellPhone}" placeholder="Numéro de téléphone portable" class="form-control col-5" >
-              <label for="cellPhone">Numéro de portable</label>
-            </div>
-
-
-            <div class="form-floating my-4 border border-dark rounded">
-              <input id="phone" type="text" th:field="*{phone}" th:value="*{phone}" placeholder="Numéro de téléphone fixe" class="form-control col-5" >
-              <label for="phone">Numéro de téléphone </label>
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-around align-items-center col-4">
-            <select th:field="*{entreprise}" id="contact1" class=" col-3 my-3">
-              <option selected th:value="${contact.entreprise.id}" th:text="${contact.entreprise.name}"></option>
-              <th:block th:each="entreprise :${entreprises}">
-                <option th:value="${entreprise.id}" th:text="${entreprise.name}"></option>
-              </th:block>
-            </select>
-
-            <select th:field="*{client}" id="isClient" class=" col-3 my-3">
-              <div th:if="*{!client}" >
-                <option selected th:value="${false}" th:text="Prospect"></option>
-                <option th:value="${true}" th:text="Client"></option>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <select th:field="*{entreprise}" id="contact1" class="form-select col-6 my-3">
+                  <option selected th:value="${contact.entreprise.id}" th:text="${contact.entreprise.name}"></option>
+                  <th:block th:each="entreprise :${entreprises}">
+                    <option th:value="${entreprise.id}" th:text="${entreprise.name}"></option>
+                  </th:block>
+                </select>
               </div>
-              <div th:if="*{client}" >
-                <option selected th:value="${true}" th:text="Client"></option>
-                <option th:value="${false}" th:text="Prospect"></option>
+              <div class="col-md-6">
+                <select th:field="*{client}" id="isClient" class="form-select col-6 my-3">
+                  <div th:if="*{!client}" >
+                    <option selected th:value="${false}" th:text="Prospect"></option>
+                    <option th:value="${true}" th:text="Client"></option>
+                  </div>
+                  <div th:if="*{client}" >
+                    <option selected th:value="${true}" th:text="Client"></option>
+                    <option th:value="${false}" th:text="Prospect"></option>
+                  </div>
+                </select>
               </div>
-            </select>
-          </div>
-          <div class="d-flex justify-content-around align-items-center col-5">
-            <div class="col-3">
-              <label for="picture">Image actuelle</label>
-              <img class="img-fluid" type="file" th:src="${contact.picture}" id="picture" >
-              <input type="hidden" th:field="*{picture}" th:value="*{picture}">
             </div>
-
-            <div class="d-flex flex-column">
-              <label for="picture">Insérer une image de remplacement :</label>
-              <input type="file" th:field="*{file}" id="file" >
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <input type="text" class="form-control" placeholder="Nom de famille"  th:field="*{firstName}" th:value="*{firstName}">
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control"  th:field="*{name}" th:value="*{name}" placeholder="surname">
+              </div>
             </div>
-          </div>
-          <div class="d-flex justify-content-center col-12">
-            <div class=" d-flex justify-content-around col-5 ">
-              <button class=" btn  btn-primary my-3 col-4" type="submit">Ajouter un prospect</button>
-              <a class="btn btn-danger my-3 d-flex justify-content-center" th:href="@{/contact/listProspect/}">Annuler</a>
+            <div class="row mt-3">
+              <div class="col-md-12 mt-3">
+                <input type="text" class="form-control" placeholder="Votre numero de portable"  th:value="*{cellPhone}" th:field="*{cellPhone}">
+              </div>
+              <div class="col-md-12 mt-3">
+                <input type="text" class="form-control" placeholder="Votre numero fixe" th:value="*{phone}"  th:field="*{phone}">
+              </div>
+              <div class="col-md-12 mt-3">
+                <input type="text" class="form-control" placeholder="Email"  th:field="*{email}" th:value="*{email}">
+              </div>
+              <div class="col-md-12 mt-3">
+                <label for="file">Insérer nouvelle image :</label>
+                <input type="file" th:field="*{file}" id="file" >
+              </div>
+              <div class="col-md-12 mt-3">
+                <label for="picture">Image actuelle</label>
+                <img class="img-fluid" type="file" th:src="${contact.picture}" id="picture" >
+                <input type="hidden" th:field="*{picture}" th:value="*{picture}">
+              </div>
             </div>
-          </div>
-        </form>
-
+            <div class="row mt-3">
+              <div class="col-md-6">
+                <button class=" btn  btn-primary my-3 col-12" type="submit">Modifier contact</button>
+              </div>
+              <div class="col-md-6">
+                <a class="btn btn-danger my-3 col-12 " th:href="@{/contact/listProspect/}">Annuler</a>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </main>
     <footer class="py-4 bg-light mt-auto">

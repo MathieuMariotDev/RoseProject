@@ -45,7 +45,7 @@ public class ContactController {
     @PostMapping("/add/prospect")
     public String prospectSubmit(CreateContactDto createContactDto){
         contactService.addProspect(createContactDto);
-        return "redirect:/init";
+        return "redirect:/contact/listProspect";
     }
 
     @GetMapping("/details/{id}")
@@ -107,7 +107,7 @@ public class ContactController {
     @PostMapping("/delete/{id}")
     public String submitDeleteContact(@PathVariable("id") Long id){
         contactService.deleteContact(id);
-        return "redirect:/contact/home";
+        return "redirect:/contact/listProspect";
     }
 
     @GetMapping({"/listProspect","/"})

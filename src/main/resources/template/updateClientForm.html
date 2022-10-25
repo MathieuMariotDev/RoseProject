@@ -56,61 +56,62 @@
   </div>
   <div id="layoutSidenav_content">
   <main>
-
-    <form action="#" th:action="@{/contact/update/client/{id}(id=${contact.id})}" th:object="${contact}" method="post" enctype="multipart/form-data">
-
-      <div>
-        <label for="picture">Image actuelle pour cette personne</label>
-        <img type="file" th:src="${contact.picture}" id="picture" >
-        <input type="hidden" th:field="*{picture}" th:value="*{picture}">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-5 border-right">
+        <form class=" p-3 py-5"action="#" th:action="@{/contact/update/client/{id}(id=${contact.id})}"
+              th:object="${contact}" method="post" enctype="multipart/form-data">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="text-right">Modifier client</h4>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <select th:field="*{entreprise}" id="contact1" class="form-select col-6 my-3">
+                <option selected th:value="${contact.entreprise.id}" th:text="${contact.entreprise.name}"></option>
+                <th:block th:each="entreprise :${entreprises}">
+                  <option th:value="${entreprise.id}" th:text="${entreprise.name}"></option>
+                </th:block>
+              </select>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <input type="text" class="form-control" placeholder="Nom de famille"  th:field="*{firstName}" th:value="*{firstName}">
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control"  th:field="*{name}" th:value="*{name}" placeholder="surname">
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-12 mt-3">
+              <input type="text" class="form-control" placeholder="Votre numero de portable"  th:value="*{cellPhone}" th:field="*{cellPhone}">
+            </div>
+            <div class="col-md-12 mt-3">
+              <input type="text" class="form-control" placeholder="Votre numero fixe" th:value="*{phone}"  th:field="*{phone}">
+            </div>
+            <div class="col-md-12 mt-3">
+              <input type="text" class="form-control" placeholder="Email"  th:field="*{email}" th:value="*{email}">
+            </div>
+            <div class="col-md-12 mt-3">
+              <label for="file">Insérer nouvelle image :</label>
+              <input type="file" th:field="*{file}" id="file" >
+            </div>
+            <div class="col-md-12 mt-3">
+              <label for="picture">Image actuelle</label>
+              <img class="img-fluid" type="file" th:src="${contact.picture}" id="picture" >
+              <input type="hidden" th:field="*{picture}" th:value="*{picture}">
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <button class=" btn  btn-primary my-3 col-12" type="submit">Modifier contact</button>
+            </div>
+            <div class="col-md-6">
+              <a class="btn btn-danger my-3 col-12 " th:href="@{/contact/listProspect/}">Annuler</a>
+            </div>
+          </div>
+        </form>
       </div>
-
-      <div>
-        <input type="file" th:field="*{file}" id="file" >
-        <label for="picture">Insérer une image de remplacement :</label>
-      </div>
-
-
-      <div class="form-floating my-5">
-        <input id="name" type="text" th:field="*{name}" th:value="*{name}" placeholder="Prénom" class="form-control" >
-        <label for="name">Prénom</label>
-      </div>
-
-      <div class="form-floating my-5">
-        <input id="firstName" type="text" th:field="*{firstName}" th:value="*{firstName}" placeholder="Prénom" class="form-control" >
-        <label for="firstName">Nom</label>
-      </div>
-
-
-      <div class="form-floating my-5">
-        <input id="cellPhone" type="text" th:field="*{cellPhone}" th:value="*{cellPhone}" placeholder="Numéro de téléphone portable" class="form-control" >
-        <label for="cellPhone">Numéro de téléphone portable</label>
-      </div>
-
-
-      <div class="form-floating my-5">
-        <input id="phone" type="text" th:field="*{phone}" th:value="*{phone}" placeholder="Numéro de téléphone fixe" class="form-control" >
-        <label for="phone">Numéro de téléphone fixe</label>
-      </div>
-
-      <div class="form-floating my-5">
-        <input id="email" type="text" th:field="*{email}" th:value="*{email}" placeholder="Adresse email" class="form-control" >
-        <label for="email">Adresse email</label>
-      </div>
-
-      <select th:field="*{entreprise}" id="contact1" class="form-select col-6 my-3">
-        <option selected th:value="${contact.entreprise.id}" th:text="${contact.entreprise.name}"></option>
-        <th:block th:each="entreprise :${entreprises}">
-          <option th:value="${entreprise.id}" th:text="${entreprise.name}"></option>
-        </th:block>
-      </select>
-
-
-      <button class="w-100 btn btn-lg btn-primary my-3" type="submit">Mettre a jour le client</button>
-
-    </form>
-
-
+    </div>
   </main>
     <footer class="py-4 bg-light mt-auto">
       <div class="container-fluid px-4">
