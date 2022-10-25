@@ -82,7 +82,7 @@
         </div>
         <div class="d-flex justify-content-between  mb-3 mt-3">
           <select th:field="${searchDto.prospectingStatu}" id="isClient" class="col-5">
-            <option selected th:value="${null}">Filtrer par status</option>
+            <option selected th:value="${null}">Filtrer par statut</option>
             <th:block th:each="statu :${status}">
               <option th:value="${statu}"  th:text="${statu.getStatusName()}"></option>
             </th:block>
@@ -90,7 +90,7 @@
 
           <input class="me-2 col-6" type="search" placeholder="Saisir un nom a chercher" aria-label="Search" th:field="${searchDto.searchValue}">
         </div>
-        <button class="col-2 btn btn-primary" type="submit">Search</button>
+        <button class="col-2 btn btn-primary" type="submit">Rechercher</button>
       </form>
 
 
@@ -114,7 +114,7 @@
               <td data-label="Prenom" th:text="${prospect.firstName}"></td>
               <td data-label="Email" th:text="${prospect.email}"></td>
               <td  data-label="Modifier"><a th:href="@{/contact/update/{id}(id=${prospect.id})}" class="btn btn-warning mb-3 col-12">Modifier le prospect</a>
-                <a th:href="@{/contact/details/{id}(id=${prospect.id})}" class="btn btn-info col-12">Voire le détails</a>
+                <a th:href="@{/contact/details/{id}(id=${prospect.id})}" class="btn btn-info col-12">Voir le détail</a>
               </td>
             </tr>
           </th:block>

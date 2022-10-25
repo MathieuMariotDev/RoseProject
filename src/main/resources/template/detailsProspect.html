@@ -77,23 +77,57 @@
                   <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="enter email id" th:value="${contact.email}"></div>
                   <div class="col-md-12"><label class="labels">Telephone portable</label><input type="text" class="form-control" placeholder="enter phone number" th:value="${contact.cellPhone}"  readonly="readonly"></div>
                   <div class="col-md-12"><label class="labels">Telephone fixe</label><input type="text" class="form-control" placeholder="enter phone number" th:value="${contact.phone}"  readonly="readonly"></div>
+                  <div class="col-md-12"><label class="labels">Date prochaine relance</label><input type="text" class="form-control" placeholder="Non définie" th:value="${contact.timeBeforeReminder}"  readonly="readonly"></div>
                   <div class="col-md-12"><label class="labels">Nom entreprise</label><input type="text" class="form-control" placeholder="enter address line 1" th:value="${contact.entreprise.name}"  readonly="readonly"></div>
                   <div class="col-md-12"><label class="labels">Type d'activite</label><input type="text" class="form-control" placeholder="enter address line 2" th:value="${contact.entreprise.typeOfActivity}"  readonly="readonly"></div>
                   <div class="col-md-12"><label class="labels">Telephone de l'entreprise</label><input type="text" class="form-control" placeholder="enter address line 2" th:value=" ${contact.entreprise.phone}"  readonly="readonly"></div>
                   <div class="col-md-12"><label class="labels">Adresse de l'entreprise</label><input type="text" class="form-control" placeholder="enter address line 2" th:value="${contact.entreprise.address}" readonly="readonly"></div>
                   <div class="col-md-12"><label class="labels">Complement d'adresse</label><input type="text" class="form-control" placeholder="enter address line 2" th:value="${contact.entreprise.additionalAddress}" readonly="readonly"></div>
                   <div class="col-md-12"><label class="labels">Ville</label><input type="text" class="form-control" placeholder="education" th:value="${contact.entreprise.city}" readonly="readonly"></div>
+                  <div><a th:href="@{/entreprises/all}" th:text="'Détails de l\'entreprise ' + ${contact.entreprise.name}"></a></div>
                 </div>
                 <div class="mt-5 col-12 d-flex justify-content-between">
-                  <button data-bs-toggle="modal" data-bs-target="#modalValidateToCLient"  class="btn btn-info">Transformation le prospect  en client</button>
-                  <a  th:href="@{/contact/delete/{id}(id=${contact.id})}" class="btn btn-danger">Supprimer ce contact</a>
+
+                  <button data-bs-toggle="modal" data-bs-target="#modalValidateToCLient"  class="btn btn-info">Transformer le prospect en client</button>
+
+                  <!--remove-->
+                  <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#prospectModal">
+                    Supprimer le prospect
+                  </button>
+
+                  <form th:action="@{/contact/delete/prospect/{id}(id=${contact.id})}" method="post">
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="prospectModal" tabindex="-1" aria-labelledby="prospectModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="prospectModalLabel">Suppression du prospect</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            Voulez-vous vraiment supprimer ce prospect ?
+                          </div>
+                          <div class="modal-footer">
+
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </form>
+
                 </div>
                 <div class="mt-5 col-12 d-flex justify-content-between">
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNote">
                     Passage au statut a relancer
                   </button>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTimeBefore">
-                    Temps avant relance
+                    Ajouter date de relance
                   </button>
 
                 </div>
@@ -107,8 +141,9 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-footer">
-                        <button type="submit" class="btn btn-secondary">Valider</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Valider</button>
+
                       </div>
                     </div>
 
@@ -130,8 +165,8 @@
                         <textarea class="form-control" id="textAreainputModal" rows="4" th:text="${echangeForSubmit.message}" th:field="${echangeForSubmit.message}"></textarea>
                       </div>
                       <div class="modal-footer">
-                        <button type="submit" class="btn btn-secondary">Enregistrer note de relance</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer note de relance</button>
                       </div>
                     </div>
                   </div>
@@ -142,15 +177,15 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Sélectionner la Durée avant passage au statut a relancer</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Sélectionner la durée avant passage au statut à relancer</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
                         <input type="datetime-local" th:field="${echangeForSubmit.timeBeforeReminder}">
                       </div>
                       <div class="modal-footer">
-                        <button type="submit" class="btn btn-secondary">Enregistrer la compte a rebour</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer le compte a rebours</button>
                       </div>
                     </div>
                   </div>
@@ -180,7 +215,39 @@
                       <textarea class="form-control" id="textAreaExample1" rows="4" th:text="${echange.message}"  readonly></textarea>
                       <div class="d-flex justify-content-around">
                         <a th:href="@{/echange/update/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}" class="btn btn-warning">Mettre a jour l'échange</a>
-                        <a th:href="@{/echange/delete/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}" class="btn btn-danger">Supprimer l'échange</a>
+
+                        <!--<a th:href="@{/echange/delete/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}" class="btn btn-danger">Supprimer l'échange</a>-->
+                        <!--remove-->
+                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#echangeModal">
+                          Supprimer l'échange
+                        </button>
+
+                        <form th:action="@{/echange/delete/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}" method="post">
+
+                          <!-- Modal -->
+                          <div class="modal fade" id="echangeModal" tabindex="-1" aria-labelledby="echangeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="echangeModalLabel">Suppression de l'échange</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  Voulez-vous vraiment supprimer cet échange ?
+                                </div>
+                                <div class="modal-footer">
+
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+
+                                  <button type="submit" class="btn btn-danger">Supprimer</button>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </form>
+
                       </div>
                     </div>
                   </div>
