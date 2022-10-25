@@ -9,9 +9,21 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface ContactRepository extends CrudRepository<Contact, Long> {
+
+    // dashboard
+    long countContactsByUser(User user);
+    long countContactsByUserAndIsClientFalse(User user); // prospects
+    long countContactsByUserAndIsClientTrue(User user); // clients
+
+    /*@Query("select c.entreprise.name, count(c)" +
+            " from Contact c" +
+            " group by c.user.id, c.entreprise.id")
+    Map<String, Long> countContactsByEntrepriseIdAndUser(User user);*/
+
     // Retourne la liste de contact qui sont des clients
     List<Contact> findContactByIsClientTrueAndUser(User user);
     // Retourne la liste de contact qui ne sont pas des clients

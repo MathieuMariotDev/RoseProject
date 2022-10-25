@@ -32,17 +32,13 @@
                 </form>
 
               <li sec:authorize="isAuthenticated()"><a class="dropdown-item" th:href="@{/user/showProfile}">Profile</a></li>
-              </li>
 
               <li sec:authorize="isAnonymous()"><a class="dropdown-item" th:href="@{/user/login}">Login</a></li>
               <li sec:authorize="isAnonymous()"><a class="dropdown-item" th:href="@{/user/register}">Inscription</a></li>
-
           </ul>
         </li>
       </ul>
     </nav>
     </header>
 </div>
-</div>
 </body>
-</html>

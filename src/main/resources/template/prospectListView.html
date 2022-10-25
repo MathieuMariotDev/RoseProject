@@ -55,58 +55,94 @@
     </nav>
   </div>
   <div id="layoutSidenav_content">
-    <main>
-      <form th:action="@{/contact/listProspect}"  th:object="${searchDto}"  method="get">
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault1" th:field="${searchDto.searchAZ}">
-          <label class="form-check-label" for="flexSwitchCheckDefault1">A-Z</label>
-        </div>
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault2" th:field="${searchDto.searchZA}">
-          <label class="form-check-label" for="flexSwitchCheckDefault2">Z-A</label>
-        </div>
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault3" th:field="${searchDto.searchRecent}">
-          <label class="form-check-label" for="flexSwitchCheckDefault3">Plus récent</label>
-        </div>
-        <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault4" th:field="${searchDto.searchOld}">
-          <label class="form-check-label" for="flexSwitchCheckDefault4">Plus ancien</label>
-        </div>
+    <main class="d-flex flex-column align-items-center">
+      <div class="d-flex justify-content-between mb-5 mt-5 align-items-center col-10">
+        <h1><i class="fa-regular fa-address-book"></i> Prospects</h1>
+        <a class=" btn btn-primary"th:href="@{/contact/add/prospect}">Ajouter prospect</a>
+      </div>
 
-      <select th:field="${searchDto.prospectingStatu}" id="isClient" class="form-select col-6 my-3">
-        <option selected th:value="${null}">Filtrer par status</option>
-        <th:block th:each="statu :${status}">
-          <option th:value="${statu}"  th:text="${statu.getStatusName()}"></option>
-        </th:block>
-      </select>
+      <form th:action="@{/contact/listProspect}"  th:object="${searchDto}"  method="get" class="d-flex flex-column align-items-center row">
+        <div class="d-flex justify-content-center">
+          <div class="form-check form-switch col-3">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault1" th:field="${searchDto.searchAZ}">
+            <label class="form-check-label" for="flexSwitchCheckDefault1">A-Z</label>
+          </div>
+          <div class="form-check form-switch col-3">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault2" th:field="${searchDto.searchZA}">
+            <label class="form-check-label" for="flexSwitchCheckDefault2">Z-A</label>
+          </div>
+          <div class="form-check form-switch col-4">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault3" th:field="${searchDto.searchRecent}">
+            <label class="form-check-label" for="flexSwitchCheckDefault3">Plus récent</label>
+          </div>
+          <div class="form-check form-switch col-4">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault4" th:field="${searchDto.searchOld}">
+            <label class="form-check-label" for="flexSwitchCheckDefault4">Plus ancien</label>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between  mb-3 mt-3">
+          <select th:field="${searchDto.prospectingStatu}" id="isClient" class="col-5">
+            <option selected th:value="${null}">Filtrer par status</option>
+            <th:block th:each="statu :${status}">
+              <option th:value="${statu}"  th:text="${statu.getStatusName()}"></option>
+            </th:block>
+          </select>
 
-      <input class="form-control me-2" type="search" placeholder="Saisir un nom a chercher" aria-label="Search" th:field="${searchDto.searchValue}">
-
-        <button type="submit">Search</button>
+          <input class="me-2 col-6" type="search" placeholder="Saisir un nom a chercher" aria-label="Search" th:field="${searchDto.searchValue}">
+        </div>
+        <button class="col-2 btn btn-primary" type="submit">Search</button>
       </form>
 
 
-      <div class="row row-cols-4 justify-content space-between mx-3">
-        <th:block th:each="prospect :${prospects}">
-          <div class="col my-5">
-            <div class="card">
-              <img th:src="${prospect.picture}" alt="" class="img-fluid">
-              <div class="card-body">
-                <div class="card-text">
-                  <h3 th:text="${prospect.name}"></h3>
-                  <h3 th:text="${prospect.firstName}"></h3>
-                </div>
-              </div>
-              <div class="card-footer">
+      <div class="row row-cols-4 justify-content-center mx-3">
 
-                <a th:href="@{/contact/update/{id}(id=${prospect.id})}" class="btn btn-warning">Modifier le prospect</a>
-                <a th:href="@{/contact/details/{id}(id=${prospect.id})}" class="btn btn-info">Voire le détails</a>
+        <table class="mt-5 col-10">
+          <thead>
+          <tr>
+            <th scope="col">Photo</th>
+            <th scope="col">Nom</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">Email</th>
+            <th colspan="2" class="d-flex justify-content-center" scope="col">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <th:block  th:each="prospect :${prospects}">
+            <tr>
+              <td data-label="Photo" ><img class="img-fluid" th:src="${prospect.picture}"></td>
+              <td data-label="Nom" th:text="${prospect.name}"></td>
+              <td data-label="Prenom" th:text="${prospect.firstName}"></td>
+              <td data-label="Email" th:text="${prospect.email}"></td>
+              <td  data-label="Modifier"><a th:href="@{/contact/update/{id}(id=${prospect.id})}" class="btn btn-warning mb-3 col-12">Modifier le prospect</a>
+                <a th:href="@{/contact/details/{id}(id=${prospect.id})}" class="btn btn-info col-12">Voire le détails</a>
+              </td>
+            </tr>
+          </th:block>
+          </tbody>
+        </table>
+        <!-- <th:block th:each="prospect :${prospects}">
+           <div class="col my-5">
+             <div class="card">
+               <img th:src="${prospect.picture}" alt="" class="img-fluid">
+               <div class="card-body">
+                 <div class="card-text">
+                   <h3 th:text="${prospect.name}"></h3>
+                   <h3 th:text="${prospect.firstName}"></h3>
+                 </div>
+               </div>
+               <div class="card-footer">
 
-              </div>
-            </div>
-          </div>
-        </th:block>
+                 <a th:href="@{/contact/update/{id}(id=${prospect.id})}" class="btn btn-warning">Modifier le prospect</a>
+                 <a th:href="@{/contact/details/{id}(id=${prospect.id})}" class="btn btn-info">Voire le détails</a>
+
+               </div>
+             </div>
+           </div>
+         </th:block>-->
+
+
+
+
       </div>
     </main>
     <footer class="py-4 bg-light mt-auto">

@@ -37,7 +37,7 @@ public class WebSecurityConfig {
                 .loginPage("/user/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/contact/add/prospect", true)
+                .defaultSuccessUrl("/dashboard", true)
                 .permitAll()
 
                 //Configuration du logout
