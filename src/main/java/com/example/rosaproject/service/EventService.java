@@ -56,7 +56,7 @@ public class EventService {
 
     public Event updateEvent(EventDto eventDto){
         User user = userService.findById(eventDto.getIdClient());
-        Contact contact = contactService.findContactById(eventDto.getIdContact());
+        Contact contact = contactService.findContactByIdApi(eventDto.getIdContact());
         Event event = findEventById(eventDto.getId());
         event.setName(eventDto.getTitle());
         event.setDescription(eventDto.getDescription());

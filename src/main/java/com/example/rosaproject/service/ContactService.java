@@ -107,6 +107,10 @@ public class ContactService {
         return contactRepository.findContactByIdAndUser(id,customUser.getUser()).orElseThrow(() -> new NoSuchElementException("Contact with id:"+id+" doest not exist"));
     }
 
+    public Contact findContactByIdApi(Long id){
+        return contactRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Contact with id:"+id+" doest not exist"));
+    }
+
     public void deleteContact(Long id){
         Contact contact = findContactById(id);
         contactRepository.delete(contact);

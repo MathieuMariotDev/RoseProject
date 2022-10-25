@@ -110,7 +110,7 @@
               <td data-label="Prenom" th:text="${client.firstName}"></td>
               <td data-label="Email" th:text="${client.email}"></td>
               <td  data-label="Modifier"><a th:href="@{/contact/update/client/{id}(id=${client.id})}" class="btn btn-warning mb-3 col-12">Modifier le client</a>
-                <a th:href="@{/contact/update/client/{id}(id=${client.id})}" class="btn btn-info col-12">Voir le détail</a>
+                <a th:href="@{/contact/details/client/{id}(id=${client.id})}" class="btn btn-info col-12">Voir le détail</a>
               </td>
             </tr>
           </th:block>

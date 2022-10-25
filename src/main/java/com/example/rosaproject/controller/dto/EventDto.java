@@ -116,8 +116,8 @@ public class EventDto {
         eventDto.setAddress(event.getAddress());
         eventDto.setTitle(event.getName());
         eventDto.setDescription(event.getDescription());
-        eventDto.setStart(event.getDateTimeEnd());
-        eventDto.setFinish(event.getDateTimeStart());
+        eventDto.setStart(event.getDateTimeStart());
+        eventDto.setFinish(event.getDateTimeEnd());
         eventDto.setPhone(event.getPhone());
         eventDto.setContact(ContactDto.from(event.getContactById2()));
         eventDto.setUser(UserDto.from(event.getUsersById1()));

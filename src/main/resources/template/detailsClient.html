@@ -88,7 +88,7 @@
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEvent">
                     Programmer un évènement
                   </button>
-                  <!-- Modal timber before relance -->
+                  <!-- Modal timber Event -->
                   <div class="modal fade" id="modalEvent" tabindex="-1" aria-labelledby="modalEvent" aria-hidden="true">
                     <form th:action="@{/event/add/{id}/(id=${contact.id})}"  method="post" th:object="${event}">
                       <div class="modal-dialog">
