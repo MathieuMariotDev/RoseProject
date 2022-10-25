@@ -1,5 +1,6 @@
 package com.example.rosaproject.service;
 
+import com.example.rosaproject.controller.dto.EchangeDto;
 import com.example.rosaproject.controller.entity.Contact;
 import com.example.rosaproject.controller.entity.Echange;
 import com.example.rosaproject.model.Status;
@@ -53,7 +54,7 @@ public class EchangeService {
         echange.setContact(contact);
         echange.setCreateDate(LocalDateTime.now());
         echange.setId(null); // ? Use dto create
-        echange.setProspecting("Prospecting"+contact.getEntreprise().getName());
+        echange.setReference("Prospecting"+contact.getEntreprise().getName());
         if (contact.getEchangesById().size() - 1 == -1){
             echange.setStatusProspecting(Status.cours.getStatusName());
         }else{
@@ -64,11 +65,10 @@ public class EchangeService {
         contactRepository.save(contact);
     }
 
-    public void addResumeTimer(Long idContact, Echange echange){
+    public void addResumeTimer(Long idContact, EchangeDto echangeDto){
         Contact contact = contactService.findContactById(idContact);
-        Echange echangeToUpdate =contact.getEchangesById().get( contact.getEchangesById().size()-1);
-        echangeToUpdate.setTimeBeforeReminder(echange.getTimeBeforeReminder());
-        echangeRepository.save(echangeToUpdate);
+        contact.setTimeBeforeReminder(echangeDto.getTimeBeforeReminder());
+        contactRepository.save(contact);
     }
 
     public void addResumeNote(Long idContact,Echange echange){
@@ -111,16 +111,17 @@ public class EchangeService {
         contactRepository.save(contact);
     }
 
-    public void addContactTimerForClient(Long idContact, Echange echange){
+    public void addContactTimerForClient(Long idContact, EchangeDto echangeDto){
         Contact contact = contactService.findContactById(idContact);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
-        echange.setUser(customUser.getUser());
-        echange.setContact(contact);
-        echange.setCreateDate(LocalDateTime.now());
-        echange.setId(null); // ? Use dto create
-        echange.setReference("Client"+contact.getEntreprise().getName());
-        echangeRepository.save(echange);
+        echangeDto.setUser(customUser.getUser());
+        echangeDto.setContact(contact);
+        echangeDto.setCreateDate(LocalDateTime.now());
+        echangeDto.setId(null); // ? Use dto create
+        echangeDto.setReference("Client"+contact.getEntreprise().getName());
+        contact.setTimeBeforeReminder(echangeDto.getTimeBeforeReminder());
+        echangeRepository.save(echangeDto.toEchange());
         contactRepository.save(contact);
     }
 

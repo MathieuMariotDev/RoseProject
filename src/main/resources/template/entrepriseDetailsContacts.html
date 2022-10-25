@@ -18,7 +18,7 @@
       <div class="sb-sidenav-menu">
         <div class="nav">
           <div class="sb-sidenav-menu-heading">Interface</div>
-          <a class="nav-link collapsed" th:href="@{/dashboard}" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+          <a class="nav-link collapsed" th:href="@{/dashboard}">
             <div class="sb-nav-link-icon"><i class="fa-solid fa-gauge-high"></i></div>
             Tableau de bord
           </a>
@@ -55,16 +55,16 @@
     </nav>
   </div>
   <div id="layoutSidenav_content">
-    <main>
+    <main class="m-0">
 
-      <h1 class="text-center">Prospects et clients</h1>
+      <h1 class="text-center mt-5 mb-5">Prospects et clients</h1>
 
       <div class="row">
 
         <div class="col-6">
 
           <div class = "card m-3">
-            <h3 class="card-name text-center" th:text="'Prospects :'"></h3>
+            <h3 class="card-name text-center mb-3 mt-3" th:text="'Prospects :'"></h3>
             <div class="card-body">
 
               <div th:each="contact: ${entreprise.contactsById}">
@@ -81,7 +81,7 @@
         <div class="col-6">
 
           <div class = "card m-3">
-            <h3 class="card-name text-center" th:text="'Clients :'"></h3>
+            <h3 class="card-name text-center mb-3 mt-3" th:text="'Clients :'"></h3>
             <div class="card-body">
 
               <div th:each="contact: ${entreprise.contactsById}">

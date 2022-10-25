@@ -1,5 +1,6 @@
 package com.example.rosaproject.controller;
 
+import com.example.rosaproject.controller.dto.EchangeDto;
 import com.example.rosaproject.controller.entity.Echange;
 import com.example.rosaproject.service.ContactService;
 import com.example.rosaproject.service.EchangeService;
@@ -69,13 +70,13 @@ public class EchangeController {
     }
 
     @PostMapping("/add/resume/timer/{id}")
-    public String submitAddResumeTimer(@PathVariable("id") Long idContact,Echange echange){
+    public String submitAddResumeTimer(@PathVariable("id") Long idContact, EchangeDto echange){
         echangeService.addResumeTimer(idContact,echange);
         return "redirect:/contact/details/"+idContact;
     }
 
     @PostMapping("add/client/resume/timer/{id}")
-    public String submitAddContactTimer(@PathVariable("id") Long idContact,Echange echange){
+    public String submitAddContactTimer(@PathVariable("id") Long idContact,EchangeDto echange){
         echangeService.addContactTimerForClient(idContact,echange);
         return "redirect:/contact/details/"+idContact;
     }

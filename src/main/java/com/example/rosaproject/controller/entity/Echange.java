@@ -24,10 +24,7 @@ public class Echange {
     @Basic
     @Column(name = "message")
     private String message;
-    @Basic
-    @Column(name = "TimeBeforeReminder")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private LocalDateTime timeBeforeReminder;
+
 
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -88,14 +85,6 @@ public class Echange {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public LocalDateTime getTimeBeforeReminder() {
-        return timeBeforeReminder;
-    }
-
-    public void setTimeBeforeReminder(LocalDateTime timeBeforeReminder) {
-        this.timeBeforeReminder = timeBeforeReminder;
     }
 
     public User getUser() {

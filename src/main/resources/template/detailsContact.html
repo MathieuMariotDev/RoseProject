@@ -19,7 +19,7 @@
       <div class="sb-sidenav-menu">
         <div class="nav">
           <div class="sb-sidenav-menu-heading">Interface</div>
-          <a class="nav-link collapsed" th:href="@{/dashboard}" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+          <a class="nav-link collapsed" th:href="@{/dashboard}">
             <div class="sb-nav-link-icon"><i class="fa-solid fa-gauge-high"></i></div>
             Tableau de bord
           </a>
@@ -181,10 +181,12 @@
                       <a th:href="@{/echange/update/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}" class="btn btn-warning">Mettre a jour l'échange</a>
                       <a th:href="@{/echange/delete/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}" class="btn btn-danger">Supprimer l'échange</a>
                     </div>
-                     </div>
-                   </div>
+                  </div>
+
+
+                </div>
               </th:block>
-             </div>
+            </div>
           </div>
         </div>
       </div>
@@ -203,10 +205,36 @@
     </footer>
   </div>
 </div>
-</body>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous">
+</script>
+
+<script>
+  function show(shown, hidden) {
+    document.getElementById(shown).style.display='block';
+    document.getElementById(hidden).style.display='none';
+    return false;
+  }
+  let divFullDay = document.getElementById('fulldate');
+  let divAddTime = document.getElementById('dateTimeEnd');
+  // Listen for click events
+  // Listen for click events
+  document.getElementById('fulldate').addEventListener('click', function (event) {
+    console.log("clicked")
+
+
+
+    if (divAddTime.style.display === 'block' ){
+      divAddTime.style.display = 'none';
+    }else{
+      divAddTime.style.display = 'block';
+    }
+
+
+
+  }, false);
 </script>
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
 </script>

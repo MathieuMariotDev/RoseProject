@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,20 @@ public class Contact {
     @Column(name = "createDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createDate;
+
+    @Basic
+    @Column(name = "TimeBeforeReminder")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime timeBeforeReminder;
+
+
+    public LocalDateTime getTimeBeforeReminder() {
+        return timeBeforeReminder;
+    }
+
+    public void setTimeBeforeReminder(LocalDateTime timeBeforeReminder) {
+        this.timeBeforeReminder = timeBeforeReminder;
+    }
 
     private String statusProspecting;
 

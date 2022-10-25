@@ -18,7 +18,7 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">Interface</div>
-                    <a class="nav-link collapsed" th:href="@{/dashboard}" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                    <a class="nav-link collapsed" th:href="@{/dashboard}">
                         <div class="sb-nav-link-icon"><i class="fa-solid fa-gauge-high"></i></div>
                         Tableau de bord
                     </a>
@@ -65,8 +65,7 @@
                     <h4><strong th:text=" 'Date de création: ' +${echange.createDate}"/></h4>
                     <div class="form-outline">
                         <label for="textAreaExample1">Note sur l'échange</label>
-                        <textarea class="form-control" id="textAreaExample1" rows="4" th:field="${echange.message}" th:text="${echange.message}
-" ></textarea>
+                        <textarea class="form-control" id="textAreaExample1" rows="4" th:field="${echange.message}" th:text="${echange.message}" ></textarea>
                     </div>
                     <button class="w-100 btn btn-lg btn-primary my-3" type="submit">Modifier l'échange</button>
                 </form>
@@ -96,6 +95,4 @@
         crossorigin="anonymous">
 </script>
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
-</script>
-</body>
 </html>

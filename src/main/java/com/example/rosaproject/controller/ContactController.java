@@ -1,6 +1,8 @@
 package com.example.rosaproject.controller;
 
 import com.example.rosaproject.controller.dto.CreateContactDto;
+import com.example.rosaproject.controller.dto.EchangeDto;
+import com.example.rosaproject.controller.dto.EventDto;
 import com.example.rosaproject.controller.dto.SearchDto;
 import com.example.rosaproject.controller.entity.Contact;
 import com.example.rosaproject.controller.entity.Echange;
@@ -48,8 +50,9 @@ public class ContactController {
 
     @GetMapping("/details/{id}")
     public String detailsContact(@PathVariable("id") Long id, Model model){
-        model.addAttribute("contact",contactService.findContactById(id));
-        model.addAttribute("echangeForSubmit",new Echange());
+        model.addAttribute("contact", contactService.compareDateUpdateContact(contactService.findContactById(id)));
+        model.addAttribute("echangeForSubmit",new EchangeDto());
+        model.addAttribute("event" , new EventDto());
         return "detailsContact";
     }
 
@@ -81,14 +84,15 @@ public class ContactController {
 
     @GetMapping("/details/client/{id}")
     public String detailsClient(@PathVariable("id") Long id, Model model){
-        Contact contact = contactService.findContactById(id);
+        Contact contact = contactService.compareDateUpdateContact(contactService.findContactById(id));
         model.addAttribute("contact",contact);
         String reference = "Client"+contact.getEntreprise().getName();
         List<Echange> listEchangeProspecting = echangeService.findOldEchange(reference);
         List<Echange> listEchangeClient = echangeService.findClientEchange(reference);
-        model.addAttribute("echangeForSubmit",new Echange());
+        model.addAttribute("echangeForSubmit",new EchangeDto());
         model.addAttribute("clientEchangeList",listEchangeClient);
         model.addAttribute("prospectingEchangeList",listEchangeProspecting);
+        model.addAttribute("event" , new EventDto());
         return "detailsClient";
     }
 

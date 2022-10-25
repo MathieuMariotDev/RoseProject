@@ -9,6 +9,9 @@ main{
     display:none;
 
 }
+.btn-secondary{
+    background-color: #EDAE49 !important;
+}
 .btn{
     border: none !important;
 }
