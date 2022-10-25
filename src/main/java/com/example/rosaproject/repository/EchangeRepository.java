@@ -16,8 +16,7 @@ public interface EchangeRepository extends CrudRepository<Echange, Long> {
     @Query("select e.contact.entreprise.name, count(e)" +
             " from Echange e" +
             " where e.user = :user" +
-            " group by e.contact.entreprise.id"
-            )
+            " group by e.contact.entreprise.id")
     List<Object[]> entreprisesbyUserAndNotes(User user);
 
     List<Echange> findEchangeByReferenceAndUser(String reference, User user);
