@@ -7,13 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
-<<<<<<< HEAD
+
 import java.util.Set;
 
-=======
-import java.util.HashSet;
-import java.util.Set;
->>>>>>> f05d70d7a8968e19b410a0e22425e3b195a32c4f
 
 public class CustomUserDetails implements UserDetails {
 
