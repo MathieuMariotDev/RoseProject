@@ -37,6 +37,13 @@ public class EchangeController {
         return "redirect:/contact/details/"+idContact;
     }
 
+    @PostMapping("/delete/client/{id}/{idEchange}")
+    public String validateDeleteEchangeClient(@PathVariable("id") Long idContact,@PathVariable("idEchange") Long idEchange){
+        echangeService.deleteEchange(idEchange);
+        return "redirect:/contact/details/client/"+idContact;
+    }
+
+
     @GetMapping("/update/{id}/{idEchange}")
     public String updateEchangeForm(@PathVariable("id") Long idContact,@PathVariable("idEchange") Long idEchange,Model model){
         model.addAttribute("contact",contactService.findContactById(idContact));
@@ -78,7 +85,7 @@ public class EchangeController {
     @PostMapping("add/client/resume/timer/{id}")
     public String submitAddContactTimer(@PathVariable("id") Long idContact,EchangeDto echange){
         echangeService.addContactTimerForClient(idContact,echange);
-        return "redirect:/contact/details/"+idContact;
+        return "redirect:/contact/details/client/"+idContact;
     }
 
 

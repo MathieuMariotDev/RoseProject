@@ -1,306 +1,400 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}">
-  <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-  <title>home</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <title>home</title>
 </head>
 <body class="sb-nav-fixed">
 <div th:insert="../fragments/header :: header"></div>
 <div id="layoutSidenav">
-  <div id="layoutSidenav_nav">
-    <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
-      <div class="sb-sidenav-menu">
-        <div class="nav">
-          <div class="sb-sidenav-menu-heading">Interface</div>
-          <a class="nav-link collapsed" th:href="@{/dashboard}">
-            <div class="sb-nav-link-icon"><i class="fa-solid fa-gauge-high"></i></div>
-            Tableau de bord
-          </a>
-          <a class="nav-link collapsed mt-3"th:href="@{/contact/listProspect}">
-            <div class="sb-nav-link-icon"><i class="fa-regular fa-address-book"></i></div>
-            Prospects
-          </a>
-          <a class="nav-link collapsed mt-3"th:href="@{/contact/listClient/}">
-            <div class="sb-nav-link-icon"><i class="fa-regular fa-address-card"></i></div>
-            Clients
-          </a>
-          <a class="nav-link collapsed mt-3"th:href="@{/entreprises/all}">
-            <div class="sb-nav-link-icon"><i class="fa-regular fa-building"></i></div>
-            Entreprises
-          </a>
-          <a class="nav-link collapsed mt-3"th:href="@{/event/calendard}">
-            <div class="sb-nav-link-icon"><i class="fa-regular fa-calendar"></i></div>
-            Calendrier
-          </a>
-          <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-            Parametres
-            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-          </a>
-          <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-            <nav class="sb-sidenav-menu-nested nav">
-              <a class="nav-link"th:href="@{/user/deleteUser}">Supprimer compte</a>
-              <a class="nav-link"th:href="@{/user/edit}">Modifier compte</a>
-              <a class="nav-link"th:href="@{/user/allUsers}">Tous les utilisateurs</a>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </div>
-  <div id="layoutSidenav_content">
-    <main>
-      <div id="Page1">
-        <a href="#" onclick="return show('Page2','Page1');">Echanges</a>
-        <div class="row">
-          <div class="col-6">
-            <img th:src="${contact.picture}" alt="" class="img-fluid"/>
-          </div>
-          <div class="col-6">
-
-            <div class="card">
-              <div class="card-body">
-                <div class="card-text">
-                  <div class="d-flex align-items-center">
-                    <h3> <strong th:text="${contact.name} +'&nbsp'"/></h3>
-                    <h3><strong th:text="${contact.firstName}"/></h3>
-                  </div>
-                  <h4 th:text=" 'Adresse email : ' + ${contact.email}"></h4>
-                  <h4 th:text=" 'Numéro fixe : ' + ${contact.phone}"></h4>
-                  <h4 th:text=" 'Numéro de portable: ' + ${contact.cellPhone}"></h4>
-                  <p th:text=" 'Nom de l\'entreprise : ' + ${contact.entreprise.name}"></p>
-                  <p th:text=" 'Secteur d\'activité : ' + ${contact.entreprise.typeOfActivity}"></p>
-                  <p th:text=" 'Numéro de téléphone de l\'entreprise : ' + ${contact.entreprise.phone}"></p>
-                  <p th:text=" 'Adresse de l\'entreprise : '+ ${contact.entreprise.address}"></p>
-                  <p th:text=" 'Complément d\'adresse : '+ ${contact.entreprise.additionalAddress}"></p>
-                  <p th:text=" 'Ville : '+ ${contact.entreprise.city}"></p>
-
-                  <a th:href="@{/entreprises/all}" th:text="'Détails de l\'entreprise ' + ${contact.entreprise.name}"></a>
-
-                  <p></p>
-
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEvent">
-                    Programmer un évènement
-                  </button>
-                  <!-- Modal timber Event -->
-                  <div class="modal fade" id="modalEvent" tabindex="-1" aria-labelledby="modalEvent" aria-hidden="true">
-                    <form th:action="@{/event/add/{id}/(id=${contact.id})}"  method="post" th:object="${event}">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="modal"><strong th:text=" 'Programmer un évènement avec : ' + ${contact.name} + ' ' + ${contact.firstName}"></strong> </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="modal-body">
-                              <div class="form-floating my-5">
-                                <input id="name" type="text" th:field="${event.title}" placeholder="Nom de l'évènement<" class="form-control" >
-                                <label for="name">Nom de l'évènement *</label>
-                              </div>
-                              <div class="form-floating my-5">
-                                <input id="phone" type="text" th:field="${event.phone}" placeholder="Nom de l'évènement<" class="form-control" >
-                                <label for="phone">Numéro de téléphone pour l'évènement</label>
-                              </div>
-                              <div class="form-floating my-5">
-                                <input id="address" type="text" th:field="${event.address}" placeholder="Nom de l'évènement<" class="form-control" >
-                                <label for="address">Adresse pour l'évènement</label>
-                              </div>
-                              <textarea class="form-control" id="textAreatext" rows="4"  th:field="${event.description}"></textarea>
-                              <label >Note sur l'échange *</label>
-                            </div>
-                            <div class="">
-                              <label >Date début ou jour :</label>
-                              <input type="datetime-local" th:field="${event.start}">
-                              <div class="form-check form-switch">
-                                <input id="fulldate" class="form-check-input" type="checkbox" th:field="${event.fullDay}">
-                                <label class="form-check-label" >Jour entier</label>
-                              </div>
-                            </div>
-                            <div id="dateTimeEnd" style="display: block;">
-                              <label>Date fin :</label>
-                              <input type="datetime-local" th:field="${event.finish}">
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
-                            <button type="submit" class="btn btn-primary">Enregistrer l'évènement</button>
-
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-
-
-                  <!-- TODO -->
-                  <div th:if="${contact.getEchangesById().size()-1 > -1}">
-
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTimeBefore">
-                      Durée avant le prochaine contact
-                    </button>
-                    <!-- Modal timber before relance -->
-                    <div class="modal fade" id="modalTimeBefore" tabindex="-1" aria-labelledby="modalTimeBefore" aria-hidden="true">
-                      <form th:action="@{/echange/add/client/resume/timer/{id}/(id=${contact.id})}"  method="post" th:object="${echangeForSubmit}">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Sélectionner la durée avant le prochaine contact</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              <div class="modal-body">
-                                <label for="textAreainputModal">Note sur l'échange</label>
-                                <textarea class="form-control" id="textAreainputModal" rows="4" th:text="${echangeForSubmit.message}" th:field="${echangeForSubmit.message}"></textarea>
-                              </div>
-                              <input type="datetime-local" th:field="${echangeForSubmit.timeBeforeReminder}">
-                            </div>
-                            <div class="modal-footer">
-                              <button type="submit" class="btn btn-secondary">Enregistrer la compte a rebour</button>
-                              <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Interface</div>
+                    <a class="nav-link collapsed" th:href="@{/dashboard}">
+                        <div class="sb-nav-link-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                        Tableau de bord
+                    </a>
+                    <a class="nav-link collapsed mt-3" th:href="@{/contact/listProspect}">
+                        <div class="sb-nav-link-icon"><i class="fa-regular fa-address-book"></i></div>
+                        Prospects
+                    </a>
+                    <a class="nav-link collapsed mt-3" th:href="@{/contact/listClient/}">
+                        <div class="sb-nav-link-icon"><i class="fa-regular fa-address-card"></i></div>
+                        Clients
+                    </a>
+                    <a class="nav-link collapsed mt-3" th:href="@{/entreprises/all}">
+                        <div class="sb-nav-link-icon"><i class="fa-regular fa-building"></i></div>
+                        Entreprises
+                    </a>
+                    <a class="nav-link collapsed mt-3" th:href="@{/event/calendard}">
+                        <div class="sb-nav-link-icon"><i class="fa-regular fa-calendar"></i></div>
+                        Calendrier
+                    </a>
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
+                       aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        Parametres
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                         data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" th:href="@{/user/deleteUser}">Supprimer compte</a>
+                            <a class="nav-link" th:href="@{/user/edit}">Modifier compte</a>
+                            <a class="nav-link" th:href="@{/user/allUsers}">Tous les utilisateurs</a>
+                        </nav>
                     </div>
-                  </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div id="Page1">
 
-                  <!--remove-->
-                  <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#clientModal">
-                    Supprimer
-                  </button>
+                <div class="container rounded bg-white mt-5 mb-5">
 
-                  <form th:action="@{/contact/delete/client/{id}(id=${contact.id})}" method="post">
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="clientModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="clientModalLabel">Suppression du client</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            Voulez-vous vraiment supprimer ce client ?
-                          </div>
-                          <div class="modal-footer">
-
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-
-                              <button type="submit" class="btn btn-danger">Supprimer</button>
-
-                          </div>
+                    <div class="row">
+                        <div class="col-md-3 border-right">
+                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
+                                    class="rounded mt-5" width="150px" th:src="${contact.picture}"><span
+                                    class="text-black-50" th:text="${contact.email}"></span><span> </span></div>
                         </div>
-                      </div>
-                    </div>
+                        <div class="col-md-5 border-right">
+                            <div class="p-3 py-5">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 class="text-right"><strong>Profile contact</strong></h4>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-6"><label class="labels">Nom</label><input type="text"
+                                                                                                  class="form-control"
+                                                                                                  placeholder="first name"
+                                                                                                  th:value="${contact.firstName}"
+                                                                                                  readonly="readonly">
+                                    </div>
+                                    <div class="col-md-6"><label class="labels">Prenom</label><input type="text"
+                                                                                                     class="form-control"
+                                                                                                     value=""
+                                                                                                     th:value="${contact.name}"
+                                                                                                     placeholder="surname"
+                                                                                                     readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-12"><label class="labels">Email</label><input type="text"
+                                                                                                     class="form-control"
+                                                                                                     placeholder="enter email id"
+                                                                                                     th:value="${contact.email}">
+                                    </div>
+                                    <div class="col-md-12"><label class="labels">Telephone portable</label><input
+                                            type="text" class="form-control" placeholder="enter phone number"
+                                            th:value="${contact.cellPhone}" readonly="readonly"></div>
+                                    <div class="col-md-12"><label class="labels">Telephone fixe</label><input
+                                            type="text" class="form-control" placeholder="enter phone number"
+                                            th:value="${contact.phone}" readonly="readonly"></div>
+                                    <div class="col-md-12"><label class="labels">Date prochaine relance</label><input
+                                            type="text" class="form-control" placeholder="Non définie"
+                                            th:value="${contact.timeBeforeReminder}" readonly="readonly"></div>
+                                    <div class="col-md-12"><label class="labels">Nom entreprise</label><input
+                                            type="text" class="form-control" placeholder="enter address line 1"
+                                            th:value="${contact.entreprise.name}" readonly="readonly"></div>
+                                    <div class="col-md-12"><label class="labels">Type d'activite</label><input
+                                            type="text" class="form-control" placeholder="enter address line 2"
+                                            th:value="${contact.entreprise.typeOfActivity}" readonly="readonly"></div>
+                                    <div class="col-md-12"><label class="labels">Telephone de l'entreprise</label><input
+                                            type="text" class="form-control" placeholder="enter address line 2"
+                                            th:value=" ${contact.entreprise.phone}" readonly="readonly"></div>
+                                    <div class="col-md-12"><label class="labels">Adresse de l'entreprise</label><input
+                                            type="text" class="form-control" placeholder="enter address line 2"
+                                            th:value="${contact.entreprise.address}" readonly="readonly"></div>
+                                    <div class="col-md-12"><label class="labels">Complement d'adresse</label><input
+                                            type="text" class="form-control" placeholder="enter address line 2"
+                                            th:value="${contact.entreprise.additionalAddress}" readonly="readonly">
+                                    </div>
+                                    <div class="col-md-12"><label class="labels">Ville</label><input type="text"
+                                                                                                     class="form-control"
+                                                                                                     placeholder="education"
+                                                                                                     th:value="${contact.entreprise.city}"
+                                                                                                     readonly="readonly">
+                                    </div>
+                                    <div><a th:href="@{/entreprises/all}"
+                                            th:text="'Détails de l\'entreprise ' + ${contact.entreprise.name}"></a>
+                                    </div>
+                                </div>
+                                <div class="mt-5 col-12 d-flex justify-content-between">
 
-                  </form>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#modalEvent">
+                                        Programmer un évènement
+                                    </button>
+
+                                    <!-- Modal timber Event -->
+                                    <div class="modal fade" id="modalEvent" tabindex="-1" aria-labelledby="modalEvent" aria-hidden="true">
+                                        <form th:action="@{/event/add/{id}/(id=${contact.id})}"  method="post" th:object="${event}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modal"><strong th:text=" 'Programmer un évènement avec : ' + ${contact.name} + ' ' + ${contact.firstName}"></strong> </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="modal-body">
+                                                            <div class="form-floating my-5">
+                                                                <input id="name" type="text" th:field="${event.title}" placeholder="Nom de l'évènement<" class="form-control" >
+                                                                <label for="name">Nom de l'évènement *</label>
+                                                            </div>
+                                                            <div class="form-floating my-5">
+                                                                <input id="phone" type="text" th:field="${event.phone}" placeholder="Nom de l'évènement<" class="form-control" >
+                                                                <label for="phone">Numéro de téléphone pour l'évènement</label>
+                                                            </div>
+                                                            <div class="form-floating my-5">
+                                                                <input id="address" type="text" th:field="${event.address}" placeholder="Nom de l'évènement<" class="form-control" >
+                                                                <label for="address">Adresse pour l'évènement</label>
+                                                            </div>
+                                                            <textarea class="form-control" id="textAreatext" rows="4"  th:field="${event.description}"></textarea>
+                                                            <label >Note sur l'échange *</label>
+                                                        </div>
+                                                        <div class="">
+                                                            <label >Date début ou jour :</label>
+                                                            <input type="datetime-local" th:field="${event.start}">
+                                                            <div class="form-check form-switch">
+                                                                <input id="fulldate" class="form-check-input" type="checkbox" th:field="${event.fullDay}">
+                                                                <label class="form-check-label" >Jour entier</label>
+                                                            </div>
+                                                        </div>
+                                                        <div id="dateTimeEnd" style="display: block;">
+                                                            <label>Date fin :</label>
+                                                            <input type="datetime-local" th:field="${event.finish}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                                                        <button type="submit" class="btn btn-primary">Enregistrer l'évènement</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- Fin modal event -->
+
+
+                                </div>
+                                <div class="mt-5 col-12 d-flex justify-content-between">
+                                    <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#modalNote">
+                                        Passage au statut a relancer
+                                    </button>-->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#modalTimeBefore">
+                                        Ajouter date de relance
+                                    </button>
+                                    <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#clientModal">
+                                        Supprimer
+                                    </button>
+                                </div>
+                            </div>
+
+
+
+                            <!--remove-->
+
+
+                            <form th:action="@{/contact/delete/client/{id}(id=${contact.id})}" method="post">
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="clientModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="clientModalLabel">Suppression du client</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Voulez-vous vraiment supprimer ce client ?
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+
+                                                <button type="submit" class="btn btn-danger">Supprimer</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+
+
+                            <!-- Modal timber before relance -->
+                            <div class="modal fade" id="modalTimeBefore" tabindex="-1" aria-labelledby="modalTimeBefore" aria-hidden="true">
+                                <form th:action="@{/echange/add/client/resume/timer/{id}/(id=${contact.id})}"  method="post" th:object="${echangeForSubmit}">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Sélectionner la durée avant le prochaine contact</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="modal-body">
+                                                    <label for="textAreainputModal">Note sur l'échange</label>
+                                                    <textarea class="form-control" id="textAreainputModal" rows="4" th:text="${echangeForSubmit.message}" th:field="${echangeForSubmit.message}"></textarea>
+                                                </div>
+                                                <input type="datetime-local" th:field="${echangeForSubmit.timeBeforeReminder}">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-secondary">Enregistrer la compte a rebour</button>
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <a href="#" onclick="return show('Page2','Page1');" class="btn btn-primary">Voire l'historique de prospection</a>
+                            <div class="p-3 py-5">
+                                <form id="formAdd" th:action="@{/echange/add/{id} (id=${contact.id})}" method="post" th:object="${echangeForSubmit}">
+                                    <div class="row justify-content-center">
+                                        <!--Material textarea-->
+                                        <h4><strong th:text="'Statut actuelle : ' +${contact.statusProspecting}"/></h4>
+                                        <div class="form-outline">
+                                            <label for="textAreainput">Note sur l'échange</label>
+                                            <textarea class="form-control" id="textAreainput" rows="4" th:text="${echangeForSubmit.message}" th:field="${echangeForSubmit.message}"></textarea>
+                                        </div>
+                                        <button class="col-7 btn  btn-primary my-3" type="submit">Ajouter un échange</button>
+                                    </div>
+                                </form>
+                                <th:block th:each="echangeNew :${clientEchangeList}">
+                                    <div class="row justify-content-center">
+                                        <!--Material textarea-->
+                                        <h5><strong th:text=" 'Date de création: ' +${echangeNew.createDateString}"/></h5>
+                                        <div class="form-outline">
+                                            <label for="textAreaExample1">Note sur l'échange</label>
+                                            <textarea class="form-control" id="textAreaExample1" rows="4" th:text="${echangeNew.message}"  readonly></textarea>
+                                            <div class="d-flex justify-content-around">
+                                                <a th:href="@{/echange/update/{id}/{idEchange} (id=${contact.id},idEchange=${echangeNew.id})}" class="btn btn-warning">Mettre a jour l'échange</a>
+
+                                                <!--<a th:href="@{/echange/delete/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}" class="btn btn-danger">Supprimer l'échange</a>-->
+                                                <!--remove-->
+                                                <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#echangeModal">
+                                                    Supprimer l'échange
+                                                </button>
+
+                                                <form th:action="@{/echange/delete/client/{id}/{idEchange} (id=${contact.id},idEchange=${echangeNew.id})}" method="post">
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="echangeModal" tabindex="-1" aria-labelledby="echangeModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="echangeModalLabel">Suppression de l'échange</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Voulez-vous vraiment supprimer cet échange ?
+                                                                </div>
+                                                                <div class="modal-footer">
+
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+
+                                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
-              </div>
+
+            <!--</div>
+          </div>-->
             </div>
-          </div>
-        </div>
+
+            <div id="Page2" style="display: none">
+                <button  href="#" onclick="return show('Page1','Page2');" class="btn btn-primary">Retour au détails</button>
+                <th:block th:each="echange :${prospectingEchangeList}">
 
 
-        <form id="formAdd" th:action="@{/echange/add/client/{id} (id=${contact.id})}" method="post" th:object="${echangeForSubmit}">
-          <div class="row justify-content-center">
-            <!--Material textarea-->
-            <div class="form-outline">
-              <label for="textAreaExample1">Note sur l'échange</label>
-              <textarea class="form-control" id="textAreainput" rows="4" th:text="${echangeForSubmit.message}" th:field="${echangeForSubmit.message}"></textarea>
+                    <div class="row justify-content-center">
+                        <!--Material textarea-->
+                        <h3><strong th:text="'Statut : ' +${echange.statusProspecting}"/></h3>
+                        <h4><strong th:text=" 'Date de création: ' +${echange.createDateString}"/></h4>
+                        <div class="form-outline">
+                            <label for="textAreaExample1">Note sur l'échange</label>
+                            <textarea class="form-control" id="textArea" rows="4" th:text="${echange.message}
+" readonly></textarea>
+                        </div>
+                        <a th:href="@{/echange/update/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}"
+                           class="btn btn-warning w-25">Mettre a jour l'échange</a>
+                        <a th:href="@{/echange/delete/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}"
+                           class="btn btn-danger w-25">Supprimer l'échange</a>
+                    </div>
+                </th:block>
             </div>
-            <button class="w-25 btn btn-lg btn-primary my-3" type="submit">Ajouter un échange</button>
-          </div>
-          </th:block>
-        </form>
-        <th:block th:each="echangeClient :${clientEchangeList}">
-          <div class="row justify-content-center">
-            <!--Material textarea-->
-            <h4><strong th:text=" 'Date de création: ' +${echangeClient.createDateString}"/></h4>
-            <div class="form-outline">
-              <label for="textAreaExample1">Note sur l'échange</label>
-              <textarea class="form-control" id="textAreaExample" rows="4" th:text="${echangeClient.message}
-"  readonly></textarea>
+
+
+        </main>
+        <script>
+            function show(shown, hidden) {
+                document.getElementById(shown).style.display = 'block';
+                document.getElementById(hidden).style.display = 'none';
+                return false;
+            }
+
+            let divFullDay = document.getElementById('fulldate');
+            let divAddTime = document.getElementById('dateTimeEnd');
+            // Listen for click events
+            // Listen for click events
+            document.getElementById('fulldate').addEventListener('click', function (event) {
+                console.log("clicked")
+
+
+                if (divAddTime.style.display === 'block') {
+                    divAddTime.style.display = 'none';
+                } else {
+                    divAddTime.style.display = 'block';
+                }
+
+
+            }, false);
+
+        </script>
+
+
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Rosa's 2022</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
             </div>
-            <a  th:href="@{/echange/update/{id}/{idEchange} (id=${contact.id},idEchange=${echangeClient.id})}" class="btn btn-warning w-25">Mettre a jour l'échange</a>
-            <a  th:href="@{/echange/delete/{id}/{idEchange} (id=${contact.id},idEchange=${echangeClient.id})}" class="btn btn-danger w-25">Supprimer l'échange</a>
-          </div>
-        </th:block>
-
-      </div>
-
-      <div id="Page2" style="display: none">
-        <a href="#" onclick="return show('Page1','Page2');">Retour</a>
-        <th:block th:each="echange :${prospectingEchangeList}">
-
-
-
-          <div class="row justify-content-center">
-            <!--Material textarea-->
-            <h3><strong th:text="'Statut : ' +${echange.statusProspecting}"/></h3>
-            <h4><strong th:text=" 'Date de création: ' +${echange.createDateString}"/></h4>
-            <div class="form-outline">
-              <label for="textAreaExample1">Note sur l'échange</label>
-              <textarea class="form-control" id="textAreaExample1" rows="4" th:text="${echange.message}
-"  readonly></textarea>
-            </div>
-            <a  th:href="@{/echange/update/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}" class="btn btn-warning w-25">Mettre a jour l'échange</a>
-            <a  th:href="@{/echange/delete/{id}/{idEchange} (id=${contact.id},idEchange=${echange.id})}" class="btn btn-danger w-25">Supprimer l'échange</a>
-          </div>
-        </th:block>
-      </div>
-
-
-    </main>
-    <script>
-      function show(shown, hidden) {
-        document.getElementById(shown).style.display='block';
-        document.getElementById(hidden).style.display='none';
-        return false;
-      }
-      let divFullDay = document.getElementById('fulldate');
-      let divAddTime = document.getElementById('dateTimeEnd');
-      // Listen for click events
-      // Listen for click events
-      document.getElementById('fulldate').addEventListener('click', function (event) {
-        console.log("clicked")
-
-
-
-        if (divAddTime.style.display === 'block' ){
-          divAddTime.style.display = 'none';
-        }else{
-          divAddTime.style.display = 'block';
-        }
-
-
-
-      }, false);
-
-    </script>
-
-
-
-    <footer class="py-4 bg-light mt-auto">
-      <div class="container-fluid px-4">
-        <div class="d-flex align-items-center justify-content-between small">
-          <div class="text-muted">Copyright &copy; Rosa's 2022</div>
-          <div>
-            <a href="#">Privacy Policy</a>
-            &middot;
-            <a href="#">Terms &amp; Conditions</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  </div>
+        </footer>
+    </div>
 </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"

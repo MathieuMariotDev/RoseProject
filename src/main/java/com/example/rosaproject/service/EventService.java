@@ -41,7 +41,7 @@ public class EventService {
         Event event =  eventDto.toEvent();
         event.setContactById2(contactService.findContactById(idContact));
         event.setUsersById1(customUser.getUser());
-        eventRepository.save(eventDto.toEvent());
+        eventRepository.save(event);
     }
 
     public Event findEventById(Long id){
