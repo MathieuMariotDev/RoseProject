@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public interface ContactRepository extends CrudRepository<Contact, Long> {
@@ -27,6 +28,8 @@ public interface ContactRepository extends CrudRepository<Contact, Long> {
             " from Contact c" +
             " group by c.user.id, c.entreprise.id")
     Map<String, Long> countContactsByEntrepriseIdAndUser(User user);*/
+
+    Optional<Contact> findContactByIdAndUser(Long id, User user);
 
 
     // Retourne la liste de contact qui sont des clients

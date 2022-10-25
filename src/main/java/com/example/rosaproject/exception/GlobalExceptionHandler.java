@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    private static final String DEFULAUT_ERROR_VIEW = "error";
+    private static final String DEFULAUT_ERROR_VIEW = "404";
 
 
     @ExceptionHandler(value = NoSuchElementException.class)
