@@ -31,7 +31,7 @@
                   <input type="submit" class="border-0" value="Logout">
                 </form>
 
-              <li sec:authorize="isAuthenticated()"><a class="dropdown-item" th:href="@{/user/showProfile}">Profile</a></li>
+              <li sec:authorize="isAuthenticated()"><a class="dropdown-item" th:href="@{/user/showProfile}">Profil</a></li>
 
               <li sec:authorize="isAnonymous()"><a class="dropdown-item" th:href="@{/user/login}">Login</a></li>
               <li sec:authorize="isAnonymous()"><a class="dropdown-item" th:href="@{/user/register}">Inscription</a></li>
