@@ -153,7 +153,7 @@ public class ContactService {
         if (!client.getEntreprise().getId().equals(createClientDto.getEntreprise().getId())){
             client.setIsClient(false);
             client.setStatusProspecting(Status.Aucun.getStatusName());
-            Echange echange = new Echange(LocalDateTime.now(),Status.Aucun.getStatusName(),"Auto note : Le client a changé d'ntreprise ancienne entreprise :" + client.getEntreprise() +". Nouvelle :"+createClientDto.getEntreprise(),customUser.getUser(),client,"Prospecting"+createClientDto.getEntreprise());
+            Echange echange = new Echange(LocalDateTime.now(),Status.Aucun.getStatusName(),"Auto note : Le client a changé d'ntreprise ancienne entreprise :" + client.getEntreprise().getName() +". Nouvelle :"+createClientDto.getEntreprise().getName(),customUser.getUser(),client,"Prospecting"+createClientDto.getEntreprise().getName());
             echangeRepository.save(echange);
             switchEntreprise = true;
         }
