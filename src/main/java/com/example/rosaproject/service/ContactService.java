@@ -137,7 +137,8 @@ public class ContactService {
 
     }
 
-    public void updateClient(Long id,CreateContactDto createClientDto){
+    public boolean updateClient(Long id,CreateContactDto createClientDto){
+        boolean switchEntreprise = false;
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails customUser = (CustomUserDetails) auth.getPrincipal();
         Contact client = findContactById(id);
@@ -154,6 +155,7 @@ public class ContactService {
             client.setStatusProspecting(Status.Aucun.getStatusName());
             Echange echange = new Echange(LocalDateTime.now(),Status.Aucun.getStatusName(),"Auto note : Le client a changé d'ntreprise ancienne entreprise :" + client.getEntreprise() +". Nouvelle :"+createClientDto.getEntreprise(),customUser.getUser(),client,"Prospecting"+createClientDto.getEntreprise());
             echangeRepository.save(echange);
+            switchEntreprise = true;
         }
 
         client.setEntreprise(createClientDto.getEntreprise());
@@ -163,6 +165,7 @@ public class ContactService {
         client.setPhone(createClientDto.getPhone());
         client.setCellPhone(createClientDto.getCellPhone());
         contactRepository.save(client);
+        return switchEntreprise;
 
     }
 

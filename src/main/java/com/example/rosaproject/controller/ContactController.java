@@ -78,8 +78,14 @@ public class ContactController {
 
     @PostMapping("/update/client/{id}")
     public String updateClientSubmit(@PathVariable("id") Long id,CreateContactDto contact){
-        contactService.updateClient(id,contact);
-        return "redirect:/contact/details/client/"+id;
+        boolean switchEntreprise = contactService.updateClient(id,contact);
+        if (!switchEntreprise){
+            return "redirect:/contact/details/client/"+id;
+        }else{
+            return "redirect:/contact/details/"+id;
+        }
+
+
     }
 
     @GetMapping("/details/client/{id}")
